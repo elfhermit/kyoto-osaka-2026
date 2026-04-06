@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>正能量企鵝的京阪夏日大冒險 🐧✨</title>
+    <title>京阪名夏日大冒險 (雙花火御朱印版) 🐧✨</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -66,7 +66,6 @@
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Desktop Scrollbar */
         @media (min-width: 1024px) {
             ::-webkit-scrollbar { width: 8px; }
             ::-webkit-scrollbar-track { background: transparent; }
@@ -81,7 +80,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* 導航按鈕樣式 */
         .map-link {
             color: #0284c7;
             font-weight: 800;
@@ -103,6 +101,14 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+        
+        .anime-banner {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid #334155;
+            background-color: #f1f5f9;
+        }
     </style>
 </head>
 <body class="text-penguin-dark antialiased">
@@ -115,19 +121,17 @@
             
             <div class="p-6 md:p-10 text-center relative z-20">
                 <span class="inline-block bg-penguin-yellow text-penguin-dark font-bold px-3 py-1 lg:px-4 rounded-full border-2 border-penguin-dark mb-3 text-xs lg:text-sm transform -rotate-2">
-                    2026 夏日限定！
+                    2026 夏日限定！名古屋進 ✈ 大阪出
                 </span>
                 <h1 class="text-2xl md:text-5xl font-extrabold mb-3 tracking-tight leading-snug">
-                    京阪夏日夢幻大冒險 🌸
+                    京阪名夏日夢幻大冒險 🌸
                 </h1>
                 <p class="text-sm md:text-lg font-bold text-gray-600 mb-2">
-                    「療癒收集御朱印，今天也要開心喔！」
+                    「雙花火祭典 × 八大神宮祈願 × K-ON!聖地巡禮」
                 </p>
             </div>
-            <!-- Main Hero Banner -->
-            <div class="w-full bg-penguin-blue border-t-3 border-penguin-dark overflow-hidden flex justify-center">
-                <img src="http://googleusercontent.com/image_generation_content/1" alt="" class="w-full object-cover max-h-[200px] lg:max-h-[350px]">
-            </div>
+            <!-- Main Hero Banner (Anime Style Summer Festival) -->
+            <img src="https://image.pollinations.ai/prompt/kawaii%20anime%20style%20japanese%20summer%20festival%20fireworks%20night%20beautiful%20shrine%20scenery?width=1200&height=400&nologo=true" alt="Anime Summer Festival" class="w-full h-48 md:h-64 object-cover border-t-3 border-penguin-dark">
         </div>
     </header>
 
@@ -138,12 +142,12 @@
                 <i class="fa-solid fa-bullhorn"></i>
             </div>
             <div class="flex-1">
-                <h2 class="text-lg md:text-xl font-extrabold mb-2 text-penguin-dark">行前小叮嚀＆注意事項 🎒</h2>
+                <h2 class="text-lg md:text-xl font-extrabold mb-2 text-penguin-dark">行前小叮嚀＆新幹線秘訣 🎒</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm font-medium text-gray-600">
-                    <p><i class="fa-solid fa-sun text-yellow-500 w-5"></i> <b>夏日酷暑：</b> 京阪盆地夏天非常悶熱，務必攜帶晴雨兩用傘、隨身小電風扇並隨時補充水分。</p>
-                    <p><i class="fa-solid fa-mobile-screen-button text-blue-500 w-5"></i> <b>交通支付：</b> 建議出發前將 Suica 或 ICOCA 綁定 Apple Pay，進出車站直接逼手機超方便。</p>
-                    <p><i class="fa-solid fa-book-open text-red-400 w-5"></i> <b>御朱印禮儀：</b> 請先「參拜」再「求取御朱印」，並準備好剛好的零錢（通常為 300 或 500 日圓）。</p>
-                    <p><i class="fa-solid fa-bag-shopping text-pink-500 w-5"></i> <b>免稅注意：</b> 購物滿 5,000 日圓（未稅）即可退稅，結帳前記得出示護照，免稅品不可在日本境內拆封使用。</p>
+                    <p><i class="fa-solid fa-train-tram text-blue-500 w-5"></i> <b>跨城移動：</b> 名古屋到京都搭乘東海道新幹線只需 35 分鐘，建議購買自由座即可，班次極多。</p>
+                    <p><i class="fa-solid fa-sun text-yellow-500 w-5"></i> <b>夏日祭典：</b> 參加花火大會（Day1 & Day6）務必提早買好蔬食飯糰與飲料，並準備野餐墊與涼感巾。</p>
+                    <p><i class="fa-solid fa-book-open text-red-400 w-5"></i> <b>御朱印禮儀：</b> 先參拜再求取，並備好零錢（300 或 500 日圓）。授予所多在 16:00 關閉。</p>
+                    <p><i class="fa-solid fa-suitcase-rolling text-pink-500 w-5"></i> <b>行李額度：</b> 虎航機票已含去回程各 20kg 託運，手提限制為 2 件共 7kg，放心爆買吧！</p>
                 </div>
             </div>
         </div>
@@ -152,87 +156,118 @@
     <!-- Main Content Area -->
     <main class="w-full max-w-6xl mx-auto px-4 pb-20 flex flex-col lg:flex-row gap-6 relative">
         
-        <!-- Sidebar / Day Navigation (Sticky for Mobile & Desktop) -->
+        <!-- Sidebar / Day Navigation -->
         <aside class="w-full lg:w-1/4 sticky top-2 z-40">
             <div class="glass-panel kawaii-shadow rounded-3xl lg:rounded-[2rem] p-3 lg:p-6">
                 <h2 class="hidden lg:flex text-xl font-bold mb-4 items-center gap-2">
                     <i class="fa-solid fa-map-location-dot text-sakura"></i> 每日行程表
                 </h2>
-                <!-- 導覽列：手機版橫向滑動，電腦版垂直排列 -->
                 <nav id="day-nav" class="flex flex-row lg:flex-col gap-2 overflow-x-auto hide-scrollbar snap-x snap-mandatory pb-1 lg:pb-0 scroll-smooth">
-                    <!-- Nav buttons will be generated by JS -->
+                    <!-- JS generated buttons -->
                 </nav>
             </div>
         </aside>
 
         <!-- Itinerary Content -->
         <section class="w-full lg:w-3/4" id="itinerary-content">
-            <!-- Content will be injected by JS -->
+            <!-- JS generated content -->
         </section>
     </main>
 
-    <!-- JavaScript for Data and Interactivity -->
+    <!-- JavaScript Data and Logic -->
     <script>
-        // Helper to generate Google Map URL
         const gm = (query) => `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}" target="_blank" class="map-link"><i class="fa-solid fa-map-pin"></i> ${query}</a>`;
 
         const itineraryData = [
             {
-                day: 1, title: "抵達古都、專屬御朱印帳", area: "京都", icon: "fa-plane-arrival",
-                quote: "「順利抵達了呢，真是太棒了！」",
-                summary: "首日抵達京都，重點在於安頓行李、購買喜歡的御朱印帳，並以健康的純素晚餐開啟旅程。",
+                day: 1, title: "首日抵達！名城與港祭花火大會", area: "名古屋", icon: "fa-fire",
+                quote: "「第一天就能看到煙火，太幸運了喔！」",
+                summary: "從中部機場入境。下午參觀金碧輝煌的名古屋城，晚上直奔海之日盛大的名古屋港花火！",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20nagoya%20port%20summer%20festival%20fireworks%20night%20ocean%20beautiful?width=800&height=300&nologo=true",
                 schedule: {
-                    morning: { time: "上午", desc: `✈️ 從台灣搭乘早班機前往 ${gm('關西國際機場')} (KIX)。` },
-                    afternoon: { time: "下午", desc: `🚆 搭乘 HARUKA 特快直奔 ${gm('京都車站')}。入住飯店放行李後，前往 ${gm('Loft 京都店')} 挑選御朱印帳。` },
-                    evening: { time: "晚上", desc: `🌆 漫步鴨川畔。晚餐前往 ${gm('Veg Out')} 享用純素料理，感受古都微風。` }
+                    morning: { time: "上午", desc: `✈️ 搭乘台灣虎航 (IT206) 09:00 起飛。` },
+                    afternoon: { time: "下午", desc: `🛬 12:55 抵達 ${gm('中部國際機場')}。搭乘名鐵前往市區飯店寄放行李。隨後參觀 ${gm('名古屋城')}，收集首枚御朱印。` },
+                    evening: { time: "晚上", desc: `🎆 參加 **海之日名古屋港祭**！在 ${gm('名古屋港')} 欣賞 3000 發花火。晚餐推薦名古屋車站內的 ${gm("T's Tantan 名古屋JRGateTower店")} 吃純素擔擔麵。` }
                 },
-                rainPlan: `${gm('京都車站地下街 Porta')} 或是 ${gm('AEON MALL KYOTO')}，完全不淋雨也能逛街吃美食。`,
-                cafeStop: `腳痠了可以去 ${gm('星巴克 京都Porta店')} 休息，或到 ${gm('茶寮都路里 京都伊勢丹店')} 吃抹茶聖代。`,
-                notes: ["⚠️ <b>Loft 營業時間：</b> 通常至 21:00。", "🥬 <b>Veg Out：</b> 營業至 20:00（L.O. 19:00），建議抵達後先致電訂位。"]
+                rainPlan: `若遇大雨，可改去室內超好逛的 ${gm('大須商店街')} 或參觀有巨大球體的 ${gm('名古屋市科學館')}。`,
+                cafeStop: `抵達第一天若累了，可以去 ${gm('珈琲所 Komeda珈琲店')} 體驗名古屋特有的咖啡文化。`,
+                notes: ["⚠️ <b>花火人潮：</b> 名古屋港周邊當晚極度擁擠，建議提早抵達並先買好水與飯糰。", "🥬 <b>T's Tantan：</b> 全植物性拉麵，營業至 23:00，是看完煙火後的絕佳宵夜。"]
             },
             {
-                day: 2, title: "千本鳥居與經典京都", area: "京都", icon: "fa-torii-gate",
-                quote: "「走了很多路，你的雙腳辛苦了喔！」",
-                summary: "京都最經典的絕景巡禮！這天會走非常多路，也是首次收集御朱印的大豐收日。",
+                day: 2, title: "熱田神宮祈福、新幹線飛奔京都", area: "京都", icon: "fa-train",
+                quote: "「搭新幹線咻一下就到京都了！」",
+                summary: "上午參拜日本三大神宮之一，下午體驗 35 分鐘跨城新幹線，傍晚在鴨川畔享受古都浪漫。",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20shinkansen%20bullet%20train%20passing%20by%20japanese%20countryside%20summer%20daylight?width=800&height=300&nologo=true",
+                schedule: {
+                    morning: { time: "上午 (09:00)", desc: `⛩️ 前往 ${gm('熱田神宮')}。在充滿靈氣的巨木參道中散步，參拜草薙劍之聖地並收集神聖的御朱印。` },
+                    afternoon: { time: "下午 (13:00)", desc: `🚄 於名古屋車站搭乘 **東海道新幹線**，只要 35 分鐘即可抵達 ${gm('京都車站')}。入住後至 ${gm('Loft 京都店')} 挑選御朱印帳。` },
+                    evening: { time: "晚上 (18:00)", desc: `🌆 漫步鴨川畔。晚餐前往 ${gm('Veg Out')} 享用純素料理，感受古都微風。` }
+                },
+                rainPlan: `京都車站直通的 ${gm('京都車站地下街 Porta')} 或是 ${gm('AEON MALL KYOTO')}，完全不淋雨也能逛街。`,
+                cafeStop: `等新幹線時，可以在名古屋車站買知名甜點「青柳外郎糕」或「小雞布丁蛋糕」品嚐。`,
+                notes: ["⚠️ <b>新幹線購票：</b> 現場購買「自由席」車票即可，班次非常密集。", "🥬 <b>Veg Out：</b> 營業至 20:00（L.O. 19:00），建議抵達後先致電訂位。"]
+            },
+            {
+                day: 3, title: "千本鳥居與經典京都", area: "京都", icon: "fa-torii-gate",
+                quote: "「今天收集了好多美麗的御朱印！」",
+                summary: "京都最經典的絕景巡禮！這天會走非常多路，也是御朱印大豐收的一天。",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20kyoto%20fushimi%20inari%20shrine%20torii%20gates%20summer%20sunlight?width=800&height=300&nologo=true",
                 schedule: {
                     morning: { time: "上午 (08:00)", desc: `⛩️ 盡早抵達 ${gm('伏見稻荷大社')} 避開人潮。漫步千本鳥居，收集本殿與奧社的御朱印。` },
                     afternoon: { time: "下午 (13:00)", desc: `⛩️ 前往 ${gm('清水寺')} 參拜，沿二三年坂散步至 ${gm('八坂神社')} 收集各式特色御朱印。` },
                     evening: { time: "晚上 (18:00)", desc: `🛍️ ${gm('祇園')} 與 ${gm('河原町')} 商圈散策，找尋可愛日系小物。` }
                 },
                 rainPlan: `若雨太大可改逛有屋頂的 ${gm('錦市場')}，或參觀室內的 ${gm('京都國立博物館')}。`,
-                cafeStop: `二三年坂走累了，推薦去 ${gm('％ Arabica 京都東山店')} 喝杯好拿鐵，或到 ${gm('普門茶屋')} 坐坐。`,
+                cafeStop: `二三年坂走累了，推薦去 ${gm('％ Arabica 京都東山店')} 喝杯好拿鐵。`,
                 notes: ["⚠️ <b>御朱印時間：</b> 清水寺約 16:00-16:30 休息，八坂神社通常至 17:00。", "💡 <b>避開人潮：</b> 清水寺下午人潮極多，請保持悠閒心情慢慢逛喔！"]
             },
             {
-                day: 3, title: "可愛就是正義！K-ON 巡禮", area: "滋賀", icon: "fa-guitar",
-                quote: "「為了喜歡的事物前進，閃閃發光呢！」",
-                summary: "跳脫市區，前往滋賀縣進行一日動漫聖地巡禮，感受大正浪漫與青春氣息。",
+                day: 4, title: "K-ON 聖地巡禮與祇園祭夜色", area: "滋賀", icon: "fa-guitar",
+                quote: "「青春的音樂教室，閃閃發光呢！」",
+                summary: "跳脫市區，前往滋賀縣進行一日動漫聖地巡禮。晚上返回京都感受祇園祭後祭氛圍。",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20old%20school%20building%20music%20room%20k-on%20afternoon%20sunlight?width=800&height=300&nologo=true",
                 schedule: {
                     morning: { time: "上午 (09:00)", desc: `🚆 搭乘 JR 與近鐵前往滋賀縣 ${gm('豐鄉站')}。` },
-                    afternoon: { time: "下午 (11:00)", desc: `🎸 抵達 ${gm('豐鄉小學校舊校舍群')}：漫步唯美舊校舍，重溫櫻高輕音部的青春！記得在音樂教室拍照。` },
-                    evening: { time: "晚上 (18:00)", desc: `🚆 返回京都市區。前往 ${gm('mumokuteki cafe & foods 京都店')} 享用晚餐。` }
+                    afternoon: { time: "下午 (11:00)", desc: `🎸 抵達 ${gm('豐鄉小學校舊校舍群')}：漫步唯美大正風舊校舍，重溫櫻高輕音部的青春！記得在音樂教室拍照。` },
+                    evening: { time: "晚上 (18:00)", desc: `🚆 返回京都，晚餐享用 ${gm('mumokuteki cafe & foods 京都店')}。餐後散步感受「祇園祭・後祭宵山」的浪漫燈籠與浴衣氛圍。` }
                 },
-                rainPlan: `校舍內部皆為室內空間，下雨影響不大！若提早回京都可逛 ${gm('京都塔')} 樓下商場。`,
-                cafeStop: `校舍內就有「酬德紀念館」附設的小咖啡廳，充滿動漫氣氛，可以喝杯茶休息。`,
+                rainPlan: `校舍內部皆為室內空間，下雨影響不大！晚上若下雨可改逛河原町周邊百貨。`,
+                cafeStop: `校舍內就有「酬德紀念館」附設的小咖啡廳，充滿動漫氣氛。`,
                 notes: ["⚠️ <b>豐鄉小學校：</b> 開放時間通常為 09:00-17:00，週一可能休館。", "🥬 <b>Mumokuteki Cafe：</b> 提供超高質感的日式蔬食定食，營業至 20:00。"]
             },
             {
-                day: 4, title: "前進大阪、巷弄的不動明王", area: "大阪", icon: "fa-takoyaki",
-                quote: "「換新飯店了，整理行李辛苦啦！」",
-                summary: "告別京都，移動至繁華水都大阪！下午體驗道頓堀的傳統與現代交錯。",
+                day: 5, title: "前進大阪、隱藏巷弄的不動明王", area: "大阪", icon: "fa-takoyaki",
+                quote: "「大阪的熱情，從美味的大阪燒開始！」",
+                summary: "告別京都，移動至繁華水都大阪！下午參拜長滿青苔的不動明王，晚上享用蔬食大阪燒。",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20osaka%20dotonbori%20night%20takoyaki%20neon%20lights%20lively?width=800&height=300&nologo=true",
                 schedule: {
-                    morning: { time: "上午 (10:00)", desc: `🚆 退房，搭乘電車移動至大阪 ${gm('難波站')}，先至飯店寄放行李。` },
+                    morning: { time: "上午 (10:00)", desc: `🚆 退房，趁祇園祭巡行人潮前，搭電車移動至大阪 ${gm('難波站')}，先至飯店寄放行李。` },
                     afternoon: { time: "下午 (14:00)", desc: `⛩️ 參拜道頓堀巷弄內的 ${gm('法善寺')} (水掛不動尊) 並收集御朱印。隨後搭乘 ${gm('大阪水上巴士')}。` },
                     evening: { time: "晚上 (18:00)", desc: `🍻 前往 ${gm('OKO - Fun Okonomiyaki Bar')} 體驗氣氛熱絡的全素大阪燒酒吧！` }
                 },
-                rainPlan: `直接躲進 ${gm('心齋橋筋商店街')}，這是全蓋式超長遮雨棚，逛街購物完全不受影響。`,
+                rainPlan: `躲進 ${gm('心齋橋筋商店街')}，這是全蓋式超長遮雨棚，逛街購物完全不受影響。`,
                 cafeStop: `推薦法善寺旁的 ${gm('丸福咖啡店 千日前本店')}，體驗充滿昭和復古感的老派浪漫。`,
                 notes: ["⚠️ <b>法善寺御朱印：</b> 寺廟 24 小時開放，但授予所通常 08:00-17:00。", "🥬 <b>OKO 大阪燒：</b> 非常熱情的老闆娘，難得的無肉大阪燒體驗！"]
             },
             {
-                day: 5, title: "日本環球影城 全日狂歡", area: "大阪", icon: "fa-wand-magic-sparkles",
-                quote: "「盡情玩耍吧！大聲笑出來最棒了！」",
-                summary: "全天保留給USJ，拋開日常煩惱，盡情燃燒童心的一天！",
+                day: 6, title: "戰國名城與天神祭花火", area: "大阪", icon: "fa-fan",
+                quote: "「夏日祭典的煙火，是無可取代的回憶喔！」",
+                summary: "白天感受歷史城郭氣勢，晚上迎接世界最大水上慶典「大阪天神祭奉納花火」！",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20osaka%20castle%20summer%20fireworks%20night%20river%20festival%20beautiful?width=800&height=300&nologo=true",
+                schedule: {
+                    morning: { time: "上午 (09:30)", desc: `🏯 參觀 ${gm('大阪城天守閣')}，至一旁的 ${gm('豊國神社')} 收集豐臣家徽御朱印。` },
+                    afternoon: { time: "下午 (14:00)", desc: `💻 轉往梅田商圈的 ${gm('Yodobashi Camera 梅田')}、${gm('Grand Front Osaka')} 探索最新 3C 吹冷氣避暑。` },
+                    evening: { time: "傍晚 (18:00)", desc: `🎆 **天神祭奉納花火：** 帶著超商美食至 ${gm('淀川河川公園 西中島地區')} 遠眺花火與祭典船隻。` }
+                },
+                rainPlan: `若因雨花火大會取消，晚間可改逛梅田超大地下街，或至 ${gm('梅田藍天大廈')} 看室內夜景。`,
+                cafeStop: `下午在梅田逛累了，推薦去 ${gm('藍瓶咖啡 梅田茶屋町店')} 喝杯手沖咖啡。`,
+                notes: ["⚠️ <b>豊國神社：</b> 御朱印授予至 17:00。", "🚨 <b>花火大會逃脫術：</b> 天神祭人潮極度恐怖！務必在煙火結束前 15 分鐘提早離開！"]
+            },
+            {
+                day: 7, title: "日本環球影城 (USJ) 全日狂歡", area: "大阪", icon: "fa-gamepad",
+                quote: "「走吧！我們一起去超級瑪利歐的世界！」",
+                summary: "全天保留給 USJ，拋開日常煩惱，盡情燃燒童心的一天！",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20amusement%20park%20castle%20rollercoaster%20summer%20mario%20vibe?width=800&height=300&nologo=true",
                 schedule: {
                     morning: { time: "清晨 (07:00)", desc: `🎢 出發前往 ${gm('日本環球影城')}。提早抵達排隊，一入園直衝「超級任天堂世界」！` },
                     afternoon: { time: "下午 (13:00)", desc: `🪄 體驗哈利波特魔法世界、小小兵樂園，並觀賞夏日限定遊行。` },
@@ -240,58 +275,34 @@
                 },
                 rainPlan: `USJ有許多室內設施，下雨依然好玩。若雨勢狂暴不想去，可改去世界級的 ${gm('海遊館')} 看海洋生物。`,
                 cafeStop: `走累了可去哈利波特區的「三根掃帚」喝奶油啤酒，或瑪利歐咖啡店吃可愛甜點。`,
-                notes: ["⚠️ <b>入園提醒：</b> 務必提早入園透過官方APP抽任天堂世界整理券。", "🥬 <b>餐飲注意：</b> 園內純素選擇極少，強烈建議自備素食飯糰或零食帶在身上！"]
+                notes: ["⚠️ <b>入園提醒：</b> 任天堂世界人潮眾多，務必提早入園透過官方APP抽整理券。", "🥬 <b>餐飲注意：</b> 園內純素選擇極少，強烈建議自備素食飯糰或零食帶在身上！"]
             },
             {
-                day: 6, title: "戰國名城與夏夜花火", area: "大阪", icon: "fa-fire",
-                quote: "「美麗的煙火，是夏日最棒的禮物喔！」",
-                summary: "白天感受歷史城郭的氣勢，晚上迎接關西夏季最大盛事「淀川花火大會」！",
+                day: 8, title: "神戶結緣之旅與文青散策", area: "神戶", icon: "fa-heart",
+                quote: "「結緣的神社，保佑我們一直開開心心！」",
+                summary: "上午到神戶感受歐風海港浪漫並祈求良緣，下午回大阪走訪充滿昭和風情的文青街區。",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20kobe%20port%20tower%20western%20houses%20retro%20street%20afternoon?width=800&height=300&nologo=true",
                 schedule: {
-                    morning: { time: "上午 (09:30)", desc: `🏯 參觀 ${gm('大阪城天守閣')}，至一旁的 ${gm('豊國神社')} 收集豐臣家徽御朱印。` },
-                    afternoon: { time: "下午 (14:00)", desc: `💻 轉往梅田商圈的 ${gm('Yodobashi Camera 梅田')}、${gm('Grand Front Osaka')} 探索最新 3C 與服飾。` },
-                    evening: { time: "傍晚 (17:30)", desc: `🎆 帶著超商美食至 ${gm('淀川河川公園 西中島地區')} 野餐，遠眺絢爛花火。` }
+                    morning: { time: "上午 (10:00)", desc: `⛩️ 搭車前往神戶三宮。參拜關西結緣聖地 ${gm('生田神社')}，收集精緻水引御守與御朱印。隨後漫步 ${gm('北野異人館街')}。` },
+                    afternoon: { time: "下午 (14:00)", desc: `☕ 返回大阪前往 ${gm('中崎町')}。穿梭在昭和復古的老屋、文創小店與古著店之間尋寶。` },
+                    evening: { time: "傍晚 (17:30)", desc: `⛩️ 散步參拜 ${gm('露 天神社')} (お初天神) 收集戀愛御朱印，隨後於梅田或難波享用晚餐。` }
                 },
-                rainPlan: `若因雨花火大會延期，晚間可改逛梅田超大地下街，或至 ${gm('梅田藍天大廈')} 看室內夜景。`,
-                cafeStop: `下午在梅田逛累了，推薦去 ${gm('藍瓶咖啡 梅田茶屋町店')} 喝杯手沖咖啡。`,
-                notes: ["⚠️ <b>豊國神社：</b> 御朱印授予至 17:00。", "🚨 <b>花火大會逃脫術：</b> 務必在結束前 10-15 分鐘提早離開，否則車站會擁擠癱瘓！"]
+                rainPlan: `神戶的 ${gm('神戶動物王國')} 是全室內的超讚動物園，或改逛 ${gm('阪急百貨店')} 甜點地下街。`,
+                cafeStop: `北野異人館有最美的 ${gm('星巴克 神戶北野異人館店')}；中崎町首推復古華麗的 ${gm('Cafe 太陽之塔 本店')}。`,
+                notes: ["⚠️ <b>神社授予所：</b> 生田神社與露天神社皆約在 17:00 關閉，請留意參拜時間。", "💡 <b>交通：</b> 難波搭乘阪神電車前往神戶三宮，車程僅約 45 分鐘。"]
             },
             {
-                day: 7, title: "文青散策與浪漫祈願", area: "大阪", icon: "fa-camera",
-                quote: "「悠哉地散步，發現生活中的小確幸。」",
-                summary: "睡到自然醒，走訪充滿昭和風情的文青街區，並為彼此祈求浪漫姻緣。",
+                day: 9, title: "巨大獅子殿祈福、滿載而歸", area: "大阪", icon: "fa-plane-departure",
+                quote: "「帶著滿滿的幸運與回憶，平安回家！」",
+                summary: "旅程最後一天！用最具震撼力的獅子神像祈福，做最後的衝刺採買，晚班機優雅返台。",
+                imageUrl: "https://image.pollinations.ai/prompt/kawaii%20anime%20style%20giant%20lion%20head%20shrine%20osaka%20daylight%20clear%20sky?width=800&height=300&nologo=true",
                 schedule: {
-                    morning: { time: "上午 (11:00)", desc: `☕ 睡飽後前往 ${gm('中崎町')}。穿梭在昭和復古的老屋、文創小店與古著店之間。` },
-                    afternoon: { time: "下午 (15:00)", desc: `⛩️ 散步前往參拜 ${gm('露 天神社')} (お初天神)，這是一座戀愛神社，收集可愛的男女剪影御朱印。` },
-                    evening: { time: "晚上 (18:00)", desc: `🍽️ 於東梅田商圈或返回難波享用晚餐，享受悠閒的兩人約會時光。` }
+                    morning: { time: "上午 (10:00)", desc: `⛩️ 飯店退房寄放行李後，前往 ${gm('難波八阪神社')}。在巨大「獅子殿」前祈福吸走厄運，收集最後一枚強運御朱印。` },
+                    afternoon: { time: "下午 (13:00)", desc: `🛍️ 在 ${gm('黑門市場')} 或難波商圈 (${gm('唐吉訶德 道頓堀店')}) 吃喝逛街，盡情補貨藥妝與伴手禮。` },
+                    evening: { time: "傍晚 (16:30)", desc: `🚆 搭乘南海電鐵前往關西機場。搭乘 **19:50 的台灣虎航 (IT213)**，約 21:45 平安抵達台灣！` }
                 },
-                rainPlan: `可轉戰旁邊的 ${gm('阪急百貨店 大阪梅田總店')} 或阪神百貨，進行高檔甜點與伴手禮地下街巡禮。`,
-                cafeStop: `中崎町超多咖啡廳！首推復古華麗的 ${gm('Cafe 太陽之塔 本店')} 吃塊美味蛋糕。`,
-                notes: ["⚠️ <b>露 天神社：</b> 御朱印授予通常為 09:00-17:00。", "💡 <b>中崎町：</b> 許多獨立小店中午過後 (約 12:00) 才會陸續開門。"]
-            },
-            {
-                day: 8, title: "神戶異國風情半日遊", area: "神戶", icon: "fa-ship",
-                quote: "「不一樣的城市風景，兩人一起看最美！」",
-                summary: "只需不到一小時車程，就能感受到與京阪完全不同的歐風海港浪漫。",
-                schedule: {
-                    morning: { time: "上午 (10:00)", desc: `⛩️ 搭車前往神戶三宮。參拜關西結緣聖地 ${gm('生田神社')}，收集精緻水引御守與御朱印。` },
-                    afternoon: { time: "下午 (13:00)", desc: `🏘️ 漫步 ${gm('北野異人館街')}，隨後前往 ${gm('神戶臨海樂園 umie')} 感受海港魅力。` },
-                    evening: { time: "晚上 (18:00)", desc: `🚆 返回大阪難波，進行最後一波的藥妝與伴手禮大採購 (${gm('唐吉訶德 道頓堀店')} 等)。` }
-                },
-                rainPlan: `神戶的 ${gm('神戶動物王國')} 是全室內的超讚動物園，或整天泡在 umie 購物中心也很棒。`,
-                cafeStop: `北野異人館逛累了，務必去百年洋房改建的 ${gm('星巴克 神戶北野異人館店')} 拍美照休息。`,
-                notes: ["⚠️ <b>生田神社：</b> 御朱印授予至 17:00。", "💡 <b>交通：</b> 從大阪難波搭乘阪神電車前往神戶三宮，車程僅約 45 分鐘。"]
-            },
-            {
-                day: 9, title: "巨大獅子殿祈福、滿載而歸", area: "大阪", icon: "fa-bag-shopping",
-                quote: "「平安回家，就是最完美的旅行結尾喔！」",
-                summary: "旅程最後一天，用最具震撼力的獅子神像為整趟旅行畫下正能量句點。",
-                schedule: {
-                    morning: { time: "上午 (10:00)", desc: `⛩️ 飯店退房後前往 ${gm('難波八阪神社')}。在巨大「獅子殿」前祈福吸走厄運，收集最後一枚御朱印。` },
-                    afternoon: { time: "下午 (13:00)", desc: `🚆 搭乘南海電鐵特急 Rapi:t 前往 ${gm('關西國際機場')}。在免稅店做最後巡禮。` },
-                    evening: { time: "晚上", desc: `✈️ 搭乘晚班機，帶著滿滿的回憶與御朱印平安返台。` }
-                },
-                rainPlan: `前往 ${gm('難波 Parks')} 或 ${gm('難波 CITY')} 進行搭車前最後的室內逛街。`,
-                cafeStop: `若想找地方整理行李戰利品，${gm('星巴克 難波SkyO店')} 空間寬敞舒適。`,
+                rainPlan: `直接前往 ${gm('難波 Parks')} 或 ${gm('難波 CITY')} 進行搭車前最後的室內逛街。`,
+                cafeStop: `若想找地方整理行李與戰利品，${gm('星巴克 難波SkyO店')} 空間寬敞舒適。`,
                 notes: ["⚠️ <b>難波八阪神社：</b> 授予所 09:00-17:00。早上去剛好順路且人潮較少。", "💡 <b>機場報到：</b> 暑假人潮多，強烈建議起飛前 2.5 至 3 小時抵達機場排隊！"]
             }
         ];
@@ -300,7 +311,6 @@
         const contentContainer = document.getElementById('itinerary-content');
 
         function renderApp() {
-            // Generate Nav Buttons
             itineraryData.forEach((data, index) => {
                 const btn = document.createElement('button');
                 btn.className = `shrink-0 snap-center w-auto lg:w-full text-left px-4 lg:px-5 py-3 rounded-2xl border-2 font-bold transition-all duration-200 flex items-center justify-between whitespace-nowrap lg:whitespace-normal ${index === 0 ? 'bg-penguin-pink border-penguin-dark shadow-md' : 'bg-white border-transparent hover:border-penguin-light hover:bg-slate-50'}`;
@@ -312,7 +322,6 @@
                 `;
                 navContainer.appendChild(btn);
 
-                // Generate Content Cards
                 const card = document.createElement('div');
                 card.id = `content-day-${index}`;
                 card.className = `tab-content ${index === 0 ? 'active' : ''} glass-panel rounded-3xl lg:rounded-[2rem] kawaii-shadow overflow-hidden mb-8`;
@@ -320,12 +329,15 @@
                 let notesHtml = data.notes.map(note => `<li class="mb-2 last:mb-0">${note}</li>`).join('');
 
                 card.innerHTML = `
+                    <!-- Anime Banner Image -->
+                    <img src="${data.imageUrl}" alt="${data.title}" class="anime-banner" loading="lazy">
+                    
                     <!-- Card Header -->
                     <div class="bg-penguin-blue p-5 md:p-8 border-b-3 border-penguin-dark relative">
-                        <div class="absolute right-4 top-4 lg:right-6 lg:top-6 w-12 h-12 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-2xl lg:text-3xl kawaii-shadow transform rotate-12 border-2 border-penguin-dark">
+                        <div class="absolute right-4 -top-8 lg:right-6 lg:-top-10 w-16 h-16 lg:w-20 lg:h-20 bg-white rounded-full flex items-center justify-center text-3xl lg:text-4xl kawaii-shadow transform rotate-12 border-4 border-penguin-blue z-10">
                             <i class="fa-solid ${data.icon} text-penguin-dark"></i>
                         </div>
-                        <h3 class="text-xl md:text-3xl font-extrabold mb-3 pr-14 lg:pr-20 leading-tight">Day ${data.day}: ${data.title}</h3>
+                        <h3 class="text-xl md:text-3xl font-extrabold mb-3 pr-14 lg:pr-20 leading-tight mt-2">Day ${data.day}: ${data.title}</h3>
                         <p class="text-sm font-bold text-slate-600 mb-4 bg-white/50 inline-block px-3 py-1 rounded-lg">${data.summary}</p>
                         <br>
                         <div class="inline-block bg-white px-3 py-1 lg:px-4 lg:py-1.5 rounded-full font-bold text-xs lg:text-sm kawaii-shadow text-sakura border border-pink-100">
@@ -333,10 +345,9 @@
                         </div>
                     </div>
 
-                    <!-- Card Body: Schedule -->
+                    <!-- Card Body -->
                     <div class="p-5 md:p-8">
                         <div class="space-y-4 lg:space-y-6 mb-8">
-                            <!-- Morning -->
                             <div class="flex gap-3 lg:gap-4 group">
                                 <div class="w-14 h-14 lg:w-16 lg:h-16 shrink-0 bg-yellow-100 rounded-2xl flex flex-col items-center justify-center border-2 border-yellow-300 group-hover:bg-yellow-200 transition-colors">
                                     <i class="fa-solid fa-sun text-yellow-500 mb-0.5 lg:mb-1 text-sm lg:text-base"></i>
@@ -347,7 +358,6 @@
                                 </div>
                             </div>
 
-                            <!-- Afternoon -->
                             <div class="flex gap-3 lg:gap-4 group">
                                 <div class="w-14 h-14 lg:w-16 lg:h-16 shrink-0 bg-orange-100 rounded-2xl flex flex-col items-center justify-center border-2 border-orange-300 group-hover:bg-orange-200 transition-colors">
                                     <i class="fa-solid fa-cloud-sun text-orange-500 mb-0.5 lg:mb-1 text-sm lg:text-base"></i>
@@ -358,7 +368,6 @@
                                 </div>
                             </div>
 
-                            <!-- Evening -->
                             <div class="flex gap-3 lg:gap-4 group">
                                 <div class="w-14 h-14 lg:w-16 lg:h-16 shrink-0 bg-indigo-100 rounded-2xl flex flex-col items-center justify-center border-2 border-indigo-300 group-hover:bg-indigo-200 transition-colors">
                                     <i class="fa-solid fa-moon text-indigo-500 mb-0.5 lg:mb-1 text-sm lg:text-base"></i>
@@ -370,7 +379,6 @@
                             </div>
                         </div>
                         
-                        <!-- Alternative Plans (Rain / Cafe) -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                             <div class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200">
                                 <h4 class="font-bold text-blue-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-cloud-rain text-blue-500"></i> ☔ 雨備方案</h4>
@@ -382,7 +390,6 @@
                             </div>
                         </div>
 
-                        <!-- Notes Section -->
                         <div class="bg-penguin-pink/30 p-4 lg:p-5 rounded-2xl border-2 border-sakura">
                             <h4 class="font-bold text-base lg:text-lg mb-2 lg:mb-3 flex items-center gap-2 text-penguin-dark">
                                 <i class="fa-solid fa-circle-exclamation text-sakura"></i> 企鵝的貼心小筆記
@@ -398,7 +405,6 @@
         }
 
         function selectDay(index) {
-            // Update buttons styling
             document.querySelectorAll('#day-nav button').forEach((btn, i) => {
                 if (i === index) {
                     btn.classList.add('bg-penguin-pink', 'border-penguin-dark', 'shadow-md');
@@ -409,39 +415,30 @@
                 }
             });
 
-            // 手機版：讓被點擊的按鈕在橫向卷軸中自動置中
-            const activeBtn = document.getElementById(`nav-btn-${index}`);
             if (window.innerWidth < 1024) {
-                activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                document.getElementById(`nav-btn-${index}`).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
 
-            // Update content with animation reset
             document.querySelectorAll('.tab-content').forEach((content, i) => {
                 if (i === index) {
                     content.classList.remove('active');
-                    void content.offsetWidth; // Trigger reflow to restart animation
+                    void content.offsetWidth;
                     content.classList.add('active');
                 } else {
                     content.classList.remove('active');
                 }
             });
 
-            // 平滑滾動至行程內容開頭 (考量到上方有 Sticky 導覽列的偏移)
             if (window.innerWidth < 1024) {
                 const contentEl = document.getElementById('itinerary-content');
                 const offset = 80; 
-                const bodyRect = document.body.getBoundingClientRect().top;
-                const elementRect = contentEl.getBoundingClientRect().top;
-                const elementPosition = elementRect - bodyRect;
-                const offsetPosition = elementPosition - offset;
-
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                const elementPosition = contentEl.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+                window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
             } else {
-                window.scrollTo({ top: 300, behavior: 'smooth' });
+                window.scrollTo({ top: 350, behavior: 'smooth' });
             }
         }
 
-        // Initialize App
         renderApp();
     </script>
 </body>
