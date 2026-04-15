@@ -3,155 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 夏日夢幻大冒險 | 🐧 三十代慢活互動手冊</title>
-    <!-- Tailwind CSS -->
+    <title>2026 夏日夢幻大冒險 | 🐧 正能量慢活互動手冊</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        'sans': ['"Nunito"', '"M PLUS Rounded 1c"', 'sans-serif'],
-                    },
+                    fontFamily: { 'sans': ['"Nunito"', '"M PLUS Rounded 1c"', 'sans-serif'] },
                     colors: {
-                        peng: {
-                            blue: '#BDE3FF',
-                            pink: '#FFD1DC',
-                            yellow: '#FFF4BD',
-                            green: '#D5F5E3',
-                            dark: '#4A4A4A',
-                            accent: '#FF8B94'
-                        }
+                        peng: { blue: '#BDE3FF', pink: '#FFD1DC', yellow: '#FFF4BD', green: '#D5F5E3', dark: '#4A4A4A', accent: '#FF8B94' }
                     }
                 }
             }
         }
     </script>
     <style>
-        body {
-            background-color: #FDFEFE;
-            background-image: radial-gradient(#BDE3FF 1.5px, transparent 1.5px);
-            background-size: 30px 30px;
-        }
-        .kawaii-border {
-            border: 3px solid #333333;
-            box-shadow: 6px 6px 0px #333333;
-        }
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 3px solid #333333;
-        }
-        .nav-btn.active {
-            background-color: #333333;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .editable-note {
-            border: 2px dashed #CBD5E1;
-            padding: 10px;
-            border-radius: 12px;
-            background: #FDFEFE;
-            min-height: 80px;
-            outline: none;
-            font-size: 0.875rem;
-        }
-        .editable-note:focus {
-            border-color: #FF8B94;
-            background: #FFFFFF;
-        }
-        .module-section {
-            display: none;
-            animation: fadeIn 0.4s ease-out;
-        }
-        .module-section.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .img-header {
-            height: 240px;
-            object-fit: cover;
-            width: 100%;
-            border-bottom: 3px solid #333333;
-            background-color: #f1f5f9;
-        }
-        .time-slot {
-            display: flex;
-            gap: 12px;
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .time-label {
-            width: 50px;
-            flex-shrink: 0;
-            font-weight: 800;
-            color: #FF8B94;
-        }
-        .map-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            border: 1px solid #bae6fd;
-            margin-left: 4px;
-        }
-        .map-link:hover {
-            background: #bae6fd;
-        }
-        .closing-box {
-            background: #f8fafc;
-            border-left: 4px solid #94a3b8;
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 0.75rem;
-            color: #475569;
-        }
-        .buy-card {
-            background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%);
-            border: 2px solid #FBC02D;
-        }
+        body { background-color: #FDFEFE; background-image: radial-gradient(#BDE3FF 1.5px, transparent 1.5px); background-size: 30px 30px; }
+        .kawaii-border { border: 3px solid #333; box-shadow: 6px 6px 0px #333; }
+        .sticky-nav { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 3px solid #333; }
+        .nav-btn.active { background-color: #333; color: white; transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .module-section { display: none; animation: fadeIn 0.4s ease-out; }
+        .module-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .img-header { height: 240px; object-fit: cover; width: 100%; border-bottom: 3px solid #333; background-color: #e2e8f0; }
+        .editable-note { border: 2px dashed #CBD5E1; padding: 10px; border-radius: 12px; background: #FFF; min-height: 80px; outline: none; font-size: 0.875rem; }
+        .map-btn { display: inline-flex; align-items: center; gap: 4px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; border: 1.5px solid #bae6fd; transition: all 0.2s; }
+        .map-btn:hover { background: #bae6fd; transform: scale(1.05); }
+        .time-badge { background: #FF8B94; color: white; padding: 1px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 800; margin-right: 8px; }
+        .closing-tip { background: #f8fafc; border-left: 4px solid #334155; padding: 10px; font-size: 0.75rem; margin-top: 12px; }
+        .buy-box { background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%); border: 2px solid #FBC02D; border-radius: 1rem; padding: 1rem; margin-top: 1.5rem; }
     </style>
 </head>
-<body class="text-peng-dark font-sans">
+<body class="text-peng-dark">
 
-    <!-- Header -->
     <header class="max-w-4xl mx-auto pt-10 px-4 text-center">
-        <div class="mb-4">
-            <span class="text-6xl animate-bounce inline-block">🐧</span>
-        </div>
-        <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight">夏日夢幻大冒險 <span class="text-peng-accent">2026</span></h1>
+        <div class="mb-4 text-6xl animate-bounce">🐧</div>
+        <h1 class="text-4xl md:text-5xl font-black mb-2 tracking-tight">夏日夢幻大冒險 <span class="text-peng-accent">2026</span></h1>
         <p class="text-lg font-bold text-slate-500">名古屋 · 京都 · 大阪 · 神戶</p>
-        <p class="mt-2 inline-block bg-peng-yellow border-2 border-slate-800 px-6 py-1 rounded-full text-sm font-black transform -rotate-1">✨ 慢活旅遊：10:00 出發原則</p>
-        
-        <!-- 安全提示資訊：僅在預覽顯示，提醒填入資訊 -->
-        <div class="mt-4 max-w-lg mx-auto bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-600 font-bold">
-            <i class="fa-solid fa-shield-halved"></i> 安全提醒：為了 GitHub 部署安全，已隱藏敏感代碼。請利用下方「旅行筆記」自行填寫訂位資訊。
-        </div>
+        <p class="mt-4 inline-block bg-peng-yellow border-2 border-slate-800 px-6 py-1 rounded-full text-sm font-black transform -rotate-1">🌙 慢活原則：10:00 起床，享受日本夜晚</p>
     </header>
 
-    <!-- Modular Navigation -->
     <nav class="sticky-nav mt-10 px-4 py-4">
         <div class="max-w-4xl mx-auto flex justify-center gap-2">
-            <button onclick="showModule('nagoya')" id="btn-nagoya" class="nav-btn active px-4 py-2 rounded-xl border-2 border-slate-800 font-black text-xs md:text-sm transition-all">📍 名古屋</button>
-            <button onclick="showModule('kyoto')" id="btn-kyoto" class="nav-btn px-4 py-2 rounded-xl border-2 border-slate-800 font-black text-xs md:text-sm transition-all">🏮 京都</button>
-            <button onclick="showModule('osaka')" id="btn-osaka" class="nav-btn px-4 py-2 rounded-xl border-2 border-slate-800 font-black text-xs md:text-sm transition-all">🐙 大阪・神戶</button>
+            <button onclick="showModule('nagoya')" id="btn-nagoya" class="nav-btn active px-4 py-2 rounded-xl border-2 border-slate-800 font-black text-xs md:text-sm">📍 名古屋</button>
+            <button onclick="showModule('kyoto')" id="btn-kyoto" class="nav-btn px-4 py-2 rounded-xl border-2 border-slate-800 font-black text-xs md:text-sm">🏮 京都</button>
+            <button onclick="showModule('osaka')" id="btn-osaka" class="nav-btn px-4 py-2 rounded-xl border-2 border-slate-800 font-black text-xs md:text-sm">🐙 大阪神戶</button>
         </div>
     </nav>
 
@@ -159,106 +57,46 @@
         
         <!-- MODULE: NAGOYA (Day 1-2) -->
         <div id="module-nagoya" class="module-section active space-y-10">
-            <!-- Flight Info (Simplified for safety) -->
-            <div class="kawaii-border bg-peng-blue/20 p-5 rounded-3xl flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-black text-slate-500 uppercase">去程航班</p>
-                    <p class="text-lg font-black">7/20 IT206 (09:00)</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-xs font-black text-slate-500 uppercase">訂位代號</p>
-                    <p class="text-sm font-black text-peng-accent">查看旅行筆記</p>
-                </div>
-            </div>
-
             <!-- Day 1 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1624458316719-74d75439589d?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Nagoya Port Fireworks">
+            <div class="kawaii-border bg-white rounded-3xl overflow-hidden shadow-xl">
+                <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Nagoya Port">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-black bg-peng-blue px-3 py-1 rounded border-2 border-slate-800">7/20 (一) DAY 1</span>
-                        <span class="text-xs font-bold text-slate-400">抵達與海之日花火</span>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4">名古屋車站掃貨與港口煙火 🎆</h2>
+                    <span class="text-xs font-black bg-peng-blue px-3 py-1 rounded border-2 border-slate-800 uppercase">7/20 (一) DAY 1</span>
+                    <h2 class="text-2xl font-black mt-3">名古屋抵達與港口煙火之夜 🎆</h2>
                     
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">12:55</span><span>抵達中部機場 (NGO) 
-                            <a href="https://www.google.com/maps/search/?api=1&query=中部國際機場" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">14:30</span><span>搭乘 <b>μ-SKY 特急</b> 前往名古屋車站。</span></div>
-                        <div class="time-slot"><span class="time-label">15:30</span><span><b>Kiddy Land：</b> 採購正能量企鵝。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Nagoya+Gate+Tower" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">17:30</span><span>地鐵直達「名古屋港」參加海之日祭典。
-                            <a href="https://www.google.com/maps/search/?api=1&query=名古屋港" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">19:30</span><span><b>花火大會：</b> 在港灣空地觀賞 3,000 發煙火。</span></div>
-                        <div class="time-slot"><span class="time-label">21:30</span><span>晚餐：名古屋車站 `T's Tantan`。
-                            <a href="https://www.google.com/maps/search/?api=1&query=T's+Tantan+Nagoya+Station" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-start"><span class="time-badge">上午</span><span>12:55 抵達機場 ➔ 機場 4F 提燈街午餐。 <a href="https://www.google.com/maps/search/?api=1&query=中部國際機場" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">下午</span><span>14:30 μ-SKY 特急 ➔ 15:30 飯店 Check-in ➔ **JR Gate Tower Kiddy Land (企鵝)**。 <a href="https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Nagoya" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">晚上</span><span>17:30 地鐵名港線 ➔ **名古屋港祭煙火** ➔ 晚餐 T's Tantan。 <a href="https://www.google.com/maps/search/?api=1&query=名古屋港" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
                     </div>
 
-                    <div class="closing-box">
-                        <p class="font-bold mb-1"><i class="fa-solid fa-clock"></i> 營業時間與筆記：</p>
-                        <ul class="list-disc list-inside">
-                            <li><b>Kiddy Land：</b> 21:00 關門。</li>
-                            <li><b>T's Tantan：</b> 22:00 關門 (最後點餐 21:30)。</li>
-                            <li><b>煙火提醒：</b> 祭典免門票，但建議提早 30 分鐘到港口佔位。</li>
-                        </ul>
+                    <div class="closing-tip">
+                        <p class="font-black"><i class="fa-solid fa-circle-info"></i> 企鵝筆記：</p>
+                        <p>Kiddy Land 21:00 關門。T's Tantan 名古屋店 22:00 關門。名古屋港站煙火人潮多，建議提早 1 小時到港區。</p>
                     </div>
 
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 旅行隨手記 (在此記錄訂位號與姓名)</p>
-                        <div class="editable-note" contenteditable="true" id="note-1" onblur="saveNote(1)">在這裡記下今日的開銷或心情吧...</div>
-                    </div>
+                    <div class="mt-6"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 旅行筆記 (自動儲存)</p><div class="editable-note" contenteditable="true" id="note-1" onblur="saveNote(1)">在此記下第一隻企鵝的名字...</div></div>
                 </div>
             </div>
 
             <!-- Day 2 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
+            <div class="kawaii-border bg-white rounded-3xl overflow-hidden shadow-xl">
                 <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Nagoya Castle">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-black bg-peng-blue px-3 py-1 rounded border-2 border-slate-800">7/21 (二) DAY 2</span>
-                        <span class="text-xs font-bold text-slate-400">慢活古城</span>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4">慢活名古屋：金鱗古城與大須商圈 🏰</h2>
+                    <span class="text-xs font-black bg-peng-blue px-3 py-1 rounded border-2 border-slate-800 uppercase">7/21 (二) DAY 2</span>
+                    <h2 class="text-2xl font-black mt-3">慢活金鱗古城與大須動漫街 🏰</h2>
                     
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">10:30</span><span><b>名古屋城：</b> 參觀本丸御殿並蒐集御城印。
-                            <a href="https://www.google.com/maps/search/?api=1&query=名古屋城" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">13:30</span><span><b>大須商店街：</b> 逛 `Mandarake` 公仔挖寶。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Mandarake+Nagoya" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">17:00</span><span><b>Loft 名古屋：</b> 企鵝專櫃最後巡禮。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Loft+Nagoya" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">19:30</span><span><b>Oasis 21：</b> 欣賞飛船夜景。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Oasis+21" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-start"><span class="time-badge">上午</span><span>10:30 睡飽出發 ➔ 名古屋城本丸御殿 (蒐集御城印)。 <a href="https://www.google.com/maps/search/?api=1&query=名古屋城" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">下午</span><span>13:30 大須商店街午餐 ➔ **Mandarake / Jungle** 採購公仔。 <a href="https://www.google.com/maps/search/?api=1&query=大須商店街" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">晚上</span><span>17:00 榮商圈 **Loft 名古屋** ➔ Oasis 21 飛船夜景 ➔ 晚餐享用名古屋味噌串炸。 <a href="https://www.google.com/maps/search/?api=1&query=Oasis+21" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
                     </div>
 
-                    <div class="closing-box">
-                        <p class="font-bold mb-1"><i class="fa-solid fa-clock"></i> 營業時間與筆記：</p>
-                        <ul class="list-disc list-inside">
-                            <li><b>名古屋城：</b> 16:30 關門 (最後入場 16:00)。</li>
-                            <li><b>Mandarake：</b> 20:00 關門。</li>
-                            <li><b>Loft：</b> 20:00 關門。</li>
-                        </ul>
+                    <div class="buy-box">
+                        <p class="font-black text-xs text-yellow-700 mb-2">🎁 名古屋區必買推薦：</p>
+                        <p class="text-xs font-bold">小倉紅豆吐司夾心餅乾 (蛋奶素)、大須外郎糕 (全素)、正能量企鵝名古屋限定款。</p>
                     </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 旅行隨手記</p>
-                        <div class="editable-note" contenteditable="true" id="note-2" onblur="saveNote(2)"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Souvenirs Nagoya -->
-            <div class="buy-card p-6 rounded-3xl kawaii-border">
-                <h3 class="font-black text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-yellow-600"></i> 名古屋必買推薦</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
-                    <div class="bg-white/60 p-3 rounded-xl border border-yellow-200">
-                        <p class="text-peng-accent mb-1">小倉紅豆吐司餅乾 (蛋奶素)</p>
-                        <p class="text-slate-500 font-medium italic">名古屋早餐風味縮影，辦公室伴手禮首選。</p>
-                    </div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-yellow-200">
-                        <p class="text-peng-accent mb-1">大須外郎糕 (全素)</p>
-                        <p class="text-slate-500 font-medium italic">Q彈清爽的米製甜點，伴侶會愛的口感。</p>
-                    </div>
+                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 旅行筆記</p><div class="editable-note" contenteditable="true" id="note-2" onblur="saveNote(2)"></div></div>
                 </div>
             </div>
         </div>
@@ -266,244 +104,100 @@
         <!-- MODULE: KYOTO (Day 3-4) -->
         <div id="module-kyoto" class="module-section space-y-10">
             <!-- Day 3 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Atsuta Jingu">
+            <div class="kawaii-border bg-white rounded-3xl overflow-hidden shadow-xl">
+                <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Kyoto River">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800">7/22 (三) DAY 3</span>
-                        <span class="text-xs font-bold text-slate-400">跨區移動</span>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4">神宮祈福與鴨川散步 🍵</h2>
+                    <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800 uppercase">7/22 (三) DAY 3</span>
+                    <h2 class="text-2xl font-black mt-3">跨區移動與鴨川浪漫散步 🌙</h2>
                     
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">10:00</span><span><b>熱田神宮：</b> 參拜與御朱印蒐集。
-                            <a href="https://www.google.com/maps/search/?api=1&query=熱田神宮" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">14:30</span><span>搭乘 <b>新幹線</b> 閃現前往京都車站。</span></div>
-                        <div class="time-slot"><span class="time-label">16:30</span><span>京都飯店 Check-in，慢步 <b>鴨川</b>。
-                            <a href="https://www.google.com/maps/search/?api=1&query=京都鴨川" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">19:00</span><span>晚餐：`Veg Out` 植物系餐廳。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-start"><span class="time-badge">上午</span><span>10:30 **熱田神宮** 參拜。 <a href="https://www.google.com/maps/search/?api=1&query=熱田神宮" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">下午</span><span>14:30 新幹線 ➔ 15:30 飯店 Check-in ➔ 準備洗衣處理。 <a href="https://www.google.com/maps/search/?api=1&query=京都車站" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">晚上</span><span>18:00 **鴨川畔散步** ➔ 先斗町晚餐 ➔ 感受祇園祭後祭氣氛。 <a href="https://www.google.com/maps/search/?api=1&query=先斗町" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
                     </div>
 
-                    <div class="closing-box">
-                        <p class="font-bold mb-1"><i class="fa-solid fa-clock"></i> 營業時間與筆記：</p>
-                        <ul class="list-disc list-inside">
-                            <li><b>熱田神宮授予所：</b> 16:30 關門。</li>
-                            <li><b>Veg Out：</b> 21:00 關門 (最後點餐 20:00)。</li>
-                        </ul>
+                    <div class="closing-tip">
+                        <p class="font-black">🏠 住宿建議：</p>
+                        <p>入住京都格蘭比亞 (與車站共構)，今晚適合投幣洗衣處理前三天衣物。</p>
                     </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 旅行隨手記</p>
-                        <div class="editable-note" contenteditable="true" id="note-3" onblur="saveNote(3)"></div>
-                    </div>
+                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 旅行筆記</p><div class="editable-note" contenteditable="true" id="note-3" onblur="saveNote(3)"></div></div>
                 </div>
             </div>
 
             <!-- Day 4 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Toyosato School Shiga">
+            <div class="kawaii-border bg-white rounded-3xl overflow-hidden shadow-xl">
+                <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Shiga Toyosato">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800">7/23 (四) DAY 4</span>
-                        <span class="text-xs font-bold text-slate-400">K-ON聖地</span>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4">滋賀 K-ON 聖地與河原町採購 🎸</h2>
+                    <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800 uppercase">7/23 (四) DAY 4</span>
+                    <h2 class="text-2xl font-black mt-3">滋賀 K-ON 聖地與京都企鵝掃貨 🎸</h2>
                     
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">10:00</span><span>悠閒出發前往滋賀。</span></div>
-                        <div class="time-slot"><span class="time-label">13:00</span><span><b>豐鄉小學校：</b> 輕音部打卡。
-                            <a href="https://www.google.com/maps/search/?api=1&query=豐鄉小學校舊校舍群" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">16:30</span><span>返回京都河原町逛 <b>Nintendo Kyoto</b>。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Nintendo+Kyoto" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">19:00</span><span>晚餐：`Mumokuteki Cafe`。
-                            <a href="https://www.google.com/maps/search/?api=1&query=Mumokuteki+Cafe+Kyoto" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-start"><span class="time-badge">上午</span><span>10:00 出發前往滋賀 **豐鄉小學校** (單程約 1hr 15m)。 <a href="https://www.google.com/maps/search/?api=1&query=豐鄉小學校舊校舍群" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">下午</span><span>16:00 返回四条河原町 ➔ **Kiddy Land 京都店** (企鵝採購) ➔ 藤井大丸服飾。 <a href="https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Kyoto" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">晚上</span><span>19:00 晚餐 Mumokuteki ➔ **祇園祭宵山散步** (看花車點燈)。 <a href="https://www.google.com/maps/search/?api=1&query=四條烏丸" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
                     </div>
 
-                    <div class="closing-box">
-                        <p class="font-bold mb-1"><i class="fa-solid fa-clock"></i> 營業時間與筆記：</p>
-                        <ul class="list-disc list-inside">
-                            <li><b>豐鄉小學校：</b> 17:00 關門 (校舍內部)。</li>
-                            <li><b>Nintendo Kyoto：</b> 20:00 關門。</li>
-                            <li><b>Mumokuteki：</b> 20:00 關門 (最後點餐 19:30)。</li>
-                        </ul>
+                    <div class="buy-box">
+                        <p class="font-black text-xs text-green-700 mb-2">🎁 京都區必買推薦：</p>
+                        <p class="text-xs font-bold">Malebranche 茶之菓抹茶餅乾、京都限定御朱印、K-ON 限定周邊。</p>
                     </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 旅行隨手記</p>
-                        <div class="editable-note" contenteditable="true" id="note-4" onblur="saveNote(4)"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Souvenirs Kyoto -->
-            <div class="buy-card p-6 rounded-3xl kawaii-border">
-                <h3 class="font-black text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-leaf text-green-700"></i> 京都必買推薦</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
-                    <div class="bg-white/60 p-3 rounded-xl border border-yellow-200">
-                        <p class="text-peng-accent mb-1">Malebranche 茶之菓</p>
-                        <p class="text-slate-500 font-medium italic">抹茶夾心餅乾，京都最精緻的綠色回憶。</p>
-                    </div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-yellow-200">
-                        <p class="text-peng-accent mb-1">阿闍梨餅 (蛋奶素)</p>
-                        <p class="text-slate-500 font-medium italic">口感極其特殊的Q彈和菓子，超高人氣。</p>
-                    </div>
+                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 旅行筆記</p><div class="editable-note" contenteditable="true" id="note-4" onblur="saveNote(4)"></div></div>
                 </div>
             </div>
         </div>
 
         <!-- MODULE: OSAKA (Day 5-9) -->
         <div id="module-osaka" class="module-section space-y-10">
-            <!-- Flight Info Back (Safe) -->
-            <div class="kawaii-border bg-peng-pink/20 p-5 rounded-3xl flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-black text-slate-500 uppercase">回程航班</p>
-                    <p class="text-lg font-black">7/28 IT213 (19:50)</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-xs font-black text-slate-500 uppercase">目的地</p>
-                    <p class="text-sm font-black text-peng-accent">桃園 TPE</p>
-                </div>
-            </div>
-
             <!-- Day 5 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://www.kintetsu.co.jp/foreign/chinese-han/aoniyoshi/img/top/img_main_sp.jpg" class="img-header" alt="Aoniyoshi sightseeing train">
+            <div class="kawaii-border bg-white rounded-3xl overflow-hidden shadow-xl border-t-8 border-peng-accent">
+                <img src="https://www.kintetsu.co.jp/foreign/chinese-han/aoniyoshi/img/top/img_main_sp.jpg" class="img-header" alt="Aoniyoshi Train">
                 <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800">7/24 (五) DAY 5</span>
-                        <span class="text-xs font-bold text-slate-400">豪華特急</span>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4">觀光列車「青丹吉」奢華進大阪 🦌</h2>
+                    <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800 uppercase">7/24 (五) DAY 5</span>
+                    <h2 class="text-2xl font-black mt-3">雙聖地參拜與豪華觀光列車 🦌</h2>
                     
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">10:30</span><span>參拜 <b>建仁寺</b> 欣賞雙龍圖。
-                            <a href="https://www.google.com/maps/search/?api=1&query=京都建仁寺" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">14:30</span><span>搭乘 <b>觀光特急 Aoniyoshi</b> 前往大阪。</span></div>
-                        <div class="time-slot"><span class="time-label">18:30</span><span>晚餐：難波 `OKO` 大阪燒。
-                            <a href="https://www.google.com/maps/search/?api=1&query=OKO+Osaka" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-start"><span class="time-badge">上午</span><span>10:30 **伏見稻荷大社** (千本鳥居、抽狐狸籤)。 <a href="https://www.google.com/maps/search/?api=1&query=伏見稻荷大社" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">下午</span><span>13:30 **Taxi ➔ 清水寺** (參拜、開運御守) ➔ 16:21 **觀光列車青丹吉**。 <a href="https://www.google.com/maps/search/?api=1&query=清水寺" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+                        <div class="flex items-start"><span class="time-badge">晚上</span><span>18:00 難波 Check-in ➔ 晚餐 **OKO 大阪燒** ➔ 法善寺散步。 <a href="https://www.google.com/maps/search/?api=1&query=難波" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
                     </div>
 
-                    <div class="closing-box">
-                        <p class="font-bold mb-1"><i class="fa-solid fa-clock"></i> 營業時間與筆記：</p>
-                        <ul class="list-disc list-inside">
-                            <li><b>建仁寺：</b> 17:00 關門 (16:30 最後入場)。</li>
-                            <li><b>OKO：</b> 22:00 關門 (最後點餐 21:00)。</li>
-                        </ul>
+                    <div class="closing-tip">
+                        <p class="font-black text-red-500">🐧 絕密購票提醒：</p>
+                        <p>青丹吉列車需於乘車日前 **一個月 (09:30 AM)** 官網開搶。車內必買：大和茶啤酒、限定夾心餅乾。</p>
                     </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 旅行隨手記</p>
-                        <div class="editable-note" contenteditable="true" id="note-5" onblur="saveNote(5)"></div>
-                    </div>
+                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 旅行筆記</p><div class="editable-note" contenteditable="true" id="note-5" onblur="saveNote(5)"></div></div>
                 </div>
             </div>
 
-            <!-- Day 6 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1590233639827-39775da739d3?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Nipponbashi Denden Town Osaka">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800">7/25 (六) DAY 6</span>
-                        <span class="text-xs font-bold text-slate-400">公仔與祭典</span>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4">日本橋公仔掃貨與天神祭花火 🏮</h2>
-                    
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">11:00</span><span><b>日本橋 Den Den Town</b> 採購。
-                            <a href="https://www.google.com/maps/search/?api=1&query=日本橋動漫街" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">17:30</span><span>搭車前往櫻之宮外圍看 <b>天神祭花火</b>。
-                            <a href="https://www.google.com/maps/search/?api=1&query=櫻之宮公園" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                    </div>
-
-                    <div class="closing-box">
-                        <p class="font-bold mb-1"><i class="fa-solid fa-clock"></i> 營業時間與筆記：</p>
-                        <ul class="list-disc list-inside">
-                            <li><b>日本橋店家：</b> 普遍 20:00 關門。</li>
-                            <li><b>祭典提醒：</b> 19:30 開始施放煙火，建議外圍看即可。</li>
-                        </ul>
-                    </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 旅行隨手記</p>
-                        <div class="editable-note" contenteditable="true" id="note-6" onblur="saveNote(6)"></div>
-                    </div>
+            <!-- Day 6-7 Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="kawaii-border bg-white p-6 rounded-3xl">
+                    <span class="text-xs font-black bg-peng-pink px-2 py-1 rounded border-2 border-slate-800">7/25 (六) DAY 6</span>
+                    <h4 class="text-xl font-black mt-2">日本橋公仔 ＆ 天神祭</h4>
+                    <p class="text-sm mt-2 text-slate-500">上午 11:00 前往日本橋掃貨公仔。買完直接回飯店放。晚上去櫻之宮外圍看奉納花火。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=日本橋動漫街" class="map-btn mt-2"><i class="fa-solid fa-location-dot"></i> 日本橋地圖</a>
+                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400">🐧 備案：</p><p class="text-xs italic">人多時改逛梅田 LUCUA 百貨買衣服。</p></div>
+                </div>
+                <div class="kawaii-border bg-white p-6 rounded-3xl">
+                    <span class="text-xs font-black bg-peng-pink px-2 py-1 rounded border-2 border-slate-800">7/26 (日) DAY 7</span>
+                    <h4 class="text-xl font-black mt-2">神戶浪漫約會 ⚓</h4>
+                    <p class="text-sm mt-2 text-slate-500">11:00 阪神電車 ➔ 三宮生田神社 ➔ 北野異人館 ➔ 神戶港夜景。氣氛滿點的一天。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=神戶臨海樂園" class="map-btn mt-2"><i class="fa-solid fa-location-dot"></i> 神戶地圖</a>
+                    <div class="buy-box mt-4 p-2 py-1"><p class="text-[10px] font-black">🎁 大阪必買：</p><p class="text-[10px]">Grand Calbee 薯片、Baton d'or Pocky。</p></div>
                 </div>
             </div>
 
-            <!-- Day 7 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Kobe Port Night View">
-                <div class="p-6">
-                    <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800">7/26 (日) DAY 7</span>
-                    <h2 class="text-2xl font-black mb-4">神戶港浪漫一日遊 ⚓</h2>
-                    
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">11:00</span><span>搭乘 <b>阪神電車</b> 直達神戶三宮。</span></div>
-                        <div class="time-slot"><span class="time-label">12:00</span><span>參拜 <b>生田神社</b>。
-                            <a href="https://www.google.com/maps/search/?api=1&query=神戶生田神社" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">17:00</span><span>移動至 <b>神戶港 (Mosaic)</b> 欣賞夜景。
-                            <a href="https://www.google.com/maps/search/?api=1&query=神戶臨海樂園" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
+            <!-- Day 8-9 -->
+            <div class="kawaii-border bg-white p-6 rounded-3xl">
+                <span class="text-xs font-black bg-peng-pink px-2 py-1 rounded border-2 border-slate-800">7/27-28 DAY 8-9</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <h5 class="font-black text-lg">環球影城 USJ 🍄</h5>
+                        <p class="text-xs text-slate-500">唯一早起日，08:30 入園。強烈建議加購快速通關，保留三十代體力。</p>
                     </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 今日紀錄</p>
-                        <div class="editable-note" contenteditable="true" id="note-7" onblur="saveNote(7)"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Day 8 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1605634543277-2268159b3e94?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Universal Studios Japan">
-                <div class="p-6">
-                    <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800">7/27 (一) DAY 8</span>
-                    <h2 class="text-2xl font-black mb-4">環球影城 USJ 全日瘋狂 🍄</h2>
-                    
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">08:30</span><span><b>USJ：</b> 直奔任天堂世界。
-                            <a href="https://www.google.com/maps/search/?api=1&query=日本環球影城" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">20:00</span><span>回難波晚餐。</span></div>
-                    </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 今日紀錄</p>
-                        <div class="editable-note" contenteditable="true" id="note-8" onblur="saveNote(8)"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Day 9 -->
-            <div class="kawaii-border bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1590664095641-7fa05f689813?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Namba Yasaka Shrine Osaka">
-                <div class="p-6">
-                    <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800">7/28 (二) DAY 9</span>
-                    <h2 class="text-2xl font-black mb-4">最後祈福與滿載賦歸 ✈️</h2>
-                    
-                    <div class="space-y-1">
-                        <div class="time-slot"><span class="time-label">10:30</span><span><b>難波八阪神社：</b> 獅子殿震撼紀錄。
-                            <a href="https://www.google.com/maps/search/?api=1&query=難波八阪神社" target="_blank" class="map-link"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="time-slot"><span class="time-label">17:00</span><span>搭乘 <b>Rapi:t</b> 前往機場。</span></div>
-                    </div>
-
-                    <div class="mt-6">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">📒 今日紀錄</p>
-                        <div class="editable-note" contenteditable="true" id="note-9" onblur="saveNote(9)"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Souvenirs Osaka -->
-            <div class="buy-card p-6 rounded-3xl kawaii-border">
-                <h3 class="font-black text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-cookie-bite text-orange-700"></i> 大阪必買推薦</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
-                    <div class="bg-white/60 p-3 rounded-xl border border-yellow-200">
-                        <p class="text-peng-accent mb-1">Grand Calbee 厚切薯片</p>
-                        <p class="text-slate-500 font-medium italic">梅田阪急百貨限定，薯片界的愛馬仕。</p>
-                    </div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-yellow-200">
-                        <p class="text-peng-accent mb-1">Baton d'or 精品 Pocky</p>
-                        <p class="text-slate-500 font-medium italic">極致濃郁的奶油風味，高質感送禮首選。</p>
+                    <div>
+                        <h5 class="font-black text-lg">獅子殿 ➔ 歸途 ✈️</h5>
+                        <p class="text-xs text-slate-500">最後的難波八阪神社參拜 ➔ 心齋橋最後補貨 ➔ 17:00 Rapi:t 前往機場。</p>
                     </div>
                 </div>
             </div>
@@ -511,33 +205,30 @@
 
     </main>
 
-    <footer class="text-center py-10 text-slate-400 font-black">
-        <p>🐧 「這趟旅行能成行，你已經非常了不起了喔！」</p>
-        <p class="text-[10px] mt-2 tracking-widest uppercase">© 2026 Positive Penguin Summer Adventure</p>
+    <footer class="text-center pb-20 mt-10 text-slate-400 font-black px-4">
+        <p>🐧 「這趟旅行能平安成行，你已經非常了不起了喔！」</p>
+        <p class="text-[10px] mt-2 tracking-widest uppercase">© 2026 Positive Penguin Adventure Committee</p>
     </footer>
 
     <script>
-        function showModule(moduleName) {
+        function showModule(name) {
             document.querySelectorAll('.module-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(`module-${moduleName}`).classList.add('active');
+            document.getElementById(`module-${name}`).classList.add('active');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`btn-${moduleName}`).classList.add('active');
-            window.scrollTo({ top: 250, behavior: 'smooth' });
+            document.getElementById(`btn-${name}`).classList.add('active');
+            window.scrollTo({ top: 200, behavior: 'smooth' });
         }
-
         function saveNote(id) {
             const content = document.getElementById(`note-${id}`).innerText;
-            localStorage.setItem(`note-2026-v2-${id}`, content);
+            localStorage.setItem(`peng-trip-v3-${id}`, content);
         }
-
         function loadNotes() {
             for (let i = 1; i <= 9; i++) {
-                const saved = localStorage.getItem(`note-2026-v2-${i}`);
+                const saved = localStorage.getItem(`peng-trip-v3-${i}`);
                 const el = document.getElementById(`note-${i}`);
                 if (saved && el) el.innerText = saved;
             }
         }
-
         window.onload = loadNotes;
     </script>
 </body>
