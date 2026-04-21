@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>沖繩5日自由行 | Okinawa Travel Guide</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌺</text></svg>" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+::-webkit-scrollbar { height: 0; width: 0; }
+body { background: #f0f2f5; font-family: 'Noto Sans TC', 'Helvetica Neue', sans-serif; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.gmaps-icon-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 8px; background: #1a73e8;
+  color: #fff; text-decoration: none; flex-shrink: 0; transition: background .15s;
+}
+.gmaps-icon-btn:hover { background: #1557b0; }
+.transport-card { background: linear-gradient(135deg,#fdf4ff,#faf5ff); border: 1.5px solid #d8b4fe; }
+.savings-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: #fff; background: linear-gradient(90deg,#7c3aed,#a855f7); padding: 2px 8px; border-radius: 10px; }
+</style>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// 沖繩6月底氣候均值（超出16天預報範圍，使用歷史均值）
+const CLIMATE_AVG = {
+  "2026-06-27": { icon:"🌦️", wmoZh:"多雲陣雨", wmoEn:"Showers", max:31, min:26, precip:8.2,  clothingZh:"輕薄短袖，帶摺疊傘（梅雨季末）", clothingEn:"Light T-shirt + umbrella (late rainy season)", isClimate:true },
+  "2026-06-28": { icon:"🌧️", wmoZh:"降雨",     wmoEn:"Rain",    max:30, min:26, precip:12.5, clothingZh:"輕薄短袖，帶摺疊傘",             clothingEn:"Light T-shirt + umbrella",                isClimate:true },
+  "2026-06-29": { icon:"🌦️", wmoZh:"多雲陣雨", wmoEn:"Showers", max:31, min:25, precip:6.8,  clothingZh:"輕薄短袖，建議帶雨衣",           clothingEn:"Light T-shirt + rain jacket",             isClimate:true },
+  "2026-06-30": { icon:"⛅",  wmoZh:"多雲",     wmoEn:"Cloudy",  max:32, min:26, precip:3.5,  clothingZh:"輕薄短袖，帶摺疊傘",             clothingEn:"Light T-shirt + umbrella",                isClimate:true },
+  "2026-07-01": { icon:"☀️",  wmoZh:"晴天",     wmoEn:"Sunny",   max:33, min:27, precip:1.2,  clothingZh:"輕薄短袖，防曬必備",             clothingEn:"Light T-shirt + sunscreen",               isClimate:true },
+};
+
+var FOOD_SPOTS = [
+  { n:"牧志公設市場",                    u:"https://www.google.com/maps/search/牧志公設市場+那覇",        a:"那覇・牧志" },
+  { n:"ゆうなんぎい（沖繩家庭料理）",    u:"https://www.google.com/maps/search/ゆうなんぎい+那覇",        a:"那覇・牧志" },
+  { n:"A&W ハンバーガー（日本唯一在沖繩）", u:"https://www.google.com/maps/search/A%26W+ハンバーガー+沖縄", a:"那覇・国際通り" },
+  { n:"JEF ゴーヤーバーガー",            u:"https://www.google.com/maps/search/JEF+バーガー+沖縄",        a:"那覇・国際通り" },
+  { n:"首里そば",                        u:"https://www.google.com/maps/search/首里そば+那覇",             a:"首里" },
+  { n:"沖繩そば（市場本通り周邊）",      u:"https://www.google.com/maps/search/沖縄そば+牧志",            a:"那覇・牧志" },
+  { n:"アメリカンビレッジ 各式餐廳",    u:"https://www.google.com/maps/search/アメリカンビレッジ+北谷+レストラン", a:"北谷" },
+  { n:"美ら海水族館 Seafood Restaurant", u:"https://www.google.com/maps/search/美ら海水族館+レストラン",   a:"本部・北部" },
+  { n:"ヘリオス酒造（沖繩地啤酒）",      u:"https://www.google.com/maps/search/ヘリオス酒造+名護",        a:"本部・北部" },
+];
+
+var SHOP_SPOTS = [
+  { n:"国際通り（全長1.6km購物街）",     u:"https://www.google.com/maps/search/国際通り+那覇",            a:"那覇" },
+  { n:"DFS ギャラリア 沖縄",            u:"https://www.google.com/maps/search/DFSギャラリア沖縄",         a:"那覇" },
+  { n:"那覇メインプレイス",              u:"https://www.google.com/maps/search/那覇メインプレイス",         a:"那覇" },
+  { n:"カルビー+ 沖縄限定じゃがりこ",   u:"https://www.google.com/maps/search/カルビー+国際通り+沖縄",    a:"那覇・国際通り" },
+  { n:"沖縄紅芋タルト（御菓子御殿）",   u:"https://www.google.com/maps/search/御菓子御殿+那覇",           a:"那覇・国際通り" },
+  { n:"壺屋やちむん通り（傳統陶器）",    u:"https://www.google.com/maps/search/壺屋やちむん通り",          a:"那覇・壺屋" },
+  { n:"アメリカンビレッジ DEPOT ISLAND", u:"https://www.google.com/maps/search/デポアイランド+北谷",        a:"北谷" },
+  { n:"那覇空港 免税店",                 u:"https://www.google.com/maps/search/那覇空港+免税店",            a:"空港" },
+];
+
+const DAYS = [
+  {
+    day: 1, date: "2026-06-27", icon: "✈️", color: "#6366f1",
+    summary: "抵達那覇機場 → Check-in → 国際通り漫步 → 牧志市場晚餐",
+    summaryEn: "Arrive Naha Airport → Check-in → Kokusaidori → Makishi Market dinner",
+    routes: [
+      {
+        label: "那覇空港 → 飯店（国際通り周邊）", badge: "約13分", cost: "¥260/人",
+        steps: [
+          { from:"那覇空港駅", to:"牧志駅", line:"ゆいレール（Yui Rail）", lineColor:"#EE4C1E", time:"13分", note:"✅ Suica / ICOCA 可直接使用" }
+        ]
+      }
+    ],
+    spots: [
+      { icon:"🛬", name:"那覇空港（Naha Airport）",    note:"入境後在観光案内所拿地圖，ATM換現金，加購eSIM", noteEn:"Get maps at tourist info, exchange cash, consider eSIM",  mapsUrl:"https://www.google.com/maps/search/那覇空港" },
+      { icon:"🏨", name:"飯店 Check-in（国際通り周邊）", note:"推薦：APA Hotel 那覇牧志 / Daiwa Roynet Naha / Richmond Hotel", noteEn:"Recommended: APA Naha Makishi / Daiwa Roynet / Richmond", mapsUrl:"https://www.google.com/maps/search/国際通り+ホテル+那覇" },
+      { icon:"🛣️", name:"国際通り（Kokusaidori）",      note:"沖繩最熱鬧的購物街，全長約1.6km，手信/餐廳/藥妝全包", noteEn:"Main shopping street, 1.6km, souvenirs/restaurants/drugstores", mapsUrl:"https://www.google.com/maps/search/国際通り+那覇" },
+      { icon:"🏪", name:"牧志公設市場",                  note:"傳統市場二樓：自選食材請店家料理（持込料¥500/人），超划算", noteEn:"Buy fish downstairs, take upstairs to cook for ¥500/person", mapsUrl:"https://www.google.com/maps/search/牧志公設市場" },
+      { icon:"🍺", name:"国際通り 居酒屋・夜間散策",    note:"試試沖繩泡盛（Awamori）、A&W漢堡、或市場通り居酒屋", noteEn:"Try Awamori, A&W burgers, or izakaya around Ichiba-dori", mapsUrl:"https://www.google.com/maps/search/国際通り+居酒屋+那覇" },
+    ],
+    tips: [
+      "🌧️ 6月底為梅雨季尾聲，隨時可能下雨，務必帶折疊傘",
+      "🚃 ゆいレール 班距約8-12分，末班約24:00，那覇市區代步很方便",
+      "💊 便利商店備暑熱對策：鹽分補充錠、涼感噴霧（気温30+°C）",
+      "💳 国際通り多數店家刷卡OK；牧志市場攤位建議帶現金",
+    ]
+  },
+  {
+    day: 2, date: "2026-06-28", icon: "🏯", color: "#0ea5e9",
+    summary: "首里城 → 壺屋やちむん通り → 波之上宮 → 縣立博物館",
+    summaryEn: "Shuri Castle → Tsuboya Pottery St → Naminoue Shrine → Museum",
+    routes: [
+      {
+        label: "飯店 → 首里城", badge: "約20分", cost: "¥150/人",
+        steps: [
+          { from:"牧志駅", to:"首里駅", line:"ゆいレール", lineColor:"#EE4C1E", time:"7分", note:"出站後步行約15分鐘上坡至城門" }
+        ]
+      },
+      {
+        label: "首里城 → 壺屋やちむん通り", badge: "約15分", cost: "計程車¥900-1,200",
+        steps: [
+          { from:"首里城", to:"壺屋やちむん通り", line:"計程車（建議）/ 步行35分", lineColor:"#10b981", time:"計程車約10分", note:"沖繩太陽毒，建議搭計程車" }
+        ]
+      },
+      {
+        label: "壺屋 → 波之上宮 → 飯店", badge: "約20分", cost: "¥180/人",
+        steps: [
+          { from:"壺屋", to:"旭橋駅（步行10分至波之上宮）", line:"ゆいレール", lineColor:"#EE4C1E", time:"→ 旭橋駅", note:"波之上宮：鳥居背後就是大海，必拍！" }
+        ]
+      }
+    ],
+    spots: [
+      { icon:"🏯", name:"首里城（Shuri Castle）",        note:"琉球王國象徵，正殿2026年預計部分修復完工，確認官網再去", noteEn:"Symbol of Ryukyu Kingdom; check official site for 2026 status", mapsUrl:"https://www.google.com/maps/search/首里城+那覇" },
+      { icon:"🏺", name:"壺屋やちむん通り",              note:"沖繩傳統陶器街，選購手工杯碗作手信，多家工坊可體驗", noteEn:"Pottery street, great for handmade souvenir shopping", mapsUrl:"https://www.google.com/maps/search/壺屋やちむん通り" },
+      { icon:"⛩️", name:"波之上宮（Naminoue Shrine）",   note:"沖繩最古老神社，面海絕景，免費入場，旁邊有波之上ビーチ", noteEn:"Okinawa's oldest shrine, ocean backdrop, free entry", mapsUrl:"https://www.google.com/maps/search/波之上宮+那覇" },
+      { icon:"🏛️", name:"沖繩縣立博物館・美術館",        note:"了解琉球歷史，展覽豐富，雨天最佳選擇（入場¥530）", noteEn:"Okinawa history museum, ¥530 admission, great for rainy days", mapsUrl:"https://www.google.com/maps/search/沖縄県立博物館+那覇" },
+      { icon:"🍜", name:"首里そば（首里城周邊）",         note:"沖繩そば老字號，豬肉湯底清甜，早上開始營業，必吃！", noteEn:"Famous Okinawa soba near Shuri, must-try pork broth", mapsUrl:"https://www.google.com/maps/search/首里そば+那覇" },
+    ],
+    tips: [
+      "🏯 首里城2026年部分修復中，出發前建議至官網確認開放範圍",
+      "🌧️ 若下雨，壺屋通り室內工坊 + 縣立博物館是最佳雨天備案",
+      "⏰ 首里城9:00開館，建議早到10分鐘避開旅遊團",
+      "🚕 那覇計程車起跳¥550，市區短程代步很方便",
+    ]
+  },
+  {
+    day: 3, date: "2026-06-29", icon: "🌊", color: "#f59e0b",
+    summary: "🚗 租車！万座毛 → 北谷アメリカンビレッジ → 残波岬（夕陽）",
+    summaryEn: "🚗 Rental Car! Cape Manzamo → American Village → Cape Zanpa (sunset)",
+    routes: [
+      {
+        label: "那覇 → 万座毛（Cape Manzamo）", badge: "約45分", cost: "高速¥1,200",
+        steps: [
+          { from:"那覇市區", to:"万座毛", line:"🚗 自駕 / 沖縄自動車道 → 沖縄南IC → 国道58", lineColor:"#64748b", time:"約45分", note:"建議9:00前取車，10:00前抵達避開旅遊巴士" }
+        ]
+      },
+      {
+        label: "万座毛 → 北谷アメリカンビレッジ", badge: "約20分", cost: "",
+        steps: [
+          { from:"万座毛（恩納村）", to:"北谷アメリカンビレッジ", line:"🚗 自駕 / 国道58號南下", lineColor:"#64748b", time:"約20分", note:"沿途恩納村海岸線風景絕美，可隨時停車" }
+        ]
+      },
+      {
+        label: "北谷 → 残波岬 → 那覇", badge: "約60分", cost: "高速¥800",
+        steps: [
+          { from:"北谷", to:"残波岬（読谷村）", line:"🚗 自駕", lineColor:"#64748b", time:"約20分", note:"" },
+          { from:"残波岬", to:"那覇市區", line:"🚗 自駕 / 沖縄自動車道", lineColor:"#64748b", time:"約40分", note:"⛽ 歸還前記得加油（ENEOS/出光）" }
+        ]
+      }
+    ],
+    spots: [
+      { icon:"🐘", name:"万座毛（Cape Manzamo）",           note:"象鼻岩海蝕地形，觀景步道免費，日落前最美（免費停車場¥100/30分）", noteEn:"Famous elephant-trunk rock, free trail, stunning before sunset", mapsUrl:"https://www.google.com/maps/search/万座毛+恩納村" },
+      { icon:"🏖️", name:"恩納村 沿海公路（Route 58）",      note:"翡翠色海水，隨時停車拍照，沿途有Blue Seal冰淇淋可以停", noteEn:"Emerald sea views, stop anytime; Blue Seal ice cream en route", mapsUrl:"https://www.google.com/maps/search/恩納村+海岸+沖縄" },
+      { icon:"🇺🇸", name:"北谷アメリカンビレッジ",          note:"美軍基地旁複合商場，異國風情+海景+夜市，傍晚最熱鬧，有摩天輪", noteEn:"American-style seaside mall, vibrant at dusk, ferris wheel", mapsUrl:"https://www.google.com/maps/search/アメリカンビレッジ+北谷" },
+      { icon:"🌅", name:"残波岬（Cape Zanpa）",              note:"白色燈塔+珊瑚礁岸，夕陽絕景，免費停車，適合黃昏前往", noteEn:"White lighthouse, coral coast, spectacular sunset, free parking", mapsUrl:"https://www.google.com/maps/search/残波岬+読谷" },
+    ],
+    tips: [
+      "🚗 租車推薦：Times Car / Orix / 日産 Rent-a-Car（那覇空港周邊多家，前一天訂）",
+      "📅 6月底旺季！租車務必提前1-2個月預訂，否則可能無車可租",
+      "🛣️ 沖繩靠左行駛，與台灣相同方向，方向盤在右側，上手快",
+      "🅿️ アメリカンビレッジ附近停車場前2小時免費，超過另計",
+      "🌡️ 車上放冰水，景點之間多補水，避免中暑",
+    ]
+  },
+  {
+    day: 4, date: "2026-06-30", icon: "🐋", color: "#10b981",
+    summary: "🚗 租車！美ら海水族館 → パイナップルパーク → 古宇利島大橋",
+    summaryEn: "🚗 Rental Car! Churaumi Aquarium → Pineapple Park → Kouri Bridge",
+    routes: [
+      {
+        label: "那覇 → 美ら海水族館（本部町）", badge: "約1小時50分", cost: "高速¥2,000",
+        steps: [
+          { from:"那覇市區", to:"美ら海水族館", line:"🚗 自駕 / 沖縄自動車道 → 許田IC → 国道449", lineColor:"#64748b", time:"約1小時50分", note:"⚠️ 建議8:30出發，開館前10:30到達" }
+        ]
+      },
+      {
+        label: "水族館 → パイナップルパーク → 古宇利島", badge: "選做", cost: "¥1,200入場",
+        steps: [
+          { from:"美ら海水族館", to:"名護パイナップルパーク", line:"🚗 自駕", lineColor:"#64748b", time:"約15分", note:"電動板車遊覽，沖繩限定鳳梨商品" },
+          { from:"名護パイナップルパーク", to:"古宇利島（古宇利大橋）", line:"🚗 自駕", lineColor:"#64748b", time:"約30分", note:"大橋超上鏡！心形岩（ハートロック）必拍" }
+        ]
+      },
+      {
+        label: "古宇利島 → 那覇", badge: "約1.5-2小時", cost: "高速¥2,000",
+        steps: [
+          { from:"古宇利島", to:"那覇市區", line:"🚗 自駕 / 沖縄自動車道", lineColor:"#64748b", time:"約1.5-2小時", note:"⛽ 歸還前加油，提前確認租車行關閉時間" }
+        ]
+      }
+    ],
+    spots: [
+      { icon:"🐋", name:"沖繩美ら海水族館",                note:"世界最大水族館之一，鯨鯊+魚群奇觀，建議停留3-4小時（票¥2,180/人）", noteEn:"World-class aquarium, whale sharks, 3-4hrs, ¥2,180/person", mapsUrl:"https://www.google.com/maps/search/美ら海水族館+本部" },
+      { icon:"🐬", name:"海豚表演（イルカショー）",         note:"Ocean Expo Park 內免費！約每2小時一場，查官網時刻表", noteEn:"Free dolphin show in Ocean Expo Park, ~every 2 hours", mapsUrl:"https://www.google.com/maps/search/海洋博公園+イルカショー" },
+      { icon:"🍍", name:"名護パイナップルパーク",           note:"鳳梨主題園，電動板車遊覽，沖繩限定商品超好逛（¥1,200入場）", noteEn:"Pineapple theme park, electric cart, great gifts, ¥1,200", mapsUrl:"https://www.google.com/maps/search/名護パイナップルパーク" },
+      { icon:"🌉", name:"古宇利大橋 + 古宇利島",           note:"跨海大橋連接古宇利島，橋景必拍；島上ハートロック（心形岩）超浪漫", noteEn:"Scenic bridge to Kouri Island; heart-shaped rocks, very romantic", mapsUrl:"https://www.google.com/maps/search/古宇利大橋+今帰仁" },
+      { icon:"🌊", name:"オーシャンエキスポ公園（免費區）", note:"水族館所在的大型公園，含多個免費設施、海灘、觀景台", noteEn:"Free outdoor areas, beach, and ocean viewpoints around the park", mapsUrl:"https://www.google.com/maps/search/海洋博公園+本部" },
+    ],
+    tips: [
+      "⏰ 美ら海水族館10:30開館，平日早到人最少；週末旺季排隊長",
+      "🎫 門票可在 Klook 提前購買，有折扣且免現場排隊",
+      "📸 古宇利島ハートロック：漲潮時可能被淹，建議查當天潮汐時刻",
+      "🚗 全程單程約2小時，8:30出發才能確保充裕遊覽時間",
+      "🍺 回程途中可停名護市區的ヘリオス酒造嚐沖繩地啤",
+    ]
+  },
+  {
+    day: 5, date: "2026-07-01", icon: "🛍️", color: "#ec4899",
+    summary: "早晨最後採購 → 国際通り → 那覇空港 → 回家",
+    summaryEn: "Morning last shopping → Kokusaidori → Naha Airport → Fly home",
+    routes: [
+      {
+        label: "飯店 → 那覇空港", badge: "約13分", cost: "¥260/人",
+        steps: [
+          { from:"牧志駅", to:"那覇空港駅", line:"ゆいレール（Yui Rail）", lineColor:"#EE4C1E", time:"13分", note:"✅ Suica/ICOCA可用；退卡記得領回¥500押金" }
+        ]
+      }
+    ],
+    spots: [
+      { icon:"🛍️", name:"国際通り 朝の最後散策",         note:"多數店家10:00開門，建議9:30抵達先逛藥妝；11:30前出發去機場", noteEn:"Most shops open 10:00, leave for airport by 11:30", mapsUrl:"https://www.google.com/maps/search/国際通り+那覇" },
+      { icon:"🧁", name:"カルビー+ 沖縄限定じゃがりこ", note:"期間限定口味手信，開門早，先搶購！", noteEn:"Okinawa-exclusive snacks, opens early—grab before they sell out", mapsUrl:"https://www.google.com/maps/search/カルビー+国際通り+沖縄" },
+      { icon:"🍩", name:"Blue Seal アイスクリーム（空港）", note:"沖繩限定美式冰淇淋品牌，機場内也有店，最後一口甜點", noteEn:"Okinawa's iconic American-style ice cream, also in airport", mapsUrl:"https://www.google.com/maps/search/Blue+Seal+那覇空港" },
+      { icon:"✈️", name:"那覇空港 出発ロビー",            note:"建議航班前2.5小時抵達。空港内還有很多手信採購機會", noteEn:"Arrive 2.5hrs before flight. Lots of last-minute gifts in airport", mapsUrl:"https://www.google.com/maps/search/那覇空港" },
+    ],
+    tips: [
+      "🧳 建議早上先把大行李寄放飯店（或用行李寄送服務），輕裝逛街",
+      "🎁 熱門手信清單：ちんすこう・紅芋タルト・シークヮーサー飲料・泡盛・限定じゃがりこ",
+      "💴 記得花光剩餘零錢，或在機場換匯（レート較差，市區換匯更好）",
+      "🔋 Suica退卡：那覇空港駅有退卡機，領回¥500押金（扣手續費¥220後約¥280）",
+    ]
+  }
+];
+
+const TRANSPORT_DATA = {
+  recommendation: {
+    name: "Suica IC卡（市區）＋ 租車（中・北部 Day3/4）",
+    reason: "那覇市區以ゆいレール為主，IC卡最彈性；中北部景點分散，租車是唯一有效率方案。2天租車約¥10,000-16,000，遠比計程車省",
+    reasonEn: "IC card for Naha monorail; rental car (¥10,000-16,000 for 2 days) essential for central/north Okinawa",
+    saving: "省¥20,000↑（vs 2天計程車遊覽）"
+  },
+  comparison: [
+    { name:"Suica / ICOCA IC卡（那覇市區）", cost:"約¥1,040（2人合計）", note:"Day1+2+5 ゆいレール全程，無需另購Pass", recommended:true },
+    { name:"ゆいレール 1日券（2人）",         cost:"¥1,600",             note:"需當天搭≥3次才值回票價，通常不划算", recommended:false },
+    { name:"計程車（機場⇔市區）",             cost:"¥1,200-1,500/單程",  note:"快速方便，但多搭幾次就很貴", recommended:false },
+    { name:"🚗 租車 Day3（中部）",             cost:"¥5,000-8,000 + 高速¥1,200", note:"強烈推薦！万座毛/アメリカンビレッジ公交幾乎不可達", recommended:true },
+    { name:"🚗 租車 Day4（北部）",             cost:"¥5,000-8,000 + 高速¥2,000", note:"強烈推薦！美ら海水族館公交班次極少", recommended:true },
+    { name:"OTS巴士觀光套裝（不自駕選項）",   cost:"¥4,000-7,000/人",   note:"適合不想開車者，但時間固定、彈性低", recommended:false },
+  ],
+  notes: [
+    "🚗 沖繩中北部公共交通極不便，租車是必要手段，不是選配",
+    "📅 6月底暑假前旺季，租車務必提前1-2個月預訂，否則容易缺車",
+    "🏎️ 推薦租車公司：Times Car Rental / Orix Rent-a-Car / 日産Rent-a-Car（那覇空港周邊均有）",
+    "🛣️ 沖繩靠左行駛（與台灣同），高速公路限速80km/h",
+    "⛽ 沖繩油價較本土低，約¥160-175/L（ENEOS 連鎖最普遍）",
+    "🅿️ 那覇市區停車費貴（¥200-300/30分），ゆいレール代步更省錢省事",
+    "🎫 美ら海水族館門票建議在 Klook 預購，享折扣且免排隊領票",
+  ]
+};
+
+const T = {
+  zh: { title:"沖繩 5日自由行", subtitle:"📍 那覇・国際通り | 6/27（六）－ 7/1（三）", tabs:{ transport:"🚗 交通攻略", food:"🍜 美食", shop:"🛍️ 購物" } },
+  en: { title:"Okinawa 5-Day Trip", subtitle:"📍 Naha / Kokusaidori | Jun 27(Sat) – Jul 1(Wed)", tabs:{ transport:"🚗 Transport", food:"🍜 Food", shop:"🛍️ Shop" } },
+};
+
+function MapPin() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="#fff"/>
+    </svg>
+  );
+}
+
+function WeatherCard({ weather, lang }) {
+  if (!weather) return (
+    <div style={{ background:"#f8fafc", border:"1px dashed #cbd5e1", borderRadius:12, padding:"12px 14px", marginBottom:12, fontSize:12, color:"#94a3b8", textAlign:"center" }}>
+      {lang === "zh" ? "☁️ 天氣資料載入中..." : "☁️ Loading weather..."}
+    </div>
+  );
+  const { icon, max, min, precip, wmoZh, wmoEn, clothingZh, clothingEn, isClimate } = weather;
+  return (
+    <div style={{ background:"linear-gradient(135deg,#eff6ff,#dbeafe)", border:"1.5px solid #bfdbfe", borderRadius:12, padding:"12px 14px", marginBottom:12 }}>
+      <div style={{ fontWeight:700, fontSize:13, color:"#1d4ed8", marginBottom:8 }}>
+        {icon} {lang === "zh" ? "今日天氣" : "Today's Weather"}
+        <span style={{ fontSize:11, fontWeight:500, color:"#3b82f6", marginLeft:8 }}>{lang === "zh" ? wmoZh : wmoEn}</span>
+        {isClimate && <span style={{ fontSize:10, color:"#94a3b8", marginLeft:6 }}>{lang === "zh" ? "（歷史氣候均值參考）" : "(climate avg)"}</span>}
+      </div>
+      <div style={{ display:"flex", gap:16, flexWrap:"wrap", fontSize:13, color:"#1e40af" }}>
+        <span>🌡️ <b>{max}°C</b> / {min}°C</span>
+        <span>🌂 {lang === "zh" ? `降雨 ${precip}mm` : `Rain ${precip}mm`}</span>
+      </div>
+      <div style={{ marginTop:8, fontSize:12, color:"#1e40af", fontWeight:500 }}>
+        👕 {lang === "zh" ? `穿搭建議：${clothingZh}` : `Outfit: ${clothingEn}`}
+      </div>
+    </div>
+  );
+}
+
+function RouteStep({ step, isLast, lang }) {
+  const navUrl = "https://www.google.com/maps/dir/?api=1&origin=" +
+    encodeURIComponent(step.from + " 沖縄") + "&destination=" +
+    encodeURIComponent(step.to + " 沖縄") + "&travelmode=transit";
+  return (
+    <div style={{ display:"flex", gap:10 }}>
+      <div style={{ display:"flex", flexDirection:"column", alignItems:"center", width:14 }}>
+        <div style={{ width:14, height:14, borderRadius:"50%", backgroundColor:step.lineColor, border:"2.5px solid #fff", boxShadow:"0 0 0 1.5px "+step.lineColor+"40", flexShrink:0, marginTop:4 }} />
+        {!isLast && <div style={{ flex:1, width:3, borderRadius:2, background:"linear-gradient(to bottom,"+step.lineColor+","+step.lineColor+"30)", marginTop:2, marginBottom:2, minHeight:20 }} />}
+      </div>
+      <div style={{ flex:1, paddingBottom: isLast ? 0 : 14 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
+          <span style={{ fontWeight:700, fontSize:14, color:"#1a1a2e" }}>{step.from}</span>
+          <span style={{ color:"#64748b", fontSize:12 }}>→</span>
+          <span style={{ fontWeight:700, fontSize:14, color:"#1a1a2e" }}>{step.to}</span>
+          <span style={{ fontSize:11, fontWeight:600, color:step.lineColor, background:step.lineColor+"15", padding:"1px 7px", borderRadius:10 }}>{step.time}</span>
+        </div>
+        <div style={{ fontSize:12, color:"#64748b", marginTop:2 }}>{step.line}</div>
+        {step.note && <div style={{ fontSize:11, color:"#f59e0b", marginTop:2, fontWeight:500 }}>{step.note}</div>}
+        <a href={navUrl} target="_blank" rel="noopener noreferrer"
+          style={{ display:"inline-flex", alignItems:"center", gap:4, fontSize:11, fontWeight:600, color:"#fff", background:"#1a73e8", borderRadius:8, padding:"4px 10px", textDecoration:"none", marginTop:6 }}>
+          <MapPin /> {lang === "zh" ? "導航" : "Navigate"}
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function RouteCard({ route, lang }) {
+  return (
+    <div style={{ background:"#fff", borderRadius:12, padding:"14px 16px", marginBottom:12, boxShadow:"0 1px 4px rgba(0,0,0,.06)" }}>
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:10, flexWrap:"wrap", gap:6 }}>
+        <span style={{ fontWeight:700, fontSize:13, color:"#1e293b" }}>{route.label}</span>
+        <div style={{ display:"flex", gap:6 }}>
+          {route.badge && <span style={{ fontSize:11, fontWeight:600, color:"#0ea5e9", background:"#e0f2fe", padding:"2px 8px", borderRadius:10 }}>{route.badge}</span>}
+          {route.cost && <span style={{ fontSize:11, fontWeight:600, color:"#64748b", background:"#f1f5f9", padding:"2px 8px", borderRadius:10 }}>{route.cost}</span>}
+        </div>
+      </div>
+      {route.steps.map((step, i) => <RouteStep key={i} step={step} isLast={i === route.steps.length - 1} lang={lang} />)}
+    </div>
+  );
+}
+
+function DayPanel({ data, lang, weatherData }) {
+  if (!data) return null;
+  return (
+    <div style={{ animation:"fadeSlide .25s ease" }}>
+      <div style={{ background:data.color+"12", border:"1.5px solid "+data.color+"30", borderRadius:12, padding:"12px 14px", marginBottom:14 }}>
+        <div style={{ fontSize:13, fontWeight:700, color:data.color }}>{data.icon} {lang === "zh" ? data.summary : data.summaryEn || data.summary}</div>
+      </div>
+      <WeatherCard weather={weatherData} lang={lang} />
+      {data.routes && data.routes.map((r, i) => <RouteCard key={i} route={r} lang={lang} />)}
+      {data.spots && (
+        <div style={{ background:"#fff", borderRadius:12, padding:"14px 16px", marginBottom:12, boxShadow:"0 1px 4px rgba(0,0,0,.06)" }}>
+          <div style={{ fontWeight:700, fontSize:13, color:"#1e293b", marginBottom:10 }}>📍 {lang === "zh" ? "今日景點" : "Today's Spots"}</div>
+          {data.spots.map((s, i) => (
+            <div key={i} style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"8px 0", borderBottom: i < data.spots.length - 1 ? "1px solid #f1f5f9" : "none" }}>
+              <span style={{ fontSize:16, flexShrink:0 }}>{s.icon || "📌"}</span>
+              <div style={{ flex:1 }}>
+                <div style={{ fontWeight:600, fontSize:13, color:"#1e293b" }}>{s.name}</div>
+                {s.note && <div style={{ fontSize:11, color:"#64748b", marginTop:2 }}>{lang === "zh" ? s.note : s.noteEn || s.note}</div>}
+              </div>
+              {s.mapsUrl && (
+                <a className="gmaps-icon-btn" href={s.mapsUrl} target="_blank" rel="noopener noreferrer"><MapPin /></a>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      {data.tips && data.tips.length > 0 && (
+        <div style={{ background:"#fffbeb", border:"1.5px solid #fde68a", borderRadius:12, padding:"12px 14px" }}>
+          <div style={{ fontWeight:700, fontSize:12, color:"#92400e", marginBottom:6 }}>💡 {lang === "zh" ? "小提示" : "Tips"}</div>
+          {data.tips.map((tip, i) => <div key={i} style={{ fontSize:12, color:"#78350f", marginBottom:3 }}>{tip}</div>)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TransportPanel({ data, lang }) {
+  return (
+    <div style={{ animation:"fadeSlide .25s ease" }}>
+      {data.recommendation && (
+        <div className="transport-card" style={{ borderRadius:12, padding:"14px 16px", marginBottom:12 }}>
+          <div style={{ fontWeight:800, fontSize:14, color:"#7c3aed", marginBottom:8 }}>🎫 {lang === "zh" ? "推薦方案" : "Recommended"}</div>
+          <div style={{ fontWeight:700, fontSize:15, color:"#1e293b" }}>{data.recommendation.name}</div>
+          <div style={{ fontSize:12, color:"#64748b", marginTop:4 }}>{lang === "zh" ? data.recommendation.reason : data.recommendation.reasonEn || data.recommendation.reason}</div>
+          {data.recommendation.saving && <span className="savings-badge" style={{ marginTop:8, display:"inline-flex" }}>💰 {data.recommendation.saving}</span>}
+        </div>
+      )}
+      {data.comparison && (
+        <div style={{ background:"#fff", borderRadius:12, padding:"14px 16px", marginBottom:12, boxShadow:"0 1px 4px rgba(0,0,0,.06)" }}>
+          <div style={{ fontWeight:700, fontSize:13, color:"#1e293b", marginBottom:10 }}>💰 {lang === "zh" ? "費用比較" : "Cost Comparison"}</div>
+          {data.comparison.map((item, i) => (
+            <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 0", borderBottom: i < data.comparison.length - 1 ? "1px solid #f1f5f9" : "none" }}>
+              <div style={{ flex:1, marginRight:8 }}>
+                <div style={{ fontWeight:600, fontSize:13 }}>{item.name}</div>
+                {item.note && <div style={{ fontSize:11, color:"#64748b" }}>{item.note}</div>}
+              </div>
+              <div style={{ textAlign:"right", flexShrink:0 }}>
+                <div style={{ fontWeight:700, fontSize:13, color: item.recommended ? "#7c3aed" : "#1e293b" }}>{item.cost}</div>
+                {item.recommended && <span style={{ fontSize:10, color:"#7c3aed", fontWeight:600 }}>✓ {lang === "zh" ? "推薦" : "Best"}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {data.notes && (
+        <div style={{ background:"#fffbeb", border:"1.5px solid #fde68a", borderRadius:12, padding:"12px 14px" }}>
+          <div style={{ fontWeight:700, fontSize:12, color:"#92400e", marginBottom:6 }}>⚠️ {lang === "zh" ? "注意事項" : "Notes"}</div>
+          {data.notes.map((note, i) => <div key={i} style={{ fontSize:12, color:"#78350f", marginBottom:3 }}>{note}</div>)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SpotListPanel({ spots, icon, lang }) {
+  const areas = [...new Set(spots.map(s => s.a))];
+  return (
+    <div style={{ animation:"fadeSlide .25s ease" }}>
+      {areas.map(area => (
+        <div key={area} style={{ marginBottom:14 }}>
+          <div style={{ fontWeight:700, fontSize:12, color:"#64748b", letterSpacing:1, marginBottom:8, padding:"0 2px" }}>{area}</div>
+          <div style={{ background:"#fff", borderRadius:12, overflow:"hidden", boxShadow:"0 1px 4px rgba(0,0,0,.06)" }}>
+            {spots.filter(s => s.a === area).map((spot, i, arr) => (
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 14px", borderBottom: i < arr.length - 1 ? "1px solid #f1f5f9" : "none" }}>
+                <span style={{ fontSize:15, flexShrink:0 }}>{icon}</span>
+                <span style={{ flex:1, fontSize:13, fontWeight:500, color:"#1e293b" }}>{spot.n}</span>
+                <a className="gmaps-icon-btn" href={spot.u} target="_blank" rel="noopener noreferrer"><MapPin /></a>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  const [activeDay, setActiveDay] = useState(1);
+  const [showPanel, setShowPanel] = useState(null);
+  const [lang, setLang] = useState("zh");
+  const [weather, setWeather] = useState({});
+
+  useEffect(() => {
+    setWeather(CLIMATE_AVG);
+  }, []);
+
+  const dayTabs = DAYS.map(d => ({
+    key: d.day,
+    label: "Day " + d.day,
+    sub: d.date.slice(5).replace("-", "/"),
+    icon: d.icon,
+    color: d.color
+  }));
+  const extraTabs = [
+    { key:"transport", label: lang === "zh" ? T.zh.tabs.transport : T.en.tabs.transport, icon:"🚗", color:"#0ea5e9" },
+    { key:"food",      label: lang === "zh" ? T.zh.tabs.food      : T.en.tabs.food,      icon:"🍜", color:"#f59e0b" },
+    { key:"shop",      label: lang === "zh" ? T.zh.tabs.shop      : T.en.tabs.shop,      icon:"🛍️", color:"#ec4899" },
+  ];
+  const allTabs = [...dayTabs, ...extraTabs];
+
+  const currentDay = DAYS.find(d => d.day === activeDay);
+
+  return (
+    <div style={{ maxWidth:480, margin:"0 auto", minHeight:"100vh", background:"#f0f2f5" }}>
+      {/* Header */}
+      <div style={{ background:"linear-gradient(135deg,#0c4a6e 0%,#0369a1 60%,#0ea5e9 100%)", padding:"24px 20px 16px", color:"#fff", position:"relative" }}>
+        <button onClick={() => setLang(lang === "zh" ? "en" : "zh")}
+          style={{ position:"absolute", top:16, right:16, fontSize:11, fontWeight:700, color:"#fff", background:"rgba(255,255,255,.2)", border:"1px solid rgba(255,255,255,.3)", borderRadius:8, padding:"4px 10px", cursor:"pointer", fontFamily:"inherit" }}>
+          {lang === "zh" ? "EN" : "中文"}
+        </button>
+        <div style={{ fontSize:11, fontWeight:600, letterSpacing:2, opacity:.65, marginBottom:4 }}>🌺 OKINAWA TRAVEL GUIDE</div>
+        <div style={{ fontSize:22, fontWeight:800, letterSpacing:-0.5 }}>{lang === "zh" ? T.zh.title : T.en.title}</div>
+        <div style={{ fontSize:12.5, opacity:.75, marginTop:4 }}>{lang === "zh" ? T.zh.subtitle : T.en.subtitle}</div>
+        <div style={{ display:"flex", gap:6, marginTop:12, flexWrap:"wrap" }}>
+          {["🚝 ゆいレール", "🚗 自駕中北部", "🐋 美ら海水族館", "☔ 梅雨季末（6月底）"].map(tag => (
+            <span key={tag} style={{ fontSize:10, fontWeight:600, background:"rgba(255,255,255,.18)", border:"1px solid rgba(255,255,255,.28)", borderRadius:10, padding:"2px 9px", color:"#fff" }}>{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Tab Bar */}
+      <div style={{ display:"flex", overflowX:"auto", background:"#fff", borderBottom:"1px solid #e2e8f0", position:"sticky", top:0, zIndex:10, boxShadow:"0 2px 8px rgba(0,0,0,.05)" }}>
+        {allTabs.map(t => {
+          const isExtra = ["transport","food","shop"].includes(t.key);
+          const isActive = isExtra ? showPanel === t.key : (!showPanel && activeDay === t.key);
+          return (
+            <button key={t.key}
+              onClick={() => {
+                if (isExtra) setShowPanel(showPanel === t.key ? null : t.key);
+                else { setShowPanel(null); setActiveDay(t.key); }
+              }}
+              style={{ flex:"1 0 auto", minWidth:50, padding:"10px 5px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:1, border:"none", cursor:"pointer", fontFamily:"inherit", background: isActive ? t.color+"10" : "transparent", borderBottom: isActive ? "2.5px solid "+t.color : "2.5px solid transparent", transition:"all .15s" }}>
+              <span style={{ fontSize:15 }}>{t.icon}</span>
+              <span style={{ fontSize:10, fontWeight: isActive ? 800 : 600, color: isActive ? t.color : "#64748b" }}>{t.label}</span>
+              {t.sub && <span style={{ fontSize:9, color:"#94a3b8" }}>{t.sub}</span>}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding:"16px 16px 48px" }}>
+        {showPanel === "transport" ? <TransportPanel data={TRANSPORT_DATA} lang={lang} />
+          : showPanel === "food" ? <SpotListPanel spots={FOOD_SPOTS} icon="🍜" lang={lang} />
+          : showPanel === "shop" ? <SpotListPanel spots={SHOP_SPOTS} icon="🛍️" lang={lang} />
+          : <DayPanel data={currentDay} lang={lang} weatherData={weather[currentDay?.date]} />}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
