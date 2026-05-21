@@ -1,1005 +1,1113 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>🌸 名古屋・京都・大阪 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet"/>
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.26.9/babel.min.js"></script>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans TC',sans-serif;background:#f0f2f5;color:#1e293b;min-height:100vh}
-::-webkit-scrollbar{display:none}
-@keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.fade{animation:fadeSlide .3s ease}
-/* Header */
-.header{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;padding:20px 16px 16px;position:relative}
-.header-title{font-size:20px;font-weight:700;margin-bottom:4px}
-.header-sub{font-size:12px;color:#94a3b8;margin-bottom:10px}
-.header-badges{display:flex;gap:6px;flex-wrap:wrap}
-.badge{background:rgba(255,255,255,.15);border-radius:20px;padding:3px 10px;font-size:11px;color:#e2e8f0}
-.lang-btn{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit}
-.lang-btn:hover{background:rgba(255,255,255,.3)}
-/* Tabs */
-.tab-bar{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:100;overflow-x:auto;white-space:nowrap;display:flex}
-.tab{display:inline-flex;align-items:center;gap:4px;padding:12px 14px;font-size:12px;cursor:pointer;border-bottom:3px solid transparent;color:#64748b;flex-shrink:0;font-family:inherit;background:none;border-top:none;border-left:none;border-right:none}
-.tab.active{color:#1e293b;font-weight:700;border-bottom-color:var(--day-color,#6366f1)}
-/* Cards */
-.panel{padding:12px;max-width:600px;margin:0 auto}
-.card{background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin-bottom:12px;overflow:hidden}
-.card-header{padding:12px 14px;font-weight:700;font-size:13px;border-bottom:1px solid #f1f5f9}
-.card-body{padding:12px 14px}
-/* Day header */
-.day-header{padding:16px;color:#fff;display:flex;align-items:center;gap:10px}
-.day-num{font-size:28px;font-weight:700;line-height:1}
-.day-info{flex:1}
-.day-title{font-size:16px;font-weight:700}
-.day-date{font-size:11px;opacity:.85;margin-top:2px}
-.day-city{font-size:11px;opacity:.75}
-/* Timeline */
-.timeline{list-style:none;padding:0}
-.tl-item{display:flex;gap:10px;padding:8px 0;position:relative}
-.tl-item:not(:last-child)::before{content:'';position:absolute;left:16px;top:32px;bottom:-8px;width:2px;background:#e2e8f0}
-.tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:#f1f5f9;border:2px solid #e2e8f0}
-.tl-content{flex:1;padding-top:4px}
-.tl-time{font-size:11px;color:#94a3b8;font-weight:600;margin-bottom:2px}
-.tl-main{font-size:13px;font-weight:600;color:#1e293b;margin-bottom:3px}
-.tl-desc{font-size:12px;color:#64748b;line-height:1.5}
-/* Route card */
-.route-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.route-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.route-label{font-size:12px;font-weight:700;color:#374151}
-.route-badges{display:flex;gap:4px}
-.r-badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
-.r-badge.time{background:#dbeafe;color:#1d4ed8}
-.r-badge.cost{background:#d1fae5;color:#065f46}
-.route-step{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:12px}
-.step-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.step-line{flex:1;height:2px;background:currentColor;opacity:.3}
-.step-text{color:#374151}
-.step-from,.step-to{font-weight:600;color:#1e293b}
-.step-via{font-size:11px;color:#64748b;background:#f1f5f9;padding:1px 6px;border-radius:6px}
-/* Maps button */
-.map-btn{display:inline-flex;align-items:center;gap:4px;background:#1a73e8;color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:inherit;text-decoration:none;margin-top:4px}
-.map-btn:hover{background:#1558b0}
-/* Tips */
-.tip-item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:12px;color:#475569;line-height:1.5}
-.tip-item:last-child{border-bottom:none}
-.tip-icon{flex-shrink:0;font-size:14px}
-/* Rain backup */
-.rain-card{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #bfdbfe;border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.rain-title{font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:6px}
-.rain-item{font-size:12px;color:#1e40af;padding:3px 0;line-height:1.5}
-/* Climate card */
-.climate-card{background:linear-gradient(135deg,#fef9c3,#fef08a);border:1.5px solid #fde047;border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.climate-title{font-size:12px;font-weight:700;color:#854d0e;margin-bottom:6px}
-.climate-row{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:#713f12;margin-bottom:4px}
-.climate-note{font-size:11px;color:#a16207;margin-top:4px}
-/* Transport panel */
-.transport-summary{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1.5px solid #c4b5fd;border-radius:10px;padding:12px;margin-bottom:12px}
-.transport-verdict{font-size:14px;font-weight:700;color:#5b21b6;margin-bottom:4px}
-.transport-saving{font-size:12px;color:#7c3aed}
-.compare-table{width:100%;border-collapse:collapse;font-size:12px}
-.compare-table th{background:#f8fafc;padding:8px 6px;text-align:left;font-size:11px;color:#64748b;border-bottom:1px solid #e2e8f0}
-.compare-table td{padding:8px 6px;border-bottom:1px solid #f1f5f9;vertical-align:top}
-.compare-table tr:last-child td{border-bottom:none}
-.rec-tag{background:#d1fae5;color:#065f46;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700;margin-left:4px}
-.warn-tag{background:#fef3c7;color:#92400e;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700;margin-left:4px}
-/* Spot list */
-.spot-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f1f5f9}
-.spot-item:last-child{border-bottom:none}
-.spot-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-.spot-info{flex:1}
-.spot-name{font-size:13px;font-weight:700;color:#1e293b}
-.spot-loc{font-size:11px;color:#64748b;margin:2px 0}
-.spot-desc{font-size:11px;color:#94a3b8;line-height:1.4}
-.veg-tag{font-size:10px;padding:1px 6px;border-radius:8px;font-weight:600}
-.veg-full{background:#d1fae5;color:#065f46}
-.veg-part{background:#fef3c7;color:#92400e}
-.veg-no{background:#fee2e2;color:#991b1b}
-/* Checklist */
-.check-section{margin-bottom:16px}
-.check-section-title{font-size:13px;font-weight:700;color:#1e293b;padding:8px 0;border-bottom:2px solid #e2e8f0;margin-bottom:8px}
-.check-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #f8fafc;cursor:pointer}
-.check-item:last-child{border-bottom:none}
-.check-box{width:18px;height:18px;border:2px solid #94a3b8;border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.check-box.done{background:#10b981;border-color:#10b981}
-.check-text{font-size:12px;color:#374151;line-height:1.5;flex:1}
-.check-text.done{text-decoration:line-through;color:#94a3b8}
-.check-urgent{font-size:10px;background:#fee2e2;color:#dc2626;padding:1px 6px;border-radius:8px;font-weight:700;margin-left:4px}
-/* Section heading */
-.section-title{font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;padding:8px 0 4px;border-bottom:1px solid #e2e8f0;margin-bottom:8px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 2026 夏日夢幻大冒險：名古屋・京都・大阪 9天8夜</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and Babel -->
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#FFECEF',    // 溫暖粉
+              pinkDark: '#FF8A9F',
+              blue: '#E3F2FD',    // 晴空藍
+              blueDark: '#4FA3F7',
+              yellow: '#FFF9E6',  // 奶油黃
+              yellowDark: '#FFC107',
+              cream: '#FFFDF9',   // 溫潤米白
+              green: '#E8F5E9',   // 幸運綠
+              greenDark: '#4CAF50',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #FFFDF9; /* brand.cream */
+    }
+    /* 隱藏捲軸但保留滑動功能 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* 動畫效果 */
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-in {
+      animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-cute-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes popBubble {
+      from { opacity: 0; transform: scale(0.85) translate(10px, 10px); }
+      to { opacity: 1; transform: scale(1) translate(0, 0); }
+    }
+    .animate-pop-bubble {
+      animation: popBubble 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+  </style>
 </head>
-<body>
-<div id="root"></div>
-<script type="text/babel">
-const { useState } = React;
+<body class="text-slate-700 antialiased selection:bg-brand-pinkDark selection:text-white">
+  <div id="root"></div>
 
-/* ── Translation strings ── */
-const T = {
-  zh: {
-    title: "名古屋・京都・大阪 9天8夜",
-    subtitle: "2026/07/20 – 07/28 ✈ 台灣虎航 WD9K9X",
-    lang: "EN",
-    transport: "🚇 交通攻略",
-    penguin: "🐧 掃貨地圖",
-    food: "🍜 美食清單",
-    checklist: "✅ 待辦清單",
-    mapBtn: "地圖",
-    timeline: "時間軸",
-    route: "交通路線",
-    tips: "小提示",
-    rain: "☔ 雨備方案",
-    climate: "☀️ 7月下旬氣候均值",
-    climateNote: "⚠️ 超出預報範圍，出發前 10–14 天請查 tenki.jp",
-    vegFull: "全素",
-    vegPart: "部分素",
-    vegNo: "含葷",
-    storeList: "企鵝周邊店家",
-    cafeList: "網美咖啡",
-    suvList: "伴手禮",
-    restaurantList: "素食餐廳",
-    transportAdvice: "交通建議",
-    passEval: "Pass 評估",
-    routeComp: "路段比價",
-    buyWhere: "購票方式",
-    notes: "注意事項",
-  },
-  en: {
-    title: "Nagoya · Kyoto · Osaka 9D8N",
-    subtitle: "2026/07/20 – 07/28 ✈ Tigerair TW WD9K9X",
-    lang: "中文",
-    transport: "🚇 Transport",
-    penguin: "🐧 Merch Map",
-    food: "🍜 Food List",
-    checklist: "✅ Checklist",
-    mapBtn: "Map",
-    timeline: "Schedule",
-    route: "Transit",
-    tips: "Tips",
-    rain: "☔ Rain Plan",
-    climate: "☀️ July Climate Average",
-    climateNote: "⚠️ Beyond forecast range — check tenki.jp 10–14 days before departure",
-    vegFull: "Vegan",
-    vegPart: "Partial",
-    vegNo: "Non-veg",
-    storeList: "Penguin Merch Stores",
-    cafeList: "Cafes",
-    suvList: "Souvenirs",
-    restaurantList: "Veg Restaurants",
-    transportAdvice: "Transport Verdict",
-    passEval: "Pass Evaluation",
-    routeComp: "Route Comparison",
-    buyWhere: "Where to Buy",
-    notes: "Notes",
-  }
-};
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
 
-/* ── Climate card (all days — beyond 16-day forecast) ── */
-function ClimateCard({ lang }) {
-  const t = T[lang];
-  return (
-    <div className="climate-card">
-      <div className="climate-title">{t.climate}</div>
-      <div className="climate-row">
-        <span>🌡️ <b>32–35°C</b> / 24–27°C</span>
-        <span>💧 {lang==="zh"?"濕度 70–85%":"Humidity 70–85%"}</span>
-        <span>⛈️ {lang==="zh"?"午後雷陣雨":"Afternoon Thundershowers"}</span>
-      </div>
-      <div style={{fontSize:12,color:"#713f12",marginBottom:3}}>
-        👕 {lang==="zh"?"穿搭：輕薄短袖 + 折傘必備 + SPF50+ 防曬":"Outfit: Light tee + folding umbrella + SPF50+ sunscreen"}
-      </div>
-      <div className="climate-note">{t.climateNote}</div>
-    </div>
-  );
-}
+    // --- 正能量企鵝語錄資料庫 ---
+    const KOUPEN_QUOTES = [
+      "今天也有好好計畫旅程，真是了不起！(撫摸)",
+      "一想到能在日本吃到美味的蔬食大阪燒，就覺得好期待呢！",
+      "就算下雨也沒關係喔，日本的拱廊商店街最溫暖了！",
+      "機票跟訂位代號都準備好了，你是最棒的旅行家！",
+      "三十代的旅行就是要慢活、舒服、不勉強，多在咖啡廳坐坐吧！",
+      "買到心儀的企鵝娃娃時，企鵝也會為你感到無比高興喔！",
+      "出發前要記得多喝水、保持充足睡眠，健健康康地出發吧！",
+      "去熱田神宮收集御朱印的時候，神明一定會感受到你的誠心喔！",
+      "青丹吉觀光列車超級漂亮！我們一起在 6/24 準時搶票吧！",
+      "今天一整天也辛苦了！期待夏天在鴨川畔吹著晚風散步的畫面嗎？",
+      "飯店跟行程都安排得超完美！真想快點幫你背行李呢！"
+    ];
 
-/* ── Map button ── */
-function MapBtn({ url, lang }) {
-  return (
-    <a href={url} target="_blank" rel="noreferrer" className="map-btn">
-      📍 {T[lang].mapBtn}
-    </a>
-  );
-}
+    // --- 每日行程詳細資料 ---
+    const DAYS_DATA = [
+      {
+        day: 1,
+        date: "2026/07/20 (一)",
+        title: "抵達名古屋 & 海之日花火大會",
+        city: "名古屋",
+        theme: "煙火序幕 🎆",
+        color: "from-indigo-400 to-blue-400",
+        bgLight: "bg-indigo-50/50",
+        border: "border-indigo-100",
+        text: "text-indigo-600",
+        timeline: [
+          { time: "09:00", icon: "✈️", title: "台灣虎航 IT206 起飛", desc: "桃園機場 (TPE) ➔ 12:55 抵達名古屋中部國際機場 (NGO)。" },
+          { time: "13:30", icon: "🚆", title: "搭乘名鐵 μ-SKY 特急", desc: "車程僅 28 分鐘，全車指定席，寬敞且有行李架。Klook QR碼或現場購買 1,430円。", map: "https://www.google.com/maps/search/?api=1&query=Chubu+Centrair+International+Airport+Station" },
+          { time: "14:30", icon: "🏨", title: "飯店 Check-in & 置物", desc: "三井花園飯店名古屋普米爾，18樓高空大廳，開啟週年紀念序幕！", map: "https://www.google.com/maps/search/?api=1&query=Mitsui+Garden+Hotel+Nagoya+Premier" },
+          { time: "15:30", icon: "🐧", title: "企鵝首站：Kiddy Land 名古屋店", desc: "高島屋 Gate Tower 8F，採購旅行第一隻正能量企鵝夥伴同行！", map: "https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Nagoya+Gate+Tower" },
+          { time: "17:00", icon: "🎆", title: "出發：海之日名古屋港祭", desc: "搭乘地下鐵東山線轉名港線至名古屋港站。觀賞太鼓表演與 3,000 發港灣煙火。", map: "https://www.google.com/maps/search/?api=1&query=Nagoya+Port+Nagoya+Port+Festival" },
+          { time: "20:30", icon: "🍜", title: "晚餐：T's Tantan 名古屋站店", desc: "「純素 OK」的超濃郁擔擔麵，位於名古屋車站驛麵通，暖胃又美味！", map: "https://www.google.com/maps/search/?api=1&query=T%27s+Tantan+Nagoya" }
+        ],
+        cafe: {
+          name: "コメダ珈琲店 (Komeda's Coffee)",
+          desc: "體驗名古屋傳統「點咖啡送厚片」文化，極具儀式感（蔬食友善）。",
+          map: "https://www.google.com/maps/search/?api=1&query=Komeda+Coffee+Nagoya+Station"
+        },
+        rainPlan: "全程待在與名古屋站直接共構的 JR Central Towers 高島屋百貨及地下街，免淋雨暢快採購！",
+        tips: "μ-SKY全車指定席，若行李較多強烈推薦搭乘；先買一隻小企鵝公仔陪著看夜晚的港灣花火吧！"
+      },
+      {
+        day: 2,
+        date: "2026/07/21 (二)",
+        title: "金鱗古城巡禮 & 大須商店街挖寶",
+        city: "名古屋",
+        theme: "公仔大獵捕 ⛩️",
+        color: "from-sky-400 to-sky-500",
+        bgLight: "bg-sky-50/50",
+        border: "border-sky-100",
+        text: "text-sky-600",
+        timeline: [
+          { time: "10:00", icon: "🏯", title: "名古屋城與本丸御殿", desc: "搭乘名城線至名古屋城站。欣賞金碧輝煌的屏風壁畫，收集「御城印」。", map: "https://www.google.com/maps/search/?api=1&query=Nagoya+Castle" },
+          { time: "12:30", icon: "🛍️", title: "大須商店街大冒險", desc: "擁有悠久歷史的超級商店街，附有遮雨棚棚頂，雨天也能放心漫遊。", map: "https://www.google.com/maps/search/?api=1&query=Osu+Shopping+District" },
+          { time: "13:30", icon: "🧸", title: "精準公仔採購二連擊", desc: "狂掃 Mandarake 與 Jungle，尋找珍稀模型與黏土人(Nendoroid)。", map: "https://www.google.com/maps/search/?api=1&query=Mandarake+Nagoya" },
+          { time: "16:30", icon: "🛍️", title: "榮商圈：Loft 名古屋店", desc: "尋找文具迷天堂與「花丸商店」企鵝療癒專區，掃貨文具小物！", map: "https://www.google.com/maps/search/?api=1&query=Loft+Nagoya" },
+          { time: "18:30", icon: "🌃", title: "Oasis 21 綠之大地 散步", desc: "欣賞水之宇宙船在夜間散發的霓虹點燈，極富未來感與情調。", map: "https://www.google.com/maps/search/?api=1&query=Oasis+21" }
+        ],
+        cafe: {
+          name: "Trunk Coffee",
+          desc: "北歐簡約美學風手沖，在地人極推的精品咖啡代表，或去 PEANUTS Cafe 拍可愛史努比照。",
+          map: "https://www.google.com/maps/search/?api=1&query=Trunk+Coffee+Nagoya"
+        },
+        rainPlan: "大須商店街擁有全覆蓋式巨型拱廊，就算遇到午後雷陣雨也能安心逛街，絲毫不受天氣影響！",
+        tips: "在大須別忘了購買當地百年全素名物「大須外郎糕」(ういろ) 作為下午茶點心！"
+      },
+      {
+        day: 3,
+        date: "2026/07/22 (三)",
+        title: "三大神宮祈福 & 新幹線前進京都宵山",
+        city: "名古屋 ➔ 京都",
+        theme: "新幹線閃現 🚄",
+        color: "from-amber-400 to-orange-400",
+        bgLight: "bg-amber-50/50",
+        border: "border-amber-100",
+        text: "text-amber-600",
+        timeline: [
+          { time: "09:00", icon: "⛩️", title: "熱田神宮參拜", desc: "名鐵本線僅 6 分鐘直達神宮前。參拜存放草薙神劍之聖地，收集大氣的御朱印。", map: "https://www.google.com/maps/search/?api=1&query=Atsuta+Jingu" },
+          { time: "11:30", icon: "🍜", title: "午餐：宮棊子麵 (神宮店)", desc: "「蔬食 OK」，於神宮森林大樹下享用，記得跟店員點「昆布高湯」口味喔！", map: "https://www.google.com/maps/search/?api=1&query=Miya+Kishimen+Atsuta" },
+          { time: "13:00", icon: "🎁", title: "名古屋站 ESCA 伴手禮衝刺", desc: "採購小倉紅豆吐司夾心餅乾，把名古屋獨特的紅豆風味帶回家。", map: "https://www.google.com/maps/search/?api=1&query=ESCA+Nagoya" },
+          { time: "14:30", icon: "🚄", title: "東海道新幹線 ➔ 京都", desc: "新幹線閃現僅需 34 分鐘！推薦使用 Smart EX APP 預定或現場售票機購票(5,920円~)。", map: "https://www.google.com/maps/search/?api=1&query=Nagoya+Station+Shinkansen" },
+          { time: "15:30", icon: "🏨", title: "京都塔酒店 Check-in", desc: "車站正對面，地下通道直通，位置神級方便！可以在此極速洗衣烘衣。", map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Tower+Hotel" },
+          { time: "18:00", icon: "🍽️", title: "晚餐：Veg Out 鴨川河景餐廳", desc: "「全素」精品，坐在窗邊看著靜謐鴨川享用京都精緻家常料理(Obanzai Plate)。", map: "https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto" },
+          { time: "19:30", icon: "🏮", title: "祇園祭・後祭宵山 散步", desc: "體驗京都一年一度最盛大祭典！看街頭高掛的燈籠與華麗的山鉾，感受古都的浪漫靈魂。", map: "https://www.google.com/maps/search/?api=1&query=祇園祭+後祭+宵山+京都" }
+        ],
+        cafe: {
+          name: "鴨川河畔慢步外帶咖啡",
+          desc: "買杯冰拿鐵，坐在鴨川畔階梯上，吹著京都夏日微風，看著落日染紅溪流。",
+          map: "https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto"
+        },
+        rainPlan: "若雨勢大，晚上可改去京都車站共構的 Porta 地下街以及京都塔 Sando，全程在地下室內暢行！",
+        tips: "祭典期間烏丸通周邊會有人潮管制，建議提前確認返程路線並輕裝出發。"
+      },
+      {
+        day: 4,
+        date: "2026/07/23 (四)",
+        title: "輕音少女聖地朝戰 & 河原町購物",
+        city: "京都 ↔ 滋賀",
+        theme: "動漫青春魂 🎸",
+        color: "from-emerald-400 to-teal-400",
+        bgLight: "bg-emerald-50/50",
+        border: "border-emerald-100",
+        text: "text-emerald-600",
+        timeline: [
+          { time: "09:00", icon: "🚆", title: "京都 ➔ 滋賀豐鄉小學校", desc: "搭乘JR琵琶湖線至彥根站，轉乘近江鐵道至豐鄉站。走進動漫 K-ON 輕音部的夢幻場景！", map: "https://www.google.com/maps/search/?api=1&query=Toyosato+Elementary+School" },
+          { time: "10:30", icon: "🏫", title: "豐鄉小學校舊校舍巡禮", desc: "漫步在木質長廊、在音樂教室黑板留言，重溫下課後的喝茶時光，還可以購買部員證周邊！", map: "https://www.google.com/maps/search/?api=1&query=Toyosato+Elementary+School" },
+          { time: "14:30", icon: "🎮", title: "京都高島屋 S.C. (Nintendo Kyoto)", desc: "返回京都前往河原町，直奔高島屋新館。任天堂旗艦店與寶可夢中心，吹冷氣避暑好選擇！", map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Takashimaya+SC" },
+          { time: "16:30", icon: "🐧", title: "Kiddy Land 京都店 掃貨", desc: "入手京都四条河原町店限定款企鵝，祗園祭與京都風的企鵝娃娃等你帶回家！", map: "https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Kyoto+Kawaramachi" },
+          { time: "18:30", icon: "🍽️", title: "晚餐：Mumokuteki Cafe", desc: "隱身在河原町的高質感日式蔬食定食，冷氣強勁，炸豆包與時蔬非常美味！", map: "https://www.google.com/maps/search/?api=1&query=Mumokuteki+Cafe+%26+Foods+Kyoto" }
+        ],
+        cafe: {
+          name: "% Arabica Kyoto (藤井大丸店)",
+          desc: "京都極具盛名的極簡風手沖與拿鐵，拍照極美，豆子風味厚實濃厚。",
+          map: "https://www.google.com/maps/search/?api=1&query=Arabica+Coffee+Kyoto"
+        },
+        rainPlan: "豐鄉校舍內均在室內，完全不受下雨影響；河原町商圈設有遮陽雨棚，且高島屋內有直通通道。",
+        tips: "近江鐵道不支援 IC 卡 (Suica/ICOCA)，需在彥根站窗口現場購買「1日乘車券(900円)」或投幣買票喔！"
+      },
+      {
+        day: 5,
+        date: "2026/07/24 (五)",
+        title: "千本鳥居清水寺 ➔ 青丹吉奢華特急 ➔ 大阪",
+        city: "京都 ➔ 大阪",
+        theme: "夢幻特急 🏯",
+        color: "from-pink-400 to-rose-400",
+        bgLight: "bg-pink-50/50",
+        border: "border-pink-100",
+        text: "text-rose-600",
+        timeline: [
+          { time: "08:30", icon: "⛩️", title: "伏見稻荷大社 千本鳥居", desc: "清晨搭乘JR奈良線直達稻荷站。避開團客，走上朱紅隧道，抽取當日開運籤。", map: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+          { time: "11:00", icon: "🚕", title: "計程車閃現清水寺", desc: "從稻荷直接搭乘計程車(約1,600円)直達清水舞台！省時又保留膝蓋戰力。", map: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
+          { time: "11:30", icon: "🏯", title: "清水寺參拜與三年坂", desc: "俯瞰京都美景，求取開運「幸守」。可在附近文之助茶屋享用香濃的抹茶刨冰。", map: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
+          { time: "15:00", icon: "💼", title: "回飯店取行李 & 抵達近鐵", desc: "京都塔酒店領回行李，前往近鐵京都站準備登車。", map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Station+Kintetsu" },
+          { time: "16:21", icon: "🚃", title: "搭乘觀觀特急「青丹吉」", desc: "「京阪奈奢華列車」！在典雅復古的紫色車廂中享用特製奶油夾心餅與在地大和茶啤酒。", map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Station+Kintetsu" },
+          { time: "17:40", icon: "🏨", title: "抵達大阪 & 飯店 Check-in", desc: "難波京阪格蘭德飯店，直通 Namba Parks，樓下就是 Life 大超市，位置絕佳！", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Namba+Grande" },
+          { time: "19:00", icon: "🍽️", title: "晚餐：OKO 純素大阪燒", desc: "難波極具人氣的蔬食/全素大阪燒！與老闆歡樂暢談，體驗大阪熱情夜生活。", map: "https://www.google.com/maps/search/?api=1&query=OKO+Fun+Okonomiyaki+Bar" }
+        ],
+        cafe: {
+          name: "青丹吉觀光特急車內吧台",
+          desc: "必須到2號車廂購買限定的奶油三明治與奈良精釀啤酒，一邊欣賞窗外古都鐵道風景。",
+          map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Station+Kintetsu"
+        },
+        rainPlan: "若遇暴雨，可將清水寺行程更改為京都鐵道博物館，下午的「青丹吉」列車為完全室內奢華體驗！",
+        tips: "【高警報】青丹吉觀光列車必須提早一個月搶票！鬧鐘請設在 6/24 早上 09:30 (台灣時間)。"
+      },
+      {
+        day: 6,
+        date: "2026/07/25 (六)",
+        title: "日本橋公仔街 ➔ 天神祭奉納花火",
+        city: "大阪",
+        theme: "天神花火 🎇",
+        color: "from-purple-400 to-indigo-400",
+        bgLight: "bg-purple-50/50",
+        border: "border-purple-100",
+        text: "text-purple-600",
+        timeline: [
+          { time: "11:00", icon: "🧸", title: "日本橋 Den Den Town 大採購", desc: "飯店下樓3分鐘即達！公仔、二手相機、動漫精品火力全開。買完立刻拿回房間放！", map: "https://www.google.com/maps/search/?api=1&query=Den+Den+Town+Osaka" },
+          { time: "13:30", icon: "🍽️", title: "午餐：Paprika 食堂 Vegan", desc: "大阪難波最知名的全素食指標老店，大豆素肉漢堡排、純素起司塔極推！", map: "https://www.google.com/maps/search/?api=1&query=Paprika+%E9%A3%9F%E5%A0%82+Vegan+%E9%9B%A3%E6%B3%A2" },
+          { time: "15:00", icon: "🐧", title: "大阪企鵝聖殿：Kiddy Land 梅田店", desc: "位於阪急三番街。西日本最大規模的正能量企鵝櫃位，各種夢幻聯名一次收齊！", map: "https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Osaka+Umeda" },
+          { time: "17:30", icon: "🚇", title: "出發：櫻之宮公園 (天神祭)", desc: "搭乘地下鐵至桜ノ宮站。這裡是觀賞祭典船渡御與花火的「絕佳穴場」秘境。", map: "https://www.google.com/maps/search/?api=1&query=Sakuranomiya+Park" },
+          { time: "19:30", icon: "🎇", title: "天神祭奉納花火大會", desc: "日本三大祭之一！欣賞紅梅、煙火在夜空中綻放，以及河面上點點篝火，氣氛頂點！", map: "https://www.google.com/maps/search/?api=1&query=Sakuranomiya+Park" }
+        ],
+        cafe: {
+          name: "Moto Coffee (北濱河景店)",
+          desc: "坐擁中之島河景的網美咖啡，提供燕麥奶與多款精緻手作小點，露天座席超級浪漫。",
+          map: "https://www.google.com/maps/search/?api=1&query=Moto+Coffee+Osaka"
+        },
+        rainPlan: "若遇暴雨祭典中止，可直接轉向梅田 LUCUA 1100、Grand Front 等超級百貨群，室內瘋狂逛街！",
+        tips: "天神祭離場人潮極其恐懼，建議在煙火結束前 15 分鐘提早朝「北邊天滿站」或「南邊京橋站」步行撤離。"
+      },
+      {
+        day: 7,
+        date: "2026/07/26 (日)",
+        title: "生田神社結緣 ➔ 神戶歐風港邊約會",
+        city: "大阪 ➔ 神戶",
+        theme: "百萬夜景 ⚓",
+        color: "from-orange-400 to-red-400",
+        bgLight: "bg-orange-50/50",
+        border: "border-orange-100",
+        text: "text-orange-600",
+        timeline: [
+          { time: "10:00", icon: "🚆", title: "阪神電車：難波直達三宮", desc: "搭乘阪神快速急行，45分鐘無須轉乘即可抵達神戶三宮(420円)。", map: "https://www.google.com/maps/search/?api=1&query=Ikuta+Shrine" },
+          { time: "11:00", icon: "⛩️", title: "生田神社參拜", desc: "關西第一結緣聖地！購買著名的「水引御守」，體驗神奇的森林之泉「水占卜」。", map: "https://www.google.com/maps/search/?api=1&query=Ikuta+Shrine" },
+          { time: "13:00", icon: "🏡", title: "北野異人館街散策", desc: "漫步在神戶北野的山坡上，觀賞風見雞館、萌黃館等洋房，充滿浪漫異國風情。", map: "https://www.google.com/maps/search/?api=1&query=Kitano+Ijinkan-gai" },
+          { time: "15:00", icon: "☕", title: "神戶星巴克北野物語館", desc: "在被登錄為文化財的百年綠白相間西洋洋房內，品嚐經典拿鐵、欣賞復古木件裝潢。", map: "https://www.google.com/maps/search/?api=1&query=Starbucks+Kitano+Monogatari-kan" },
+          { time: "18:00", icon: "🌃", title: "神戶港夜景 & umie Mosaic", desc: "坐在港灣木棧道上吹海風，看著鮮紅神戶塔與美利堅公園的百萬璀璨燈火。", map: "https://www.google.com/maps/search/?api=1&query=Kobe+Harborland+umie" },
+          { time: "19:00", icon: "🍽️", title: "晚餐：Modernark pharm cafe", desc: "「全素/純素友善」知名文青老鋪，提供溫和的五穀時蔬飯與自家製起司蛋糕。", map: "https://www.google.com/maps/search/?api=1&query=Modernark+pharm+cafe" }
+        ],
+        cafe: {
+          name: "神戶星巴克北野物語館",
+          desc: "歷史文化遺產中的咖啡屋，二樓設有各國打字機與經典老照片，美感滿格。",
+          map: "https://www.google.com/maps/search/?api=1&query=Starbucks+Kitano+Monogatari-kan"
+        },
+        rainPlan: "神戶港 umie 和 Mosaic 購物中心內部空間極寬廣，透過景觀天橋互通，全室內逛街吃甜點完全不掃興！",
+        tips: "在神戶港邊漫步時，別忘了跟超熱門地標「BE KOBE」白色立體字碑拍照留念喔！"
+      },
+      {
+        day: 8,
+        date: "2026/07/27 (一)",
+        title: "燃燒童心！日本環球影城 USJ 全日暢玩",
+        city: "大阪",
+        theme: "超級瑪利歐 🍄",
+        color: "from-cyan-400 to-blue-400",
+        bgLight: "bg-cyan-50/50",
+        border: "border-cyan-100",
+        text: "text-cyan-600",
+        timeline: [
+          { time: "07:30", icon: "🚆", title: "出發環球影城", desc: "搭乘阪神難波線至西九條，轉JR夢咲線直達 Universal City 站。" },
+          { time: "08:15", icon: "🎢", title: "日本環球影城 USJ 狂歡", desc: "提早 2 個月在 Klook 買好門票＋「快速通關4」，用金錢守護 30 代的膝蓋與體力！", map: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" },
+          { time: "09:30", icon: "🍄", title: "超級任天堂世界 狂玩", desc: "搭乘庫巴挑戰賽、敲擊問號方塊！買一盞星星爆米花桶，讓正能量充滿一整天。", map: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" },
+          { time: "13:00", icon: "🦖", title: "午餐：Discovery Restaurant", desc: "侏儸紀公園區，有園區極罕見提供的「Vegetarian Curry」(全素咖哩飯)！", map: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" },
+          { time: "19:00", icon: "🛍️", title: "環球外街商店街最後補貨", desc: "在 USJ 招牌大地球前合照，買齊哈利波特、瑪利歐、小小兵等週年紀念品。" }
+        ],
+        cafe: {
+          name: "Beverly Hills Boulangerie",
+          desc: "園區內最推薦的歇腳咖啡廳，提供美味蔬食三明治與各式甜點（有素食輕食選項）。",
+          map: "https://www.google.com/maps/search/?api=1&query=Beverly+Hills+Boulangerie+USJ"
+        },
+        rainPlan: "環球影城雨天多數室內設施與過山車仍會運作。若遇到颱風級暴雨，建議將行程改去海遊館（全室內巨大水族館）。",
+        tips: "【防雷提醒】影城內素食極少，建議早上在難波車站的超商先買 3-4 個「昆布/梅子飯糰」藏在包包裡備用！"
+      },
+      {
+        day: 9,
+        date: "2026/07/28 (二)",
+        title: "難波巨大獅子殿 ➔ 超市藥妝衝刺 ➔ 返台",
+        city: "大阪 ➔ 桃園",
+        theme: "完美收官 ✈️",
+        color: "from-lime-400 to-green-400",
+        bgLight: "bg-lime-50/50",
+        border: "border-lime-100",
+        text: "text-green-600",
+        timeline: [
+          { time: "10:00", icon: "⛩️", title: "難波八阪神社 參拜", desc: "退房並將行李寄放櫃檯。步行10分鐘前往。參拜超震撼 12 米巨大獅子殿，咬住好運、招財迎福！收集最後一枚御朱印。", map: "https://www.google.com/maps/search/?api=1&query=Namba+Yasaka+Shrine" },
+          { time: "11:30", icon: "🛍️", title: "心齋橋・高島屋最後採購", desc: "藥妝店、伴手禮最後衝刺，順道前往飯店隔壁的「Life 超市難波店」狂掃日式零食與全素昆布醬油。", map: "https://www.google.com/maps/search/?api=1&query=黑門市場" },
+          { time: "16:30", icon: "🚆", title: "提領行李 & 搭乘南海特急", desc: "回到難波京阪格蘭德，提行李走無障礙通道 6 分鐘。搭乘 17:05 的南海 Rapi:t 電鐵，40 分鐘對號座直達關西機場。", map: "https://www.google.com/maps/search/?api=1&query=Namba+Station+Rapit" },
+          { time: "17:45", icon: "✈️", title: "關西機場 (KIX) 報到", desc: "辦理虎航 IT213 登機手續，在免稅店做最後採買。19:50 起飛 ➔ 21:45 平安抵達桃園。" }
+        ],
+        cafe: {
+          name: "難波大丸百貨精品下午茶",
+          desc: "在返台前，選一間日式鬆餅或經典綠茶店，坐下來細細回顧這 9 天溫馨、舒適的週年之旅。",
+          map: "https://www.google.com/maps/search/?api=1&query=黑門市場"
+        },
+        rainPlan: "心齋橋與難波車站周邊皆為全地下連通或有雨棚的商店街，回程去機場也是全室內路線，完全不怕下雨！",
+        tips: "廉航行李秤重嚴格，在飯店出發前一定要用行李秤，確保兩人都沒有超過 20kg 託運上限喔！"
+      }
+    ];
 
-/* ── Route card ── */
-function RouteCard({ route, lang }) {
-  return (
-    <div className="route-card">
-      <div className="route-header">
-        <span className="route-label">{route.label}</span>
-        <div className="route-badges">
-          {route.time && <span className="r-badge time">⏱ {route.time}</span>}
-          {route.cost && <span className="r-badge cost">¥{route.cost}</span>}
-        </div>
-      </div>
-      {route.steps && route.steps.map((s, i) => (
-        <div key={i} className="route-step">
-          <div className="step-dot" style={{background: s.color||"#94a3b8"}}/>
-          <span className="step-from">{s.from}</span>
-          <div style={{flex:1,height:2,background:s.color||"#94a3b8",opacity:.4,margin:"0 4px",alignSelf:"center"}}/>
-          <span className="step-to">{s.to}</span>
-          {s.via && <span className="step-via">{s.via}</span>}
-        </div>
-      ))}
-      {route.note && <div style={{fontSize:11,color:"#64748b",marginTop:6}}>{route.note}</div>}
-      {route.mapUrl && <MapBtn url={route.mapUrl} lang={lang}/>}
-    </div>
-  );
-}
+    // --- 待辦清單資料 ---
+    const CHECKLIST_SECTIONS = [
+      {
+        title: "🎫 必辦事項（出發前確認）",
+        items: [
+          { id: "chk_flight", text: "虎航來回機票開票完成 (代碼 WD9K9X)", urgent: false, defaultDone: true },
+          { id: "chk_hotel1", text: "預訂 名古屋三井花園普米爾 飯店 (2晚)", urgent: false, defaultDone: false },
+          { id: "chk_hotel2", text: "預訂 京都塔酒店 飯店 (2晚)", urgent: false, defaultDone: false },
+          { id: "chk_hotel3", text: "預訂 難波京阪格蘭德飯店 (4晚)", urgent: false, defaultDone: false },
+          { id: "chk_anniv_mail", text: "給三井花園寄信備註 1st Anniversary，爭取高樓層驚喜", urgent: true, defaultDone: false },
+          { id: "chk_usj_ticket", text: "提前 2 個月預約 USJ 門票與「快速通關 Express Pass 4」", urgent: true, defaultDone: false },
+          { id: "chk_musky", text: "Klook 預購名鐵 μ-SKY 特急券", urgent: false, defaultDone: false },
+          { id: "chk_rapit", text: "Klook 預購南海電鐵 Rapi:t 來回特急券", urgent: false, defaultDone: false }
+        ]
+      },
+      {
+        title: "⏰ 時間精度戰（預訂鬧鐘）",
+        items: [
+          { id: "chk_aoniyoshi", text: "【極重要】06/24 早上 09:30 搶訂「青丹吉 Aoniyoshi」雙人對坐席 C/D", urgent: true, defaultDone: false },
+          { id: "chk_veg_reserve", text: "出發前 1 週完成 Veg Out, Mumokuteki, OKO 餐廳線上定位", urgent: false, defaultDone: false },
+          { id: "chk_apple_pay", text: "iPhone 錢包綁定 ICOCA 或 Suica，並儲值足夠金額", urgent: false, defaultDone: false }
+        ]
+      },
+      {
+        title: "🎒 行李打包與旅前備忘",
+        items: [
+          { id: "chk_umbrella", text: "帶輕便防風摺疊雨傘 × 2（防梅雨尾聲/午後雷雨）", urgent: false, defaultDone: false },
+          { id: "chk_sunscreen", text: "防曬乳液 SPF50+ 準備完備（日本盛夏極炎熱）", urgent: false, defaultDone: false },
+          { id: "chk_goshuin", text: "準備御朱印帳（忘了也沒關係，京都Loft有精美款式）", urgent: false, defaultDone: false },
+          { id: "chk_courier", text: "空出一個特大行李箱/摺疊手提袋（裝企鵝娃娃戰利品）", urgent: false, defaultDone: false },
+          { id: "chk_esim", text: "開通日本上網 eSIM 或租借 Wi-Fi 分享器", urgent: false, defaultDone: false }
+        ]
+      }
+    ];
 
-/* ── Day Panel ── */
-function DayPanel({ data, lang }) {
-  const t = T[lang];
-  return (
-    <div className="fade">
-      {/* Day header */}
-      <div className="day-header" style={{background: data.color}}>
-        <div>
-          <div style={{fontSize:11,opacity:.8}}>{lang==="zh"?"第":"Day "}{data.day}{lang==="zh"?"天":""}</div>
-          <div className="day-num">{data.icon}</div>
-        </div>
-        <div className="day-info">
-          <div className="day-title">{lang==="zh"?data.titleZh:data.titleEn}</div>
-          <div className="day-date">{data.date}</div>
-          <div className="day-city">{data.city}</div>
-        </div>
-      </div>
-      <div className="panel">
-        <ClimateCard lang={lang}/>
-        {/* Timeline */}
-        <div className="card">
-          <div className="card-header">⏰ {t.timeline}</div>
-          <div className="card-body">
-            <ul className="timeline">
-              {data.timeline.map((item, i) => (
-                <li key={i} className="tl-item">
-                  <div className="tl-dot">{item.icon}</div>
-                  <div className="tl-content">
-                    <div className="tl-time">{item.time}</div>
-                    <div className="tl-main">{lang==="zh"?item.mainZh:item.mainEn}</div>
-                    {item.desc && <div className="tl-desc">{lang==="zh"?item.descZh:item.descEn}</div>}
-                    {item.mapUrl && <MapBtn url={item.mapUrl} lang={lang}/>}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        {/* Routes */}
-        {data.routes && data.routes.length > 0 && (
-          <div className="card">
-            <div className="card-header">🚆 {t.route}</div>
-            <div className="card-body">
-              {data.routes.map((r, i) => <RouteCard key={i} route={r} lang={lang}/>)}
-            </div>
-          </div>
-        )}
-        {/* Tips */}
-        {data.tips && (
-          <div className="card">
-            <div className="card-header">💡 {t.tips}</div>
-            <div className="card-body">
-              {data.tips.map((tip, i) => (
-                <div key={i} className="tip-item">
-                  <span className="tip-icon">{tip.icon}</span>
-                  <span>{lang==="zh"?tip.zh:tip.en}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-        {/* Rain */}
-        {data.rain && (
-          <div className="rain-card">
-            <div className="rain-title">{t.rain}</div>
-            {data.rain.map((r, i) => (
-              <div key={i} className="rain-item">• {lang==="zh"?r.zh:r.en}</div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+    // --- 伴手禮資料 ---
+    const SOUVENIR_DATA = [
+      { area: "名古屋", name: "小倉紅豆吐司夾心餅", type: "蛋奶素", location: "名古屋站 ESCA 地下街" },
+      { area: "名古屋", name: "大須外郎糕 (ういろ)", type: "全素 (無蛋奶)", location: "大須商店街總本舖" },
+      { area: "京都", name: "Malebranche 茶之菓", type: "蛋奶素", location: "京都車站伊勢丹 B1" },
+      { area: "京都", name: "阿闍梨餅", type: "蛋奶素", location: "京都車站禮品大街" },
+      { area: "大阪", name: "Grand Calbee 厚切薯片", type: "全素 (部分口味)", location: "梅田阪急百貨" },
+      { area: "大阪", name: "Baton d'or (精品級 Pocky)", type: "蛋奶素", location: "難波高島屋" },
+      { area: "跨區", name: "正能量企鵝限量周邊 🐧", type: "心靈全素 💖", location: "各大城市 Kiddy Land / Loft" }
+    ];
 
-/* ── Transport Panel ── */
-function TransportPanel({ lang }) {
-  const t = T[lang];
-  const routes = [
-    { seg: lang==="zh"?"中部機場 → 名古屋":"Centrair → Nagoya", rec: lang==="zh"?"Klook 名鐵 μ-SKY 券":"Meitetsu μ-SKY (Klook)", price: "1,430", alt: lang==="zh"?"一般特急 ¥980":"Regular Ltd. Exp. ¥980", note: lang==="zh"?"全車指定席+行李架":"Reserved all seats + luggage rack", best: true },
-    { seg: lang==="zh"?"名古屋 → 京都":"Nagoya → Kyoto", rec: lang==="zh"?"SmartEX App Hikari":"SmartEX App Hikari", price: "5,920", alt: "Nozomi ¥6,440", note: lang==="zh"?"App 綁 IC 卡直接進站":"IC card boarding via app", best: true },
-    { seg: lang==="zh"?"京都 → 大阪難波":"Kyoto → Osaka Namba", rec: lang==="zh"?"近鐵 あをによし 特急":"Kintetsu Aoniyoshi Ltd. Exp.", price: "2,240", alt: lang==="zh"?"普通 ¥570":"Regular ¥570", note: lang==="zh"?"出發1個月前10:30搶票！":"Book 1 month before, 10:30 AM!", best: true },
-    { seg: lang==="zh"?"難波 → 關西機場":"Namba → KIX", rec: lang==="zh"?"南海 Rapi:t (Klook)":"Nankai Rapi:t (Klook)", price: "1,290", alt: lang==="zh"?"普通特急 ¥930":"Airport Express ¥930", note: lang==="zh"?"外國人優惠，省¥200":"Tourist discount saves ¥200", best: true },
-    { seg: lang==="zh"?"市內地鐵/公車":"City Transit", rec: lang==="zh"?"ICOCA Apple Pay":"ICOCA Apple Pay", price: lang==="zh"?"按距離":"by distance", alt: "—", note: lang==="zh"?"便利商店/自販機也能用":"Works at konbini & vending machines", best: true },
-  ];
-  const passes = [
-    { name: lang==="zh"?"JR 7日全國 Pass":"JR 7-day Pass", price: "50,000/人", verdict: lang==="zh"?"❌ 本行程省不回來，少用 JR":"❌ Not worth it — JR usage < ¥20,000" },
-    { name: lang==="zh"?"JR 關西廣域 5日 Pass":"JR Kansai Wide 5-day", price: "12,000/人", verdict: lang==="zh"?"🟡 CP 值邊緣，可斟酌":"🟡 Marginal value" },
-    { name: lang==="zh"?"大阪周遊卡 1日":"Osaka Amazing Pass 1-day", price: "3,300/人", verdict: lang==="zh"?"🟢 Day 6 或 Day 9 單日可考慮":"🟢 Consider for Day 6 or Day 9" },
-    { name: lang==="zh"?"關西三都 Kansai Thru Pass 3日":"Kansai Thru Pass 3-day", price: "5,200/人", verdict: lang==="zh"?"🟡 若神戶+奈良+京都多次移動":"🟡 Good if visiting many Kansai cities" },
-  ];
-  return (
-    <div className="fade">
-      <div className="panel">
-        <div className="transport-summary">
-          <div className="transport-verdict">🎯 {lang==="zh"?"結論：不買 JR Pass，散票最划算":"Verdict: Skip JR Pass — buy point-to-point"}</div>
-          <div className="transport-saving">{lang==="zh"?"兩人合計比買 7日 Pass 省約 ¥60,000":"Saves ~¥60,000 per couple vs. 7-day JR Pass"}</div>
-        </div>
-        <div className="card">
-          <div className="card-header">📊 {t.routeComp}</div>
-          <div className="card-body" style={{padding:"0 0 4px"}}>
-            <table className="compare-table">
-              <thead><tr>
-                <th>{lang==="zh"?"路段":"Route"}</th>
-                <th>{lang==="zh"?"推薦方式":"Recommended"}</th>
-                <th>{lang==="zh"?"費用":"Cost"}</th>
-              </tr></thead>
-              <tbody>
-                {routes.map((r,i) => (
-                  <tr key={i}>
-                    <td style={{fontWeight:600}}>{r.seg}</td>
-                    <td>
-                      {r.rec}
-                      {r.best && <span className="rec-tag">推薦</span>}
-                      <div style={{fontSize:10,color:"#94a3b8",marginTop:2}}>{r.note}</div>
-                    </td>
-                    <td style={{fontWeight:700,color:"#065f46"}}>¥{r.price}
-                      {r.alt && r.alt!=="—" && <div style={{fontSize:10,color:"#94a3b8"}}>{r.alt}</div>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">🎫 {t.passEval}</div>
-          <div className="card-body">
-            {passes.map((p,i) => (
-              <div key={i} style={{padding:"8px 0",borderBottom:i<passes.length-1?"1px solid #f1f5f9":"none"}}>
-                <div style={{display:"flex",justifyContent:"space-between",marginBottom:3}}>
-                  <span style={{fontSize:13,fontWeight:600}}>{p.name}</span>
-                  <span style={{fontSize:12,color:"#64748b"}}>¥{p.price}</span>
-                </div>
-                <div style={{fontSize:12,color:"#475569"}}>{p.verdict}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">📱 {t.buyWhere}</div>
-          <div className="card-body">
-            {[
-              {icon:"📱", zh:"SmartEX App — 東海道新幹線線上預約，綁信用卡+IC卡進站", en:"SmartEX App — Shinkansen booking, linked to credit card & IC"},
-              {icon:"🛒", zh:"Klook / KKday — 名鐵μ-SKY、南海Rapi:t、USJ票券", en:"Klook / KKday — Meitetsu μ-SKY, Nankai Rapi:t, USJ tickets"},
-              {icon:"🌐", zh:"近鐵官網 kintetsu.jp/yoyaku — あをによし特急（6/24 10:30開搶！）", en:"Kintetsu website kintetsu.jp/yoyaku — Aoniyoshi Ltd. Exp. (book 6/24 10:30!)"},
-              {icon:"💳", zh:"ICOCA / Suica 綁 Apple Pay — 市內地鐵、便利商店全通用", en:"ICOCA / Suica via Apple Pay — metro, konbini, vending machines"},
-            ].map((item,i) => (
-              <div key={i} className="tip-item">
-                <span className="tip-icon">{item.icon}</span>
-                <span style={{fontSize:12}}>{lang==="zh"?item.zh:item.en}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">🚇 {lang==="zh"?"大阪地鐵線路色":"Osaka Metro Line Colors"}</div>
-          <div className="card-body">
-            {[
-              {code:"M",name:lang==="zh"?"御堂筋線":"Midosuji",color:"#E5171F"},
-              {code:"T",name:lang==="zh"?"谷町線":"Tanimachi",color:"#522886"},
-              {code:"Y",name:lang==="zh"?"四橋線":"Yotsubashi",color:"#0082C9"},
-              {code:"C",name:lang==="zh"?"中央線":"Chuo",color:"#019A44"},
-              {code:"S",name:lang==="zh"?"千日前線":"Sennichimae",color:"#E44D93"},
-              {code:"K",name:lang==="zh"?"堺筋線":"Sakaisuji",color:"#814721"},
-              {code:"N",name:lang==="zh"?"長堀鶴見綠地線":"Nagahori-Tsurumi",color:"#B5CF00"},
-              {code:"I",name:lang==="zh"?"今里筋線":"Imaike",color:"#DC6900"},
-            ].map((l,i) => (
-              <div key={i} style={{display:"flex",alignItems:"center",gap:8,padding:"5px 0",borderBottom:i<7?"1px solid #f8fafc":"none"}}>
-                <div style={{width:28,height:20,borderRadius:4,background:l.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:11,fontWeight:700}}>{l.code}</div>
-                <span style={{fontSize:12}}>{l.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+    // --- Koupen-chan SVG 向量繪圖組件 ---
+    function KoupenIllust({ size = "w-24 h-24", withClover = true, className = "" }) {
+      return (
+        <svg viewBox="0 0 100 100" class={`${size} ${className} select-none`} fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Main Body (Soft Blue-Grey) */}
+          <circle cx="50" cy="55" r="36" fill="#9FB5C4" />
+          
+          {/* Tummy & Face (White) */}
+          <ellipse cx="50" cy="61" rx="27" ry="24" fill="#FFFFFF" />
+          <ellipse cx="50" cy="46" rx="21" ry="15" fill="#FFFFFF" />
 
-/* ── Penguin Merch Panel ── */
-function PenguinPanel({ lang }) {
-  const sections = [
-    {
-      city: lang==="zh"?"🏬 名古屋":"🏬 Nagoya",
-      stores: [
-        { name:"コウペンちゃん はなまるストア 名古屋パルコ店", loc:lang==="zh"?"名古屋PARCO東館3F":"Nagoya PARCO East Bldg. 3F", desc:lang==="zh"?"⭐官方旗艦店！2025/4新開幕，全系列+限定商品":"⭐ Official flagship! Opened Apr 2025. Full lineup + exclusives", url:"https://www.google.com/maps/search/?api=1&query=名古屋PARCO+東館", icon:"🌟" },
-        { name:"Kiddy Land 名古屋パルコ店", loc:lang==="zh"?"名古屋PARCO東館3F":"Nagoya PARCO East Bldg. 3F", desc:lang==="zh"?"⭐肯定ペンギン・mofusand・ちいかわ集合":"⭐ Kanteipenguin, mofusand, chiikawa all here", url:"https://www.google.com/maps/search/?api=1&query=Kiddy+Land+名古屋PARCO", icon:"🧸" },
-        { name:"Loft 名古屋店", loc:lang==="zh"?"榮地下街上方":"Above Sakae underground", desc:lang==="zh"?"「花丸商店」專區，雜貨類周邊":"Hanamaru-shoten section, misc goods", url:"https://www.google.com/maps/search/?api=1&query=Loft+名古屋店", icon:"🛍️" },
-        { name:"Village Vanguard 名古屋", loc:"Oasis 21 / PARCO", desc:lang==="zh"?"不定期 POP-UP、絕版挖寶":"Occasional pop-ups, vintage finds", url:"https://www.google.com/maps/search/?api=1&query=Village+Vanguard+名古屋", icon:"🔍" },
-      ]
-    },
-    {
-      city: lang==="zh"?"🏯 京都":"🏯 Kyoto",
-      stores: [
-        { name:"Kiddy Land 京都四条河原町店", loc:lang==="zh"?"河原町OPA旁":"Near Kawaramachi OPA", desc:lang==="zh"?"⭐京都限定商品，企鵝粉必逛":"⭐ Kyoto-exclusive items — penguin fans must visit", url:"https://www.google.com/maps/search/?api=1&query=Kiddy+Land+京都四条河原町", icon:"🧸" },
-        { name:"Loft 京都 (COCON烏丸)", loc:lang==="zh"?"四条烏丸":"Shijo Karasuma", desc:lang==="zh"?"大型文具+角色商品":"Large stationery + character goods", url:"https://www.google.com/maps/search/?api=1&query=Loft+京都+COCON烏丸", icon:"🛍️" },
-        { name:"Village Vanguard 京都BAL", loc:"BAL B1F", desc:lang==="zh"?"選品多，常有企鵝合作":"Wide selection, frequent collab items", url:"https://www.google.com/maps/search/?api=1&query=Village+Vanguard+京都BAL", icon:"🔍" },
-      ]
-    },
-    {
-      city: lang==="zh"?"🏮 大阪":"🏮 Osaka",
-      stores: [
-        { name:"Kiddy Land 大阪梅田店", loc:lang==="zh"?"Umeda Loft內（HEP FIVE隔壁）":"Inside Umeda Loft (next to HEP FIVE)", desc:lang==="zh"?"⭐⭐西日本最大Kiddy Land！企鵝備貨最齊全":"⭐⭐ Largest in western Japan! Best penguin stock", url:"https://www.google.com/maps/search/?api=1&query=Kiddy+Land+大阪梅田", icon:"🌟" },
-        { name:"コウペンちゃん はなまるストア 大阪店", loc:lang==="zh"?"大阪LUCUA 1100（大阪駅）":"LUCUA 1100 (JR Osaka Station)", desc:lang==="zh"?"⭐西日本Koupenchan官方店":"⭐ Official western Japan Koupenchan store", url:"https://www.google.com/maps/search/?api=1&query=LUCUA+1100+大阪", icon:"🌟" },
-        { name:"Loft 梅田店", loc:lang==="zh"?"梅田LUCUA 1100 9F":"LUCUA 1100 9F Umeda", desc:lang==="zh"?"近コウペンちゃん店，一次掃完":"Next to Koupenchan store — do both in one go", url:"https://www.google.com/maps/search/?api=1&query=Loft+梅田店", icon:"🛍️" },
-        { name:"Village Vanguard 難波店", loc:"NAMBA なんなん", desc:lang==="zh"?"難波地區隨時可逛":"Namba area — convenient any time", url:"https://www.google.com/maps/search/?api=1&query=Village+Vanguard+なんなん", icon:"🔍" },
-      ]
+          {/* Left Wing */}
+          <path d="M12 55 C8 60, 10 70, 18 68 C22 67, 24 60, 20 54 Z" fill="#9FB5C4" />
+          {/* Right Wing */}
+          <path d="M88 55 C92 60, 90 70, 82 68 C78 67, 76 60, 80 54 Z" fill="#9FB5C4" />
+
+          {/* Cute Pink Cheeks */}
+          <ellipse cx="34" cy="50" rx="6" ry="5" fill="#FFAEC9" />
+          <ellipse cx="66" cy="50" rx="6" ry="5" fill="#FFAEC9" />
+
+          {/* Happy Closed/Sparkly Eyes */}
+          <circle cx="41" cy="44" r="3" fill="#2C3E50" />
+          <circle cx="59" cy="44" r="3" fill="#2C3E50" />
+          {/* Catchlight in eyes */}
+          <circle cx="40" cy="42" r="1" fill="#FFFFFF" />
+          <circle cx="58" cy="42" r="1" fill="#FFFFFF" />
+
+          {/* Cute Triangular Beak */}
+          <polygon points="46,47 54,47 50,53" fill="#FFC72C" />
+
+          {/* Feet */}
+          <ellipse cx="38" cy="90" rx="7" ry="4" fill="#FFC72C" />
+          <ellipse cx="62" cy="90" rx="7" ry="4" fill="#FFC72C" />
+
+          {/* Optional Clover on Head */}
+          {withClover && (
+            <g transform="translate(0, -3)">
+              {/* Stem */}
+              <path d="M50 20 Q52 14 50 8" stroke="#7BC043" stroke-width="2" stroke-linecap="round" />
+              {/* Four Leaves */}
+              <circle cx="47" cy="7" r="4" fill="#7BC043" />
+              <circle cx="53" cy="7" r="4" fill="#7BC043" />
+              <circle cx="50" cy="4" r="4" fill="#7BC043" />
+              <circle cx="50" cy="10" r="4" fill="#7BC043" />
+            </g>
+          )}
+        </svg>
+      );
     }
-  ];
-  return (
-    <div className="fade">
-      <div className="panel">
-        <div style={{background:"linear-gradient(135deg,#fdf4ff,#fae8ff)",border:"1.5px solid #e879f9",borderRadius:12,padding:"12px 14px",marginBottom:12}}>
-          <div style={{fontWeight:700,fontSize:13,color:"#7e22ce",marginBottom:4}}>🐧 コウペンちゃん & 肯定ペンギン 掃貨攻略</div>
-          <div style={{fontSize:12,color:"#6b21a8",lineHeight:1.6}}>
-            {lang==="zh"
-              ? "💡 はなまるストア消費 ¥2,000 即可登記免費會員，享會員限定商品！兩店（名古屋PARCO＋大阪LUCUA）皆可辦。"
-              : "💡 Spend ¥2,000 at はなまるストア to register free membership — unlocks member-exclusive items! Available at both Nagoya PARCO & Osaka LUCUA stores."}
-          </div>
-        </div>
-        {sections.map((sec, si) => (
-          <div key={si} className="card">
-            <div className="card-header">{sec.city}</div>
-            <div className="card-body">
-              {sec.stores.map((s, i) => (
-                <div key={i} className="spot-item">
-                  <span className="spot-icon">{s.icon}</span>
-                  <div className="spot-info">
-                    <div className="spot-name">{s.name}</div>
-                    <div className="spot-loc">📍 {s.loc}</div>
-                    <div className="spot-desc">{s.desc}</div>
-                    <MapBtn url={s.url} lang={lang}/>
+
+    // --- 主程式 ---
+    function App() {
+      const [currentDay, setCurrentDay] = useState(1);
+      const [activeTab, setActiveTab] = useState("itinerary"); // "itinerary" | "souvenirs" | "checklist" | "budget"
+      const [countdownAoniyoshi, setCountdownAoniyoshi] = useState("");
+      const [countdownDepart, setCountdownDepart] = useState("");
+      const [quote, setQuote] = useState(KOUPEN_QUOTES[0]);
+      const [toast, setToast] = useState(null);
+      
+      // 點擊右下角企鵝展示對話泡泡狀態
+      const [showBubble, setShowBubble] = useState(true);
+
+      // 飯店確認碼記事
+      const [hotel1, setHotel1] = useState(() => localStorage.getItem("travel_hotel1") || "");
+      const [hotel2, setHotel2] = useState(() => localStorage.getItem("travel_hotel2") || "");
+      const [hotel3, setHotel3] = useState(() => localStorage.getItem("travel_hotel3") || "");
+
+      // 預算狀態
+      const [exchangeRate, setExchangeRate] = useState(0.215); // JPY ➔ TWD
+      const [dailyExpenses, setDailyExpenses] = useState(() => {
+        try {
+          const saved = localStorage.getItem("travel_expenses_v1");
+          return saved ? JSON.parse(saved) : Array(9).fill(0);
+        } catch {
+          return Array(9).fill(0);
+        }
+      });
+
+      // Checklist 狀態
+      const [checkedItems, setCheckedItems] = useState(() => {
+        try {
+          const saved = localStorage.getItem("travel_checked_items_v1");
+          if (saved) return JSON.parse(saved);
+        } catch {}
+        const initial = {};
+        CHECKLIST_SECTIONS.forEach(sec => {
+          sec.items.forEach(item => {
+            initial[item.id] = item.defaultDone;
+          });
+        });
+        return initial;
+      });
+
+      // 自動儲存至 LocalStorage
+      useEffect(() => {
+        try {
+          localStorage.setItem("travel_hotel1", hotel1);
+          localStorage.setItem("travel_hotel2", hotel2);
+          localStorage.setItem("travel_hotel3", hotel3);
+        } catch {}
+      }, [hotel1, hotel2, hotel3]);
+
+      useEffect(() => {
+        try {
+          localStorage.setItem("travel_expenses_v1", JSON.stringify(dailyExpenses));
+        } catch {}
+      }, [dailyExpenses]);
+
+      useEffect(() => {
+        try {
+          localStorage.setItem("travel_checked_items_v1", JSON.stringify(checkedItems));
+        } catch {}
+      }, [checkedItems]);
+
+      // 倒數計時計時器
+      useEffect(() => {
+        const interval = setInterval(() => {
+          const targetAoniyoshi = new Date("2026-06-24T09:30:00+08:00").getTime();
+          const targetDepart = new Date("2026-07-20T09:00:00+08:00").getTime();
+          const now = new Date().getTime();
+
+          const calcCountdown = (target) => {
+            const diff = target - now;
+            if (diff <= 0) return "已截止 / 已抵達！✨";
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            return `${days}天 ${hours}時 ${minutes}分 ${seconds}秒`;
+          };
+
+          setCountdownAoniyoshi(calcCountdown(targetAoniyoshi));
+          setCountdownDepart(calcCountdown(targetDepart));
+        }, 1000);
+
+        return () => clearInterval(interval);
+      }, []);
+
+      const showToast = (message) => {
+        setToast(message);
+        setTimeout(() => setToast(null), 3000);
+      };
+
+      const copyBookingCode = () => {
+        const code = "WD9K9X";
+        const dummy = document.createElement("input");
+        document.body.appendChild(dummy);
+        dummy.value = code;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        showToast("🌸 訂位代號 WD9K9X 複製成功！");
+      };
+
+      const rollQuote = () => {
+        let nextQuote = quote;
+        while (nextQuote === quote) {
+          nextQuote = KOUPEN_QUOTES[Math.floor(Math.random() * KOUPEN_QUOTES.length)];
+        }
+        setQuote(nextQuote);
+        setShowBubble(true);
+      };
+
+      const handleExpenseChange = (index, value) => {
+        const updated = [...dailyExpenses];
+        updated[index] = parseFloat(value) || 0;
+        setDailyExpenses(updated);
+      };
+
+      const handleToggleCheck = (id) => {
+        setCheckedItems(prev => ({
+          ...prev,
+          [id]: !prev[id]
+        }));
+      };
+
+      const getChecklistStats = () => {
+        let total = 0;
+        let checked = 0;
+        CHECKLIST_SECTIONS.forEach(sec => {
+          sec.items.forEach(item => {
+            total++;
+            if (checkedItems[item.id]) {
+              checked++;
+            }
+          });
+        });
+        return { total, checked, percent: total === 0 ? 0 : Math.round((checked / total) * 100) };
+      };
+
+      const stats = getChecklistStats();
+      const currentDayData = DAYS_DATA.find(d => d.day === currentDay);
+
+      return (
+        <div class="min-h-screen pb-24 relative max-w-xl mx-auto bg-brand-cream shadow-xl sm:border-x sm:border-pink-100 overflow-x-hidden">
+          
+          {/* Toast 通知小氣球 */}
+          {toast && (
+            <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-rose-400 text-white px-5 py-3 rounded-full shadow-lg text-xs font-black flex items-center gap-1.5 border border-rose-300">
+              <span>🌸</span> {toast}
+            </div>
+          )}
+
+          {/* Header Cute Banner */}
+          <header class="relative overflow-hidden bg-gradient-to-b from-brand-pink to-white text-slate-700 py-12 px-6 shadow-sm border-b border-pink-100">
+            {/* Soft background decor */}
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-white/60 rounded-full blur-xl"></div>
+            <div class="absolute top-24 -left-12 w-28 h-28 bg-brand-blue/40 rounded-full blur-xl"></div>
+
+            <div class="relative z-10 flex flex-col items-center text-center gap-4">
+              <KoupenIllust size="w-24 h-24" className="animate-cute-float" />
+              
+              <div>
+                <span class="inline-block bg-rose-400 text-white px-3 py-1 rounded-full text-[10px] font-black tracking-wider mb-2 shadow-sm uppercase">
+                  💖 30代專屬周年慢活企鵝巡禮版
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                  2026 夏日夢幻大冒險 🌸
+                </h1>
+                <p class="text-xs text-slate-500 font-bold mt-1">
+                  名古屋 ➔ 京都 ➔ 大阪 9天8夜 慢活指南
+                </p>
+              </div>
+
+              {/* Tigerair Card */}
+              <div class="w-full bg-white/80 backdrop-blur-sm p-4 rounded-3xl border border-pink-200/50 shadow-sm flex flex-col gap-2.5 mt-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black text-slate-400 tracking-wider">✈️ 台灣虎航 IT206/213</span>
+                  <button 
+                    onClick={copyBookingCode} 
+                    class="bg-rose-400 hover:bg-rose-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full transition-all active:scale-95 shadow-sm"
+                  >
+                    複製代號
+                  </button>
+                </div>
+                <div class="text-xl font-black tracking-widest text-center py-2 bg-brand-pink/50 rounded-2xl border border-brand-pinkDark/10 text-slate-800">
+                  WD9K9X
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-400 font-bold px-1">
+                  <span>💼 兩人皆含 20kg 託運</span>
+                  <span>🎒 隨身 10kg</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          {/* Double Countdown Timers */}
+          <section class="grid grid-cols-1 gap-3 px-4 -mt-4 relative z-20">
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-pink-100 flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-lg shrink-0 select-none">🚃</div>
+              <div class="min-w-0">
+                <h3 class="text-[10px] font-black text-slate-400 truncate">🚨 青丹吉「Aoniyoshi」觀光列車搶票倒數 (6/24 09:30)</h3>
+                <p class="text-sm font-black text-brand-blueDark mt-0.5 tracking-tight">{countdownAoniyoshi}</p>
+              </div>
+            </div>
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-pink-100 flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-brand-pink flex items-center justify-center text-lg shrink-0 select-none">🛫</div>
+              <div class="min-w-0">
+                <h3 class="text-[10px] font-black text-slate-400 truncate">✨ 距離夢幻冒險出發倒數 (7/20 09:00)</h3>
+                <p class="text-sm font-black text-brand-pinkDark mt-0.5 tracking-tight">{countdownDepart}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Koupen-chan Blessing Quote bar */}
+          <section class="mx-4 mt-4 bg-brand-yellow/50 rounded-3xl p-4 border border-brand-yellowDark/20 flex flex-col items-center text-center gap-3">
+            <div class="text-xs font-black text-amber-600 tracking-wider">🐧 正能量企鵝暖心補給站</div>
+            <p class="text-xs text-slate-600 font-bold leading-relaxed px-2">
+              「 {quote} 」
+            </p>
+            <button 
+              onClick={rollQuote}
+              class="bg-amber-400 hover:bg-amber-500 text-white font-black text-[10px] px-4 py-2 rounded-full shadow-sm transition-all active:scale-95"
+            >
+              聆聽其他肯定 💫
+            </button>
+          </section>
+
+          {/* Interactive Hotel Note Code Block */}
+          <section class="mx-4 mt-4 bg-white rounded-3xl p-4 shadow-sm border border-pink-100">
+            <h3 class="text-xs font-black text-slate-700 mb-3.5 flex items-center gap-1.5">
+              <span>🏨</span> 最終確認高機能/共構流住宿代碼板
+            </h3>
+            <div class="flex flex-col gap-3">
+              {/* Hotel 1 */}
+              <div class="bg-indigo-50/50 p-3.5 rounded-2xl border border-indigo-100 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-md">Day 1-2 名古屋</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Mitsui+Garden+Hotel+Nagoya+Premier" target="_blank" class="text-[10px] text-indigo-500 hover:underline font-bold">🗺️ 導航</a>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="text-xs font-bold text-slate-700">三井花園普米爾飯店</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">18F高空大廳，高空夜景開啟週年序幕</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+                <input 
+                  type="text" 
+                  value={hotel1} 
+                  onChange={(e) => setHotel1(e.target.value)}
+                  placeholder="請填入訂房確認代號"
+                  class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 focus:outline-none focus:border-indigo-400 shadow-inner"
+                />
+              </div>
 
-/* ── Food Panel ── */
-function FoodPanel({ lang }) {
-  const cities = [
-    {
-      city: lang==="zh"?"🏬 名古屋 美食":"🏬 Nagoya Food",
-      restaurants: [
-        { name:"T's Tantan 名古屋驛麵通り", veg:"full", desc:lang==="zh"?"純素擔擔麵，Day1晚餐推薦":"Vegan dandan noodles — great for Day 1 dinner", url:"https://www.google.com/maps/search/?api=1&query=T's+tantan+名古屋驛麺通り" },
-        { name:"ORIBIO Cafe Dining", veg:"full", desc:lang==="zh"?"全素有機蔬食，Vegan/Halal認證":"Fully organic vegan, Vegan/Halal certified", url:"https://www.google.com/maps/search/?api=1&query=ORIBIO+Cafe+Dining+名古屋" },
-        { name:"Noi Vege Kitchen ORIBIO 矢場町", veg:"full", desc:lang==="zh"?"純素日式，近大須商店街":"Vegan Japanese food near Osu shopping street", url:"https://www.google.com/maps/search/?api=1&query=ORIBIO+矢場町" },
-      ],
-      cafes: [
-        { name:"TRUNK COFFEE LAB", veg:"full", desc:lang==="zh"?"燕麥奶拿鐵，北歐風文青":"Oat milk latte, Nordic aesthetic", url:"https://www.google.com/maps/search/?api=1&query=TRUNK+COFFEE+LAB" },
-        { name:"珈琲処 カコ（Kako）三蔵店", veg:"part", desc:lang==="zh"?"Google 4.4，シロノワール起源店":"Google 4.4, birthplace of Shiro Noir", url:"https://www.google.com/maps/search/?api=1&query=珈琲処+カコ+三蔵店" },
-        { name:"Quil Fait Bon 名古屋", veg:"part", desc:lang==="zh"?"全日本最美水果塔":"Japan's most beautiful fruit tarts", url:"https://www.google.com/maps/search/?api=1&query=Qu'il+Fait+Bon+名古屋" },
-        { name:"珈琲処 加藤珈琲店 本店", veg:"part", desc:lang==="zh"?"名古屋咖啡文化代表，Google 4.2":"Nagoya coffee culture icon, Google 4.2", url:"https://www.google.com/maps/search/?api=1&query=加藤珈琲店+本店+名古屋" },
-      ],
-      souvenirs: [
-        { name:lang==="zh"?"小倉トースト夾心餅乾":"Ogura Toast Sandwich Cookies", veg:"full", store:"ESCA地下街 Pasco" },
-        { name:lang==="zh"?"兩口屋是清 二人靜":"Futarishizuka (Ryokuchiya Tokiwa)", veg:"full", store:"JR高島屋B1F" },
-        { name:lang==="zh"?"青柳ういろう（外郎）":"Aoyagi Uiro Wagashi", veg:"full", store:lang==="zh"?"名古屋站地下街":"Nagoya Sta. Underground" },
-        { name:lang==="zh"?"坂角總本舖 ゆかり 蝦煎餅":"Sakkaku Yukari Shrimp Crackers", veg:"no", store:"ESCA" },
-      ]
-    },
-    {
-      city: lang==="zh"?"🏯 京都 美食":"🏯 Kyoto Food",
-      restaurants: [
-        { name:"Veg Out（ベグアウト）", veg:"full", desc:lang==="zh"?"七条大橋旁，おばんざいプレート ¥1,650":"Near Shichijo Bridge. Obanzai plate ¥1,650", url:"https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto" },
-        { name:"Mumokuteki Cafe & Foods", veg:"full", desc:lang==="zh"?"100%素食日式定食，冷氣超強":"100% vegan Japanese set meals, great A/C", url:"https://www.google.com/maps/search/?api=1&query=Mumokuteki+Cafe+Kyoto" },
-      ],
-      cafes: [
-        { name:"% Arabica Kyoto 東山", veg:"full", desc:lang==="zh"?"八坂塔為背景，IG打卡王":"Iconic view of Yasaka Pagoda", url:"https://www.google.com/maps/search/?api=1&query=%25+Arabica+Kyoto+Higashiyama" },
-        { name:"Blue Bottle Coffee 京都", veg:"full", desc:lang==="zh"?"百年町家改建，Google 4.4":"100-year machiya renovation, Google 4.4", url:"https://www.google.com/maps/search/?api=1&query=Blue+Bottle+Coffee+Kyoto" },
-        { name:"CHOICE 京都", veg:"full", desc:lang==="zh"?"全素Cafe，Vegan起司蛋糕":"100% vegan cafe, vegan cheesecake", url:"https://www.google.com/maps/search/?api=1&query=CHOICE+Kyoto+vegan+cafe" },
-        { name:"Walden Woods Kyoto", veg:"full", desc:lang==="zh"?"純白階梯座位超夢幻":"Dreamy all-white staircase seating", url:"https://www.google.com/maps/search/?api=1&query=Walden+Woods+Kyoto" },
-        { name:"喫茶ソワレ", veg:"part", desc:lang==="zh"?"昭和老舖，青色刨冰（純素）":"Showa retro, blue-tinted shaved ice (vegan)", url:"https://www.google.com/maps/search/?api=1&query=喫茶ソワレ" },
-      ],
-      souvenirs: [
-        { name:lang==="zh"?"生八ッ橋 (八橋)":"Nama Yatsuhashi (Rice Cakes)", veg:"full", store:lang==="zh"?"聖護院/本家西尾/おたべ":"Shogoin / Honke Nishio" },
-        { name:lang==="zh"?"中村藤吉 生茶ゼリイ":"Nakamura Tokichi Green Tea Jelly", veg:"full", store:lang==="zh"?"京都站店":"Kyoto Sta." },
-        { name:lang==="zh"?"抹茶葛ねり":"Matcha Kuzu-neri", veg:"full", store:"京はやしや" },
-        { name:lang==="zh"?"京ばあむ（年輪蛋糕）":"Kyoto Baumkuchen", veg:"part", store:lang==="zh"?"京都站":"Kyoto Sta." },
-        { name:lang==="zh"?"マールブランシュ 茶の菓":"Malebranche Cha no Ka", veg:"part", store:lang==="zh"?"京都站/清水阪":"Kyoto Sta." },
-      ]
-    },
-    {
-      city: lang==="zh"?"🏮 大阪 ＆ 神戶 美食":"🏮 Osaka & Kobe Food",
-      restaurants: [
-        { name:"Paprika 食堂 Vegan（難波）", veg:"full", desc:lang==="zh"?"Google 4.6，素食控聖地":"Google 4.6, vegan heaven", url:"https://www.google.com/maps/search/?api=1&query=Paprika+食堂+Vegan+難波" },
-        { name:"OKO Fun Okonomiyaki Bar", veg:"full", desc:lang==="zh"?"大阪燒純素版，Day5晚餐":"Vegan okonomiyaki, Day 5 dinner", url:"https://www.google.com/maps/search/?api=1&query=OKO+Fun+Okonomiyaki+Bar" },
-        { name:"GREEN BROTHERS Kobe (MOSAIC)", veg:"full", desc:lang==="zh"?"神戶港純素沙拉碗":"Vegan salad bowls at Kobe Harborland", url:"https://www.google.com/maps/search/?api=1&query=Kobe+Harborland+MOSAIC" },
-      ],
-      cafes: [
-        { name:"bee9 cafe & studio（南森町）", veg:"full", desc:lang==="zh"?"全素瑜珈文青店，Google 4.8":"Full vegan yoga-chic cafe, Google 4.8", url:"https://www.google.com/maps/search/?api=1&query=bee9+cafe+南森町" },
-        { name:"Streamer Coffee 心斎橋", veg:"full", desc:lang==="zh"?"拿鐵藝術之王":"The latte art king", url:"https://www.google.com/maps/search/?api=1&query=Streamer+Coffee+心斎橋" },
-        { name:"Modernark Pharm Cafe（神戶）", veg:"full", desc:lang==="zh"?"全素，藥局改建文青風":"Full vegan, converted pharmacy aesthetics", url:"https://www.google.com/maps/search/?api=1&query=Modernark+pharm+cafe+Kobe" },
-        { name:"北野坂星巴克（神戶）", veg:"part", desc:lang==="zh"?"百年洋房，神戶限定周邊":"100-year Western house, Kobe exclusives", url:"https://www.google.com/maps/search/?api=1&query=Starbucks+Kobe+Kitano" },
-      ],
-      souvenirs: [
-        { name:lang==="zh"?"岩岡商店 塩昆布":"Iwaoka Shio Kombu", veg:"full", store:lang==="zh"?"黑門市場/高島屋":"Kuromon / Takashimaya" },
-        { name:lang==="zh"?"大阪前田製菓 Crackers":"Maeda Seika Crackers", veg:"full", store:lang==="zh"?"各大百貨":"Department stores" },
-        { name:lang==="zh"?"りくろーおじさん 起司蛋糕":"Rikuro Ojisan Cheesecake", veg:"part", store:lang==="zh"?"難波、梅田":"Namba, Umeda" },
-        { name:lang==="zh"?"神戶風月堂 ゴーフル":"Kobe Fugetsudo Gaufres", veg:"part", store:lang==="zh"?"元町本店":"Motomachi" },
-        { name:"UCHU wagashi", veg:"full", store:lang==="zh"?"北野坂（神戶）":"Kitanozaka Kobe" },
-      ]
+              {/* Hotel 2 */}
+              <div class="bg-amber-50/50 p-3.5 rounded-2xl border border-amber-100 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded-md">Day 3-4 京都</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Kyoto+Tower+Hotel" target="_blank" class="text-[10px] text-amber-500 hover:underline font-bold">🗺️ 導航</a>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="text-xs font-bold text-slate-700">京都塔酒店</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">車站對面地下直通，極速投幣洗衣</p>
+                  </div>
+                </div>
+                <input 
+                  type="text" 
+                  value={hotel2} 
+                  onChange={(e) => setHotel2(e.target.value)}
+                  placeholder="請填入訂房確認代號"
+                  class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 focus:outline-none focus:border-amber-400 shadow-inner"
+                />
+              </div>
+
+              {/* Hotel 3 */}
+              <div class="bg-pink-50/50 p-3.5 rounded-2xl border border-pink-100 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black bg-pink-100 text-pink-700 px-2 py-0.5 rounded-md">Day 5-8 大阪</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Namba+Grande" target="_blank" class="text-[10px] text-pink-500 hover:underline font-bold">🗺️ 導航</a>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="text-xs font-bold text-slate-700">難波京阪格蘭德飯店</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">與 Namba Parks 直通，下樓到超市公仔街</p>
+                  </div>
+                </div>
+                <input 
+                  type="text" 
+                  value={hotel3} 
+                  onChange={(e) => setHotel3(e.target.value)}
+                  placeholder="請填入訂房確認代號"
+                  class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 focus:outline-none focus:border-pink-400 shadow-inner"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Navigation Tab Bar (Swipable on mobile) */}
+          <nav class="flex border-b border-pink-100 mt-6 mx-4 bg-white rounded-t-3xl px-2 pt-2 shadow-sm overflow-x-auto no-scrollbar scroll-smooth">
+            <button 
+              onClick={() => setActiveTab("itinerary")}
+              class={`pb-3.5 px-4 text-xs font-black border-b-2 transition-all shrink-0 ${
+                activeTab === "itinerary" 
+                  ? "border-brand-pinkDark text-rose-500" 
+                  : "border-transparent text-slate-400 hover:text-slate-600"
+              }`}
+            >
+              📅 每日詳細行程
+            </button>
+            <button 
+              onClick={() => setActiveTab("souvenirs")}
+              class={`pb-3.5 px-4 text-xs font-black border-b-2 transition-all shrink-0 ${
+                activeTab === "souvenirs" 
+                  ? "border-brand-pinkDark text-rose-500" 
+                  : "border-transparent text-slate-400 hover:text-slate-600"
+              }`}
+            >
+              🎁 伴手禮/蔬食
+            </button>
+            <button 
+              onClick={() => setActiveTab("checklist")}
+              class={`pb-3.5 px-4 text-xs font-black border-b-2 transition-all shrink-0 flex items-center gap-1.5 ${
+                activeTab === "checklist" 
+                  ? "border-brand-pinkDark text-rose-500" 
+                  : "border-transparent text-slate-400 hover:text-slate-600"
+              }`}
+            >
+              ✅ 旅前待辦
+              <span class="bg-slate-100 text-[9px] text-slate-500 px-1.5 py-0.5 rounded-full font-black">
+                {stats.percent}%
+              </span>
+            </button>
+            <button 
+              onClick={() => setActiveTab("budget")}
+              class={`pb-3.5 px-4 text-xs font-black border-b-2 transition-all shrink-0 ${
+                activeTab === "budget" 
+                  ? "border-brand-pinkDark text-rose-500" 
+                  : "border-transparent text-slate-400 hover:text-slate-600"
+              }`}
+            >
+              💰 記帳匯率
+            </button>
+          </nav>
+
+          {/* TAB CONTENT: ITINERARY */}
+          {activeTab === "itinerary" && (
+            <main class="mx-4 mt-3 animate-slide-in">
+              {/* Day horizontal selector */}
+              <div class="flex gap-2.5 overflow-x-auto pb-3.5 pt-1 px-1 no-scrollbar scroll-smooth">
+                {DAYS_DATA.map(d => (
+                  <button
+                    key={d.day}
+                    onClick={() => setCurrentDay(d.day)}
+                    class={`flex flex-col items-center justify-center p-3 rounded-2xl min-w-[70px] transition-all border ${
+                      currentDay === d.day
+                        ? "bg-rose-400 text-white shadow-md shadow-rose-200 border-rose-400 transform scale-105"
+                        : "bg-white text-slate-500 border-slate-100 hover:border-slate-300"
+                    }`}
+                  >
+                    <span class="text-xs font-black">Day {d.day}</span>
+                    <span class="text-[9px] font-bold opacity-85 mt-0.5">{d.date.slice(5, 10)}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Day content Card */}
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100 mt-1">
+                {/* Card Top Title Block */}
+                <div class="flex items-center gap-3.5 border-b border-pink-50 pb-4">
+                  <div class={`text-xl font-black bg-gradient-to-br ${currentDayData.color} text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-md select-none`}>
+                    {currentDay}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <h2 class="text-base font-black text-slate-800">{currentDayData.title}</h2>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold mt-0.5">{currentDayData.date} | 主題: {currentDayData.theme}</p>
+                  </div>
+                </div>
+
+                {/* Timeline loop */}
+                <div class="relative pl-5 border-l border-pink-100/60 ml-3.5 mt-6 flex flex-col gap-6">
+                  {currentDayData.timeline.map((item, idx) => (
+                    <div key={idx} class="relative group">
+                      {/* Pink dot */}
+                      <span class="absolute -left-[29px] top-1 bg-white border-2 border-pink-300 w-4.5 h-4.5 rounded-full flex items-center justify-center">
+                        <span class="w-1.5 h-1.5 bg-pink-400 rounded-full"></span>
+                      </span>
+
+                      <div class="flex flex-col gap-1">
+                        <div class="text-[11px] font-black text-rose-400 tracking-wider">
+                          ⏰ {item.time}
+                        </div>
+                        <div class="bg-brand-pink/10 border border-pink-100/50 rounded-2xl p-3.5">
+                          <div class="flex items-center gap-1.5">
+                            <span class="text-base select-none">{item.icon}</span>
+                            <h4 class="text-xs font-black text-slate-700">{item.title}</h4>
+                            {item.map && (
+                              <a 
+                                href={item.map} 
+                                target="_blank" 
+                                class="text-[9px] text-blue-500 hover:underline flex items-center gap-0.5 ml-auto font-black"
+                              >
+                                🗺️ 地圖導航
+                              </a>
+                            )}
+                          </div>
+                          <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed font-medium">{item.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Day Meta Sections */}
+                <div class="flex flex-col gap-4 mt-6 pt-5 border-t border-pink-50">
+                  {/* Recommended Cafe */}
+                  <div class="bg-brand-yellow/30 p-4 rounded-2xl border border-brand-yellowDark/10">
+                    <h3 class="text-xs font-black text-amber-700 flex items-center gap-1.5 mb-2">
+                      <span>☕</span> 網美咖啡/特色早餐推薦
+                    </h3>
+                    <h4 class="text-xs font-extrabold text-slate-700">{currentDayData.cafe.name}</h4>
+                    <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">{currentDayData.cafe.desc}</p>
+                    <a href={currentDayData.cafe.map} target="_blank" class="inline-block mt-2 text-[9px] text-amber-600 hover:underline font-black">
+                      在地圖中查看 ➔
+                    </a>
+                  </div>
+
+                  {/* Rain Plan */}
+                  <div class="bg-brand-blue/30 p-4 rounded-2xl border border-brand-blueDark/10">
+                    <h3 class="text-xs font-black text-blue-700 flex items-center gap-1.5 mb-1.5">
+                      <span>☔</span> 專屬貼心雨備方案
+                    </h3>
+                    <p class="text-[11px] text-slate-600 font-medium leading-relaxed">{currentDayData.rainPlan}</p>
+                  </div>
+
+                  {/* Quick Tips */}
+                  <div class="bg-brand-green/30 p-4 rounded-2xl border border-brand-greenDark/10">
+                    <h3 class="text-xs font-black text-emerald-700 flex items-center gap-1.5 mb-1.5">
+                      <span>💡</span> 30代慢活貼心小叮嚀
+                    </h3>
+                    <p class="text-[11px] text-slate-600 font-bold leading-relaxed">{currentDayData.tips}</p>
+                  </div>
+                </div>
+
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: SOUVENIRS */}
+          {activeTab === "souvenirs" && (
+            <main class="mx-4 mt-4 animate-slide-in">
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">🎁 伴手禮與蔬食快查清單</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">為您把關好滋味、紀錄精準採購地</p>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  {SOUVENIR_DATA.map((item, idx) => (
+                    <div key={idx} class="bg-brand-cream/50 border border-pink-50 rounded-2xl p-4 flex flex-col gap-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
+                          {item.area}
+                        </span>
+                        <span class={`px-2 py-0.5 rounded-full font-black text-[9px] ${
+                          item.type.includes("全素") 
+                            ? "bg-brand-green text-emerald-700" 
+                            : item.type.includes("心靈") 
+                            ? "bg-brand-pink text-rose-600" 
+                            : "bg-brand-yellow text-amber-700"
+                        }`}>
+                          {item.type}
+                        </span>
+                      </div>
+                      <h4 class="text-xs font-black text-slate-700">{item.name}</h4>
+                      <p class="text-[10px] text-slate-400 font-bold">📍 採購地點: {item.location}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="mt-5 bg-brand-pink/30 p-4 rounded-2xl border border-brand-pinkDark/10">
+                  <h4 class="text-xs font-black text-rose-500 mb-1 flex items-center gap-1">
+                    <span>🐧</span> 企鵝達人掃貨重點指南
+                  </h4>
+                  <p class="text-[11px] text-rose-600/95 leading-relaxed font-medium">
+                    在「はなまるストア」官方商店（名古屋PARCO東館3F、大阪LUCUA 1100 9F）單筆消費滿 2,000 日圓，即可免費登記加入官方會員。加入後能解鎖購買屬會員限定商品、周年聯名款企鵝周邊！這兩間旗艦店商品最齊全！
+                  </p>
+                </div>
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: CHECKLIST */}
+          {activeTab === "checklist" && (
+            <main class="mx-4 mt-4 animate-slide-in">
+              {/* Progress bar */}
+              <div class="bg-gradient-to-r from-brand-greenDark to-emerald-400 rounded-3xl p-5 text-white shadow-sm flex flex-col items-center text-center gap-3.5 mb-5">
+                <div>
+                  <h2 class="text-base font-black tracking-tight">旅前備戰 Checklist 任務狀態</h2>
+                  <p class="text-[10px] text-emerald-50 mt-1">細緻打點、精準搶票，做萬無一失的浪漫旅程！</p>
+                </div>
+                <div class="bg-white/15 px-6 py-2.5 rounded-2xl border border-white/20">
+                  <div class="text-2xl font-black">{stats.checked} / {stats.total}</div>
+                  <div class="text-[9px] uppercase font-bold tracking-wider text-emerald-100 mt-0.5">已完成項目</div>
+                </div>
+              </div>
+
+              {/* Checklist Section Loops */}
+              <div class="flex flex-col gap-4">
+                {CHECKLIST_SECTIONS.map((section, idx) => (
+                  <div key={idx} class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                    <h3 class="text-xs font-black text-slate-700 border-b border-pink-50 pb-3 mb-3">
+                      {section.title}
+                    </h3>
+
+                    <div class="flex flex-col gap-2.5">
+                      {section.items.map(item => (
+                        <div 
+                          key={item.id}
+                          onClick={() => handleToggleCheck(item.id)}
+                          class={`flex items-start gap-3 p-3 rounded-2xl border cursor-pointer select-none transition-all ${
+                            checkedItems[item.id]
+                              ? "bg-brand-green/20 border-emerald-100/50 text-slate-400"
+                              : item.urgent
+                              ? "bg-brand-pink/40 border-rose-200 hover:border-rose-300"
+                              : "bg-white border-slate-100 hover:border-slate-200 text-slate-700"
+                          }`}
+                        >
+                          <div class={`w-5 h-5 rounded-xl border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${
+                            checkedItems[item.id]
+                              ? "bg-brand-greenDark border-brand-greenDark text-white"
+                              : item.urgent
+                              ? "border-rose-400 bg-white"
+                              : "border-slate-300 bg-white"
+                          }`}>
+                            {checkedItems[item.id] && <span class="text-[10px] font-black">✓</span>}
+                          </div>
+
+                          <div class="flex-1 min-w-0">
+                            <span class={`text-[11px] font-bold block leading-relaxed ${checkedItems[item.id] ? "line-through" : ""}`}>
+                              {item.text}
+                            </span>
+                            {item.urgent && !checkedItems[item.id] && (
+                              <span class="inline-block bg-rose-400 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md mt-1 uppercase animate-pulse">
+                                時間精度高警報 ⏰
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: BUDGET */}
+          {activeTab === "budget" && (
+            <main class="mx-4 mt-4 animate-slide-in">
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">💰 每日預算記帳 & 匯率換算器</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">即時精算每日花費，保持慢活極簡的完美掌控感</p>
+                </div>
+
+                {/* Exchange Controller */}
+                <div class="bg-brand-yellow/40 p-4 rounded-2xl border border-brand-yellowDark/10 flex flex-col items-center justify-between gap-3.5 mb-5">
+                  <div class="flex items-center gap-3 text-center sm:text-left">
+                    <span class="text-2xl select-none">🇯🇵 ➔ 🇹🇼</span>
+                    <div>
+                      <h4 class="text-xs font-black text-amber-700">可調式換算匯率</h4>
+                      <p class="text-[9px] text-slate-400">當前設定：1 日圓 = {exchangeRate} 新台幣</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-bold text-slate-500">自訂匯率：</span>
+                    <input 
+                      type="number" 
+                      step="0.001"
+                      value={exchangeRate}
+                      onChange={(e) => setExchangeRate(parseFloat(e.target.value) || 0.215)}
+                      class="w-20 bg-white border border-amber-200 rounded-xl px-2 py-1 text-xs font-bold text-slate-600 focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                {/* Input Grid */}
+                <div class="flex flex-col gap-3">
+                  {DAYS_DATA.map((d, idx) => (
+                    <div key={d.day} class="bg-slate-50/50 border border-slate-100 rounded-2xl p-3.5 flex flex-col gap-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-500">Day {d.day} 行程</span>
+                        <span class="text-[9px] text-slate-400 font-bold bg-white px-2 py-0.5 rounded-full border border-slate-100">{d.city}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <input 
+                          type="number" 
+                          value={dailyExpenses[idx] === 0 ? "" : dailyExpenses[idx]} 
+                          onChange={(e) => handleExpenseChange(idx, e.target.value)}
+                          placeholder="請輸入日圓開銷 JPY"
+                          class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none focus:border-rose-400 shadow-inner"
+                        />
+                        <span class="text-xs font-bold text-slate-400">円</span>
+                      </div>
+                      <div class="flex justify-between text-[10px] font-bold text-slate-400 border-t border-slate-100/30 pt-2">
+                        <span>換算新台幣：</span>
+                        <span class="text-rose-500">
+                          NT$ {Math.round(dailyExpenses[idx] * exchangeRate).toLocaleString()} 元
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Totals Summary */}
+                <div class="mt-6 pt-5 border-t border-pink-50 flex flex-col items-center gap-3">
+                  <div class="text-center">
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-wider">合計本次行程預算開支</h3>
+                    <p class="text-[9px] text-slate-400 mt-0.5">（不含機票、環球影城門票等已付大筆款項）</p>
+                  </div>
+                  
+                  <div class="w-full grid grid-cols-2 gap-3.5 mt-2">
+                    <div class="bg-brand-cream border border-pink-50 rounded-2xl p-3 text-center">
+                      <div class="text-[9px] font-bold text-slate-400">總日圓花費</div>
+                      <div class="text-sm font-black text-slate-700 mt-1">
+                        {dailyExpenses.reduce((a, b) => a + b, 0).toLocaleString()} 円
+                      </div>
+                    </div>
+                    <div class="bg-brand-pink border border-brand-pinkDark/10 rounded-2xl p-3 text-center">
+                      <div class="text-[9px] font-bold text-brand-pinkDark">換算新台幣</div>
+                      <div class="text-sm font-black text-rose-500 mt-1">
+                        NT$ {Math.round(dailyExpenses.reduce((a, b) => a + b, 0) * exchangeRate).toLocaleString()} 元
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </main>
+          )}
+
+          {/* Footer Text */}
+          <footer class="mt-12 text-center text-slate-400 text-[10px] px-6">
+            <p class="font-extrabold flex items-center justify-center gap-1 text-slate-500">
+              🌸 祝旅途愉快！滿載御朱印、限定企鵝、滿滿正能量平安返台 🐧⛩️🎆
+            </p>
+            <p class="text-[9px] opacity-80 mt-1">專屬 30 代慢活、週年紀念、精準掃貨版指南</p>
+          </footer>
+
+          {/* Floating Koupen-chan widget (Bottom Right) */}
+          <div class="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2">
+            {showBubble && (
+              <div class="bg-white border-2 border-brand-pinkDark/30 text-slate-700 rounded-2xl p-3 shadow-xl max-w-[170px] relative animate-pop-bubble select-none">
+                {/* Close bubble */}
+                <button 
+                  onClick={() => setShowBubble(false)}
+                  class="absolute -top-2 -right-2 bg-slate-100 hover:bg-slate-200 text-slate-500 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black border border-slate-200"
+                >
+                  ✕
+                </button>
+                <p class="text-[10px] font-bold leading-relaxed">{quote}</p>
+                {/* Little speech bubble tail */}
+                <div class="absolute right-6 -bottom-1.5 w-3 h-3 bg-white border-r-2 border-b-2 border-brand-pinkDark/30 rotate-45"></div>
+              </div>
+            )}
+            
+            <button 
+              onClick={rollQuote}
+              class="w-14 h-14 bg-white hover:bg-brand-pink rounded-full shadow-2xl flex items-center justify-center border-2 border-brand-pinkDark/30 active:scale-95 transition-all animate-cute-float"
+            >
+              <KoupenIllust size="w-11 h-11" withClover={false} />
+            </button>
+          </div>
+
+        </div>
+      );
     }
-  ];
-  const vegColor = { full:"#d1fae5", part:"#fef3c7", no:"#fee2e2" };
-  const vegTextColor = { full:"#065f46", part:"#92400e", no:"#991b1b" };
-  const vegLabel = { full: lang==="zh"?"全素":"Vegan", part: lang==="zh"?"部分素":"Partial", no: lang==="zh"?"含葷":"Non-veg" };
-  return (
-    <div className="fade">
-      <div className="panel">
-        {cities.map((c, ci) => (
-          <div key={ci}>
-            <div style={{fontWeight:700,fontSize:14,color:"#1e293b",padding:"8px 0 6px",marginTop: ci>0?8:0}}>{c.city}</div>
-            {/* Restaurants */}
-            <div className="card">
-              <div className="card-header">🍽️ {lang==="zh"?"素食餐廳":"Veg Restaurants"}</div>
-              <div className="card-body">
-                {c.restaurants.map((r,i) => (
-                  <div key={i} className="spot-item">
-                    <span className="spot-icon">🥗</span>
-                    <div className="spot-info">
-                      <div style={{display:"flex",alignItems:"center",gap:6}}>
-                        <span className="spot-name">{r.name}</span>
-                        <span className="veg-tag" style={{background:vegColor[r.veg],color:vegTextColor[r.veg]}}>{vegLabel[r.veg]}</span>
-                      </div>
-                      <div className="spot-desc">{r.desc}</div>
-                      {r.url && <MapBtn url={r.url} lang={lang}/>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Cafes */}
-            <div className="card">
-              <div className="card-header">☕ {lang==="zh"?"網美咖啡":"Cafes"}</div>
-              <div className="card-body">
-                {c.cafes.map((r,i) => (
-                  <div key={i} className="spot-item">
-                    <span className="spot-icon">☕</span>
-                    <div className="spot-info">
-                      <div style={{display:"flex",alignItems:"center",gap:6}}>
-                        <span className="spot-name">{r.name}</span>
-                        <span className="veg-tag" style={{background:vegColor[r.veg],color:vegTextColor[r.veg]}}>{vegLabel[r.veg]}</span>
-                      </div>
-                      <div className="spot-desc">{r.desc}</div>
-                      {r.url && <MapBtn url={r.url} lang={lang}/>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Souvenirs */}
-            <div className="card">
-              <div className="card-header">🎁 {lang==="zh"?"伴手禮":"Souvenirs"}</div>
-              <div className="card-body">
-                {c.souvenirs.map((s,i) => (
-                  <div key={i} className="spot-item">
-                    <span className="spot-icon">🎁</span>
-                    <div className="spot-info">
-                      <div style={{display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}}>
-                        <span className="spot-name">{s.name}</span>
-                        <span className="veg-tag" style={{background:vegColor[s.veg],color:vegTextColor[s.veg]}}>{vegLabel[s.veg]}</span>
-                      </div>
-                      <div className="spot-loc">🏪 {s.store}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
-/* ── Checklist Panel ── */
-function ChecklistPanel({ lang }) {
-  const initialSections = [
-    {
-      title: lang==="zh"?"🎫 必辦事項（建議 3 個月前完成）":"🎫 Must-do (3 months before)",
-      items: [
-        { text: lang==="zh"?"機票開票完成（台灣虎航 WD9K9X）":"Flight booked (Tigerair TW WD9K9X)", done: true },
-        { text: lang==="zh"?"預訂名古屋飯店（7/20–22，2晚）":"Book Nagoya hotel (7/20–22, 2 nights)", done: false },
-        { text: lang==="zh"?"預訂京都飯店（7/22–24，2晚）":"Book Kyoto hotel (7/22–24, 2 nights)", done: false },
-        { text: lang==="zh"?"預訂大阪飯店（7/24–28，4晚）":"Book Osaka hotel (7/24–28, 4 nights)", done: false },
-        { text: lang==="zh"?"購買 USJ 門票 + Express Pass 4（提前2個月）":"Buy USJ tickets + Express Pass 4 (2 months in advance)", done: false },
-        { text: lang==="zh"?"Klook 預購名鐵 μ-SKY 特急券":"Pre-buy Meitetsu μ-SKY ticket on Klook", done: false },
-        { text: lang==="zh"?"Klook 預購南海 Rapi:t 特急券":"Pre-buy Nankai Rapi:t ticket on Klook", done: false },
-        { text: lang==="zh"?"下載 SmartEX App 並綁定信用卡+Apple Pay":"Download SmartEX App and link credit card + Apple Pay", done: false },
-      ]
-    },
-    {
-      title: lang==="zh"?"🚨 精準時間戰（1 個月前）":"🚨 Time-sensitive Tasks (1 month before)",
-      items: [
-        { text: lang==="zh"?"⏰ 6/24（三）10:30 近鐵官網開搶 7/24「あをによし」票！":"⏰ 6/24 (Wed) 10:30 AM — Grab Aoniyoshi tickets on Kintetsu website!", done: false, urgent: true },
-        { text: lang==="zh"?"預訂 Veg Out、OKO、Mumokuteki Cafe（1週前訂位）":"Reserve Veg Out, OKO, Mumokuteki Cafe (book 1 week ahead)", done: false },
-        { text: lang==="zh"?"Suica / ICOCA 綁定 Apple Pay":"Set up Suica / ICOCA on Apple Pay", done: false },
-      ]
-    },
-    {
-      title: lang==="zh"?"🧳 出發前 2 週":"🧳 2 Weeks Before Departure",
-      items: [
-        { text: lang==="zh"?"投保旅遊平安險／不便險":"Buy travel insurance", done: false },
-        { text: lang==="zh"?"查看當週氣象（tenki.jp / ウェザーニュース App）":"Check weather forecast (tenki.jp / Weather News App)", done: false },
-        { text: lang==="zh"?"確認天神祭花火是否正常舉行（7/25當日15:00公告）":"Confirm Tenjin Matsuri fireworks status (7/25 announced at 15:00)", done: false },
-        { text: lang==="zh"?"收拾：折傘×2 + 快乾毛巾 + 防曬SPF50+":"Pack: 2 folding umbrellas + quick-dry towel + SPF50+ sunscreen", done: false },
-      ]
-    },
-    {
-      title: lang==="zh"?"🐧 行李備忘":"🐧 Luggage Reminders",
-      items: [
-        { text: lang==="zh"?"空出一個大袋子給企鵝娃娃戰利品":"Leave a large bag for penguin merch haul", done: false },
-        { text: lang==="zh"?"準備御朱印帳（若忘了，京都站Loft有賣）":"Bring goshuin book (can buy at Kyoto Sta. Loft)", done: false },
-      ]
-    }
-  ];
-  const [checks, setChecks] = useState(() => {
-    const flat = [];
-    initialSections.forEach(s => s.items.forEach(item => flat.push(item.done)));
-    return flat;
-  });
-  let globalIdx = 0;
-  const toggle = (idx) => {
-    setChecks(prev => { const n=[...prev]; n[idx]=!n[idx]; return n; });
-  };
-  const total = checks.length;
-  const done = checks.filter(Boolean).length;
-  return (
-    <div className="fade">
-      <div className="panel">
-        <div style={{background:"linear-gradient(135deg,#f0fdf4,#dcfce7)",border:"1.5px solid #86efac",borderRadius:12,padding:"12px 14px",marginBottom:12,textAlign:"center"}}>
-          <div style={{fontSize:24,fontWeight:700,color:"#15803d"}}>{done} / {total}</div>
-          <div style={{fontSize:12,color:"#16a34a"}}>{lang==="zh"?"項目已完成":"tasks completed"}</div>
-          <div style={{background:"#e2e8f0",borderRadius:20,height:8,marginTop:8,overflow:"hidden"}}>
-            <div style={{background:"#10b981",height:"100%",width:`${(done/total)*100}%`,borderRadius:20,transition:"width .3s"}}/>
-          </div>
-        </div>
-        {initialSections.map((sec, si) => (
-          <div key={si} className="card">
-            <div className="card-header">{sec.title}</div>
-            <div className="card-body">
-              {sec.items.map((item, ii) => {
-                const idx = globalIdx++;
-                return (
-                  <div key={ii} className="check-item" onClick={() => toggle(idx)}>
-                    <div className={`check-box${checks[idx]?" done":""}`}>
-                      {checks[idx] && <span style={{color:"#fff",fontSize:12}}>✓</span>}
-                    </div>
-                    <span className={`check-text${checks[idx]?" done":""}`}>
-                      {item.text}
-                      {item.urgent && <span className="check-urgent">{lang==="zh"?"時間戳！":"Time-critical!"}</span>}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-        <div className="card">
-          <div className="card-header">📱 {lang==="zh"?"實用 App 清單":"Useful Apps"}</div>
-          <div className="card-body">
-            {[
-              { icon:"🗺️", name:"Google Maps", desc:lang==="zh"?"路線規劃（本頁所有地圖按鈕）":"Navigation (all map buttons in this guide)" },
-              { icon:"🚆", name:"NAVITIME / Yahoo!乗換案内", desc:lang==="zh"?"日本大眾運輸查詢":"Japanese transit planner" },
-              { icon:"⛅", name:"tenki.jp / ウェザーニュース", desc:lang==="zh"?"即時天氣+雷雨警報":"Live weather + thunderstorm alerts" },
-              { icon:"🚄", name:"SmartEX", desc:lang==="zh"?"東海道新幹線預約":"Tokaido Shinkansen booking" },
-              { icon:"🎢", name:"USJ公式App", desc:lang==="zh"?"園內排隊時間、整理券":"USJ wait times & AR tickets" },
-              { icon:"🌿", name:"HappyCow", desc:lang==="zh"?"全球素食餐廳搜尋":"Global vegan/veg restaurant finder" },
-              { icon:"🆘", name:lang==="zh"?"台灣外交部急難救助":"Taiwan MOFA Emergency", desc:"+81-3-3280-7917（東京）" },
-            ].map((a,i) => (
-              <div key={i} className="tip-item">
-                <span className="tip-icon">{a.icon}</span>
-                <span><b>{a.name}</b> — {a.desc}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Day data ── */
-const DAYS = [
-  {
-    day:1, date:"7/20 (一)", city:"✈️ 中部國際機場 → 名古屋", icon:"🎆",
-    titleZh:"抵達 & 海之日煙火", titleEn:"Arrival & Marine Day Fireworks",
-    color:"#6366f1",
-    timeline:[
-      { time:"12:55", icon:"✈️", mainZh:"航班抵達 中部國際機場", mainEn:"Land at Centrair (NGO)", descZh:"出關後約13:40，機場4F「ちょうちん横丁」可吃素食烏龍麵", descEn:"After customs ~13:40. Airport 4F ちょうちん横丁 has vegan udon options", mapUrl:"https://www.google.com/maps/search/?api=1&query=中部國際空港+セントレア" },
-      { time:"14:00", icon:"🚄", mainZh:"名鐵 μ-SKY 特急 → 名古屋車站", mainEn:"Meitetsu μ-SKY Ltd. Exp. → Nagoya Sta.", descZh:"約28分，¥1,430，有大型行李架（Klook預購省錢）", descEn:"28 min, ¥1,430, large luggage racks (pre-buy on Klook)" },
-      { time:"15:00", icon:"🏨", mainZh:"飯店 Check-in（名古屋車站周邊）", mainEn:"Hotel Check-in (near Nagoya Sta.)", mapUrl:"https://www.google.com/maps/search/?api=1&query=名古屋駅" },
-      { time:"15:30", icon:"🐧", mainZh:"企鵝掃貨 ① — 名古屋PARCO東館3F", mainEn:"Penguin Merch Stop ① — Nagoya PARCO East 3F", descZh:"Kiddy Land + コウペンちゃん はなまるストア + ちいかわらんど（2025/4新開幕）", descEn:"Kiddy Land + Koupenchan Hanamaru Store + Chiikawa-rando (opened Apr 2025)", mapUrl:"https://www.google.com/maps/search/?api=1&query=名古屋PARCO" },
-      { time:"17:00", icon:"🚇", mainZh:"出發往祭典 — 地下鐵東山線→名港線", mainEn:"Head to festival — Higashiyama → Meiko Line", descZh:"名古屋站→榮站轉名港線→名古屋港站，約25分，¥240", descEn:"Nagoya Sta → Sakae → Nagoya-ko Sta, ~25 min, ¥240" },
-      { time:"19:30–20:30", icon:"🎆", mainZh:"海之日 名古屋港祭 煙火大會", mainEn:"Marine Day Nagoya Port Festival Fireworks", descZh:"太鼓表演 + 3,000發煙火，免費入場", descEn:"Taiko performance + 3,000 fireworks, free admission", mapUrl:"https://www.google.com/maps/search/?api=1&query=名古屋港ガーデンふ頭" },
-      { time:"20:30–21:30", icon:"🍜", mainZh:"晚餐：T's Tantan 純素擔擔麵", mainEn:"Dinner: T's Tantan Vegan Dandan Noodles", descZh:"名古屋驛麵通り，純素擔擔麵", descEn:"Nagoya station dining street, vegan dandan noodles", mapUrl:"https://www.google.com/maps/search/?api=1&query=T's+tantan+名古屋驛麺通り" },
-    ],
-    routes:[
-      { label:lang=>"zh"?"機場→市區":"Airport → City", time:"28分", cost:"1,430", steps:[{ from:"中部國際機場", to:"名古屋駅", via:"名鐵μ-SKY", color:"#003087" }], note:"Klook預購含μチケット約TWD320" },
-    ],
-    tips:[
-      { icon:"💡", zh:"μ-SKY全車指定席，有行李架，有行李者強烈推薦", en:"μ-SKY has reserved all seats + luggage racks — highly recommended with luggage" },
-      { icon:"🐧", zh:"先買一隻小企鵝娃娃陪看煙火！", en:"Buy a small penguin plushie to watch the fireworks with!" },
-      { icon:"💳", zh:"ICOCA/Suica綁Apple Pay，感應進閘無需買票", en:"Tap in with Apple Pay (ICOCA/Suica) — no need to queue for tickets" },
-    ],
-    rain:[
-      { zh:"煙火遇大雨或雷擊將中止（官方17:00前宣布）", en:"Fireworks cancelled in heavy rain/lightning (official announcement by 17:00)" },
-      { zh:"雨備：JR Central Towers頂樓展望台觀夜景，或PARCO逛到打烊", en:"Rain plan: JR Central Towers rooftop, or stay in PARCO until closing" },
-    ],
-  },
-  {
-    day:2, date:"7/21 (二)", city:"名古屋", icon:"⛩️",
-    titleZh:"名古屋城 & 大須挖寶 & 榮夜遊", titleEn:"Nagoya Castle + Osu Shopping + Sakae Night",
-    color:"#0ea5e9",
-    timeline:[
-      { time:"10:00", icon:"🏯", mainZh:"名古屋城 — 本丸御殿 + 御城印", mainEn:"Nagoya Castle — Honmaru Palace + castle stamp", descZh:"地下鐵名城線「名古屋城站」，御城印¥300", descEn:"Meijo Line 'Nagoya-jo Sta.', castle stamp ¥300", mapUrl:"https://www.google.com/maps/search/?api=1&query=名古屋城" },
-      { time:"13:00", icon:"🍽️", mainZh:"午餐 + 大須商店街挖寶", mainEn:"Lunch + Osu Shopping Street", descZh:"純素：Noi Vege Kitchen ORIBIO矢場町（距大須10分步行）。逛Mandarake、Jungle", descEn:"Vegan: ORIBIO Yabamachi (10 min walk from Osu). Browse Mandarake, Jungle", mapUrl:"https://www.google.com/maps/search/?api=1&query=大須商店街" },
-      { time:"16:30", icon:"🛍️", mainZh:"大須 → 榮商圈 步行15分", mainEn:"Osu → Sakae (15 min walk)", descZh:"", descEn:"" },
-      { time:"17:00", icon:"🐧", mainZh:"企鵝掃貨 ② — Loft名古屋「花丸商店」", mainEn:"Penguin Merch ② — Loft Nagoya 'Hanamaru-shoten'", mapUrl:"https://www.google.com/maps/search/?api=1&query=Loft+名古屋店" },
-      { time:"19:00", icon:"🌃", mainZh:"Oasis 21「綠之大地」飛船點燈夜景", mainEn:"Oasis 21 'Galaxy Platform' illumination", mapUrl:"https://www.google.com/maps/search/?api=1&query=Oasis+21" },
-      { time:"19:30", icon:"🍽️", mainZh:"晚餐：榮地下街或回名古屋站驛麵通", mainEn:"Dinner: Sakae underground or back at Nagoya Sta.", descZh:"", descEn:"" },
-    ],
-    routes:[
-      { label:"名古屋城→大須", time:"10分", cost:"240", steps:[{ from:"名古屋城駅", to:"上前津駅/大須觀音駅", via:"名城線", color:"#B51F6E" }] },
-    ],
-    tips:[
-      { icon:"🏯", zh:"本丸御殿木造重建，室內華麗值得細看", en:"Honmaru Palace is a magnificent wooden reconstruction — worth exploring inside" },
-      { icon:"🛍️", zh:"大須有大量拱廊屋簷，小雨也可正常逛", en:"Osu has extensive covered arcades — fine in light rain" },
-      { icon:"🎁", zh:"大須外郎糕（大須ういろ本店）是最道地的名古屋伴手禮", en:"Osu Uiro rice cake (Osu Uiro Honten) — the most authentic Nagoya souvenir" },
-    ],
-    rain:[
-      { zh:"若暴雨：跳過名古屋城，改逛 Noritake の森（室內工藝博物館）", en:"Heavy rain: Skip castle, go to Noritake-no-Mori indoor craft museum" },
-      { zh:"備選：SCMAGLEV & Railway Park（リニア・鉄道館，超酷新幹線博物館）", en:"Alt: SCMAGLEV & Railway Park (Superconducting Maglev museum)" },
-    ],
-  },
-  {
-    day:3, date:"7/22 (三)", city:"名古屋 → 京都", icon:"🚄",
-    titleZh:"熱田神宮祈福 & 移動京都 & 祇園祭宵山", titleEn:"Atsuta Shrine + Shinkansen to Kyoto + Gion Matsuri",
-    color:"#f59e0b",
-    timeline:[
-      { time:"09:00", icon:"⛩️", mainZh:"熱田神宮 — 御朱印 + 草薙劍", mainEn:"Atsuta Shrine — goshuin + Kusanagi sword", descZh:"名鐵「神宮前站」6分¥230，御朱印¥500", descEn:"Meitetsu 'Jingu-mae Sta.' 6 min ¥230, goshuin ¥500", mapUrl:"https://www.google.com/maps/search/?api=1&query=熱田神宮" },
-      { time:"11:30", icon:"🍜", mainZh:"午餐：宮きしめん 神宮店", mainEn:"Lunch: Miya Kishimen Jingu Restaurant", descZh:"可要求昆布高湯素食きしめん（「だしは昆布だけにしてください」）", descEn:"Request vegan: 'Dashi wa konbu dake ni shite kudasai' (kombu broth only)", mapUrl:"https://www.google.com/maps/search/?api=1&query=宮きしめん+神宮店" },
-      { time:"13:00", icon:"🎁", mainZh:"名古屋站 ESCA 地下街 — 伴手禮大採購", mainEn:"Nagoya Sta. ESCA Underground — souvenir shopping sprint", mapUrl:"https://www.google.com/maps/search/?api=1&query=ESCA+名古屋" },
-      { time:"15:01", icon:"🚄", mainZh:"のぞみ27號 → 京都（34分）", mainEn:"Nozomi No.27 Shinkansen → Kyoto (34 min)", descZh:"Hikari ¥5,920 / Nozomi ¥6,440，SmartEX App預約", descEn:"Hikari ¥5,920 / Nozomi ¥6,440, book via SmartEX App" },
-      { time:"15:45", icon:"🏨", mainZh:"京都飯店 Check-in（京都車站周邊）", mainEn:"Kyoto Hotel Check-in (near Kyoto Sta.)", mapUrl:"https://www.google.com/maps/search/?api=1&query=京都駅" },
-      { time:"16:00", icon:"🛍️", mainZh:"京都站商場採買 — Porta / Kyoto Tower Sando / Loft御朱印帳", mainEn:"Kyoto Sta. shopping — Porta / Tower Sando / Loft goshuin book", mapUrl:"https://www.google.com/maps/search/?api=1&query=京都ポルタ" },
-      { time:"18:30", icon:"🍽️", mainZh:"晚餐：Veg Out 七条大橋旁純素店", mainEn:"Dinner: Veg Out vegan restaurant near Shichijo Bridge", descZh:"招牌「おばんざいプレート」¥1,650，9種京都料理", descEn:"Signature obanzai plate ¥1,650, 9 Kyoto dishes", mapUrl:"https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto" },
-      { time:"19:30–21:00", icon:"🏮", mainZh:"祇園祭後祭・宵山（烏丸通・室町通）", mainEn:"Gion Matsuri Koumatsuri Yoiyama — Karasuma & Muromachi", descZh:"2026後祭宵山 7/22–7/24，7/24山鉾巡行日，免費入場，提燈夜景超浪漫", descEn:"2026 Koshimatsuri Yoiyama Jul 22–24; Jul 24 is Yamahoko parade day. Free entry.", mapUrl:"https://www.google.com/maps/search/?api=1&query=祇園祭+後祭+宵山+京都" },
-    ],
-    routes:[
-      { label:"名古屋→京都 新幹線", time:"34分", cost:"6,440", steps:[{ from:"名古屋駅", to:"京都駅", via:"のぞみ（Nozomi）", color:"#003087" }], note:"SmartEX App預約 Hikari則¥5,920" },
-    ],
-    tips:[
-      { icon:"⚠️", zh:"後祭宵山7/22–7/24，祭典結束後人潮擁擠，預留回飯店時間", en:"Yoiyama Jul 22–24 — crowds are heavy after the festival, plan extra time" },
-      { icon:"🍜", zh:"きしめん素食請口頭說：「だしは昆布だけにしてください」", en:"For vegan kishimen: say 'Dashi wa konbu dake ni shite kudasai'" },
-    ],
-    rain:[
-      { zh:"神宮有屋簷，小雨OK", en:"Atsuta Shrine has covered walkways — fine in light rain" },
-      { zh:"宵山遇大雨中止山鉾展示，改逛京都車站伊勢丹百貨或Kyoto Tower Sando", en:"Heavy rain cancels Yamahoko display — go to Isetan Kyoto or Kyoto Tower Sando instead" },
-    ],
-  },
-  {
-    day:4, date:"7/23 (四)", city:"京都 ↔ 滋賀豐鄉", icon:"🎸",
-    titleZh:"K-ON 聖地朝聖 & 任天堂 & 寶可夢", titleEn:"K-ON Pilgrimage + Nintendo + Pokémon Center",
-    color:"#10b981",
-    timeline:[
-      { time:"09:00", icon:"🚆", mainZh:"京都 → 滋賀豐鄉（K-ON聖地）", mainEn:"Kyoto → Toyosato, Shiga (K-ON sacred site)", descZh:"JR東海道線→能登川站(¥680)+近江鐵道→豐鄉站(¥430)。注意：近江鐵道不支援ICOCA，需買票", descEn:"JR Tokaido → Notogawa Sta (¥680) + Ohmi Railway → Toyosato Sta (¥430). Ohmi Railway doesn't accept ICOCA" },
-      { time:"10:30–13:00", icon:"🏫", mainZh:"豐鄉小學校舊校舍 — 輕音部教室重現", mainEn:"Toyosato Elementary School — K-ON Keionbu classroom recreation", descZh:"免費入場，可自由拍照。校舍內販售K-ON限定商品+部員證", descEn:"Free entry, photography allowed. K-ON limited goods + club member cards for sale", mapUrl:"https://www.google.com/maps/search/?api=1&query=豊郷小学校+旧校舎" },
-      { time:"13:00–14:30", icon:"🚆", mainZh:"豐鄉 → 京都四条河原町（原路返回）", mainEn:"Toyosato → Kyoto Shijo-Kawaramachi (return)", descZh:"約1.5小時。可順遊近江八幡老街（八幡堀遊覽船）", descEn:"~1.5 hours. Optional stop at Omihachiman old town (Hachimanbori boat cruise)" },
-      { time:"14:30–17:30", icon:"🎮", mainZh:"任天堂京都 + 寶可夢中心京都 + Kiddy Land", mainEn:"Nintendo Kyoto + Pokémon Center Kyoto + Kiddy Land", descZh:"Nintendo Kyoto(高島屋SC T8新館5F)→Pokemon Center Kyoto(Kyoto Tower Sando)→Kiddy Land四条河原町", descEn:"Nintendo Kyoto (Takashimaya SC T8, 5F) → Pokémon Center (Kyoto Tower Sando) → Kiddy Land Kawaramachi", mapUrl:"https://www.google.com/maps/search/?api=1&query=京都高島屋SC" },
-      { time:"18:00–20:00", icon:"🍽️", mainZh:"晚餐：Mumokuteki Cafe & Foods（河原町）", mainEn:"Dinner: Mumokuteki Cafe & Foods (Kawaramachi)", descZh:"100%素食日式定食，冷氣超強", descEn:"100% vegan Japanese set meals, very well air-conditioned", mapUrl:"https://www.google.com/maps/search/?api=1&query=Mumokuteki+Cafe+Kyoto" },
-    ],
-    routes:[
-      { label:"京都→豐鄉（K-ON朝聖）", time:"75分", cost:"1,110", steps:[{ from:"京都駅", to:"能登川駅", via:"JR東海道線", color:"#F15A22" },{ from:"能登川駅", to:"豐鄉駅", via:"近江鐵道", color:"#005DAB" }], note:"近江鐵道不支援ICOCA！需投幣或窗口購票。推薦買1日券¥900" },
-    ],
-    tips:[
-      { icon:"⭐", zh:"近江鐵道「1デイスマイルチケット」¥900，豐鄉+彥根城可考慮", en:"Ohmi Railway 1-day smile ticket ¥900 — great if also visiting Hikone Castle" },
-      { icon:"🎮", zh:"Nintendo Kyoto需網路預約入場（google nintendo kyoto reservation）", en:"Nintendo Kyoto requires timed-entry reservations (search 'Nintendo Kyoto reservation')" },
-    ],
-    rain:[
-      { zh:"豐鄉校舍室內，完全不受影響✅", en:"Toyosato school is indoor — completely unaffected by rain ✅" },
-      { zh:"高島屋/Nintendo/寶可夢中心全室內✅，本日雨備風險極低", en:"Takashimaya/Nintendo/Pokémon Center all indoor ✅ — minimal rain risk today" },
-    ],
-  },
-  {
-    day:5, date:"7/24 (五)", city:"京都 → 大阪", icon:"🏯",
-    titleZh:"千本鳥居 & 清水寺 & あをによし移大阪", titleEn:"Senbon Torii + Kiyomizudera + Aoniyoshi to Osaka",
-    color:"#f43f5e",
-    timeline:[
-      { time:"08:30–11:30", icon:"⛩️", mainZh:"伏見稻荷大社 — 千本鳥居", mainEn:"Fushimi Inari Taisha — Senbon Torii", descZh:"JR奈良線「稻荷站」5分¥150。建議只走到「四ツ辻」（40分折返），不用爬到山頂。表參道有稻荷壽司（素）當早午餐", descEn:"JR Nara Line 'Inari Sta.' 5 min ¥150. Recommend turning back at Yotsutsuji (~40 min). Vegan inari sushi at the approach", mapUrl:"https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
-      { time:"12:30–13:30", icon:"🚕", mainZh:"伏見 → 清水寺（計程車 ¥1,600/2人）", mainEn:"Fushimi → Kiyomizudera (taxi ~¥1,600 for 2)", descZh:"推薦計程車，省腿力又快", descEn:"Taxi recommended — saves legs and time" },
-      { time:"13:30–15:30", icon:"🏯", mainZh:"清水寺 — 舞台拍照 + 御守", mainEn:"Kiyomizudera — 'Stage' photo + omamori", descZh:"抽籤、買御守。二年坂「八代目儀兵衛」素食茶飯或文之助茶屋抹茶刨冰（純素）", descEn:"Fortune, omamori. Vegan matcha rice at Hachidaime-Gihei or matcha kakigori at Bunnosuke Chaya", mapUrl:"https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" },
-      { time:"15:30–16:00", icon:"🚕", mainZh:"返回京都車站（計程車 ¥1,800）", mainEn:"Back to Kyoto Sta. (taxi ~¥1,800)", descZh:"", descEn:"" },
-      { time:"16:21", icon:"🚄", mainZh:"搭觀光特急「あをによし」→ 大阪難波", mainEn:"Aoniyoshi Ltd. Exp. → Osaka Namba", descZh:"路線：京都→奈良（スイッチバック）→大阪難波，1小時30分。車內限定奶油三文治¥1,100！", descEn:"Route: Kyoto → Nara (switchback) → Osaka Namba, 1h30m. On-board exclusive butter sandwich ¥1,100!", mapUrl:"https://www.google.com/maps/search/?api=1&query=近鉄京都駅" },
-      { time:"18:00", icon:"🏨", mainZh:"抵達大阪難波 — 飯店 Check-in", mainEn:"Arrive Osaka Namba — Hotel Check-in", mapUrl:"https://www.google.com/maps/search/?api=1&query=大阪難波駅" },
-      { time:"19:00", icon:"🍽️", mainZh:"晚餐：OKO 純素大阪燒", mainEn:"Dinner: OKO Vegan Okonomiyaki", mapUrl:"https://www.google.com/maps/search/?api=1&query=OKO+Fun+Okonomiyaki+Bar" },
-      { time:"20:30", icon:"🏮", mainZh:"法善寺橫丁夜間散步", mainEn:"Evening stroll at Hozenji Yokocho", mapUrl:"https://www.google.com/maps/search/?api=1&query=法善寺横丁" },
-    ],
-    routes:[
-      { label:"あをによし 京都→大阪難波", time:"90分", cost:"2,240", steps:[{ from:"近鉄京都駅", to:"大和西大寺", via:"あをによし特急", color:"#1B6B3A" },{ from:"大和西大寺", to:"大阪難波", via:"（折返）", color:"#1B6B3A" }], note:"⭐出發日1個月前10:30搶票！kintetsu.jp/yoyaku 或Klook代訂。推薦預約ツイン席C/D" },
-    ],
-    tips:[
-      { icon:"⚠️", zh:"あをによし票非常搶手！6/24（三）10:30準時上近鐵官網購票", en:"Aoniyoshi tickets sell out fast! Log onto Kintetsu website exactly at 10:30 on 6/24 (Wed)" },
-      { icon:"🏯", zh:"伏見稻荷下雨路面濕滑，建議穿有止滑底的鞋", en:"Fushimi Inari paths get slippery in rain — wear shoes with grip" },
-    ],
-    rain:[
-      { zh:"伏見稻荷+清水寺下雨很滑，改：上午京都鐵道博物館（全室內），下午京都水族館", en:"Rain plan: morning at Kyoto Railway Museum (indoor), afternoon at Kyoto Aquarium" },
-      { zh:"あをによし為室內列車，不受天氣影響✅", en:"Aoniyoshi is indoor — weather doesn't affect the train ✅" },
-    ],
-  },
-  {
-    day:6, date:"7/25 (六)", city:"大阪", icon:"🎆",
-    titleZh:"Den Den Town掃貨 & 天神祭花火大會", titleEn:"Den Den Town + Tenjin Matsuri Fireworks",
-    color:"#8b5cf6",
-    timeline:[
-      { time:"10:00–12:00", icon:"🏯", mainZh:"大阪城公園（選逛）", mainEn:"Osaka Castle Park (optional)", descZh:"天神祭本宮日，梅田/天滿宮下午起嚴重壅塞，上午先走大阪城最划算", descEn:"Tenjin Matsuri day — Umeda/Temmangu gets very crowded in PM; visit castle in the morning", mapUrl:"https://www.google.com/maps/search/?api=1&query=大阪城公園" },
-      { time:"12:30–14:00", icon:"🍽️", mainZh:"午餐：Paprika食堂 Vegan（難波）", mainEn:"Lunch: Paprika Shokudo Vegan (Namba)", descZh:"Google 4.6，素食控聖地", descEn:"Google 4.6 — beloved by vegan fans", mapUrl:"https://www.google.com/maps/search/?api=1&query=Paprika+食堂+Vegan+難波" },
-      { time:"14:00–17:00", icon:"🛍️", mainZh:"日本橋 Den Den Town 公仔大掃貨", mainEn:"Nipponbashi Den Den Town figure shopping", descZh:"Mandarake / Jungle / あみあみ / Surugaya。買完回飯店放戰利品+換輕便服裝", descEn:"Mandarake / Jungle / Amiami / Surugaya. Return to hotel to drop off haul + change clothes", mapUrl:"https://www.google.com/maps/search/?api=1&query=Nipponbashi+Denden+Town" },
-      { time:"17:30–18:30", icon:"🚇", mainZh:"前往花火會場 — JR環狀線「桜ノ宮站」", mainEn:"Head to fireworks — JR Loop 'Sakuranomiya Sta.'", descZh:"穴場：造幣局周邊櫻之宮公園河岸（人少視野佳）", descEn:"Hidden gem spot: Sakuranomiya Park riverside near Mint Bureau — fewer crowds, great view", mapUrl:"https://www.google.com/maps/search/?api=1&query=桜ノ宮駅" },
-      { time:"19:30–21:00", icon:"🎆", mainZh:"天神祭奉納花火 — 約5,000發", mainEn:"Tenjin Matsuri Fireworks — ~5,000 shells", mapUrl:"https://www.google.com/maps/search/?api=1&query=大阪天満宮" },
-      { time:"21:00後", icon:"⚠️", mainZh:"離場策略：往北2站至天滿站或往南至京橋站", mainEn:"Exit strategy: walk north 2 stops to Temma Sta. or south to Kyobashi Sta.", descZh:"桜ノ宮站+天滿宮站花火後塞爆30分以上，建議步行規避", descEn:"Sakuranomiya + Temmangu stations jam for 30+ min after fireworks — walk away" },
-    ],
-    routes:[
-      { label:"難波→桜ノ宮（花火）", time:"15分", cost:"200", steps:[{ from:"大阪難波", to:"京橋", via:"地下鐵中央線C", color:"#019A44" },{ from:"京橋", to:"桜ノ宮", via:"JR大阪環狀線", color:"#F15A22" }], note:"花火後改步行至天滿站避人潮" },
-    ],
-    tips:[
-      { icon:"🎆", zh:"天神祭是日本三大祭之一，7/25是本宮日，整個大阪熱鬧非凡", en:"Tenjin Matsuri is one of Japan's top 3 festivals — 7/25 (Honmiya) is the biggest day" },
-      { icon:"⚠️", zh:"花火小雨決行，暴風雨中止（當日15:00官方公告）", en:"Fireworks proceed in light rain; cancelled in storms (official announcement at 15:00 on the day)" },
-    ],
-    rain:[
-      { zh:"花火中止時：梅田LUCUA 1100 + HEP FIVE摩天輪（室內購物）", en:"Rain plan: LUCUA 1100 + HEP FIVE Ferris wheel (indoor shopping)" },
-      { zh:"梅田空中庭園展望台（阪急百貨頂樓夜景）", en:"Alt: Umeda Sky Building rooftop observatory for night views" },
-      { zh:"Den Den Town全拱廊，小雨不影響", en:"Den Den Town has full covered arcades — fine in light rain" },
-    ],
-  },
-  {
-    day:7, date:"7/26 (日)", city:"神戶（大阪出發）", icon:"⚓",
-    titleZh:"神戶浪漫海港 & 生田神社結緣", titleEn:"Kobe Harbor Romance + Ikuta Shrine",
-    color:"#f97316",
-    timeline:[
-      { time:"10:00–10:50", icon:"🚆", mainZh:"大阪難波 → 神戶三宮（阪神電車）", mainEn:"Osaka Namba → Kobe Sannomiya (Hanshin Railway)", descZh:"免轉車快速急行約45分，¥420", descEn:"Direct limited express ~45 min, ¥420" },
-      { time:"11:00–12:30", icon:"⛩️", mainZh:"生田神社 — 關西最強結緣神社", mainEn:"Ikuta Shrine — Kansai's top love-match shrine", descZh:"水引御守¥1,000", descEn:"Mizuhiki omamori ¥1,000", mapUrl:"https://www.google.com/maps/search/?api=1&query=生田神社" },
-      { time:"12:30–14:30", icon:"🏛️", mainZh:"北野異人館街 — 風見雞の館 + 萌黃の館", mainEn:"Kitano Ijinkan — Kazamidori-no-Yakata + Moegi-no-Yakata", descZh:"國家重要文化財。北野坂星巴克（百年洋房，神戶限定周邊）", descEn:"National Important Cultural Properties. Kitanozaka Starbucks in a 100-year Western house", mapUrl:"https://www.google.com/maps/search/?api=1&query=北野異人館街" },
-      { time:"15:00–17:00", icon:"🥟", mainZh:"南京町（神戶中華街）", mainEn:"Nankinmachi (Kobe Chinatown)", mapUrl:"https://www.google.com/maps/search/?api=1&query=南京町+神戸" },
-      { time:"17:30–20:00", icon:"🌃", mainZh:"神戶港夜景 — umie MOSAIC + 神戶塔", mainEn:"Kobe Harbor night view — umie MOSAIC + Kobe Port Tower", descZh:"晚餐：MOSAIC內GREEN BROTHERS Kobe 純素沙拉碗", descEn:"Dinner: GREEN BROTHERS Kobe (vegan salad bowls) inside MOSAIC", mapUrl:"https://www.google.com/maps/search/?api=1&query=Kobe+Harborland+MOSAIC" },
-      { time:"20:00–20:50", icon:"🚆", mainZh:"返回大阪難波", mainEn:"Return to Osaka Namba", descZh:"阪神電車 三宮→難波 約45分", descEn:"Hanshin Railway Sannomiya → Namba ~45 min", mapUrl:"https://www.google.com/maps/search/?api=1&query=神戸三宮駅" },
-    ],
-    routes:[
-      { label:"難波→神戶三宮（阪神）", time:"45分", cost:"420", steps:[{ from:"大阪難波", to:"神戶三宮", via:"阪神電車（直通）", color:"#003087" }], note:"大阪周遊卡擴大版¥3,600含此段，若加大阪城/通天閣可考慮" },
-    ],
-    tips:[
-      { icon:"💡", zh:"大阪周遊卡擴大版（¥3,600）含阪神神戶段，若Day6已買可Day7使用", en:"Osaka Amazing Pass Extended (¥3,600) covers Hanshin to Kobe — use the same pass if bought on Day 6" },
-      { icon:"⚓", zh:"umie MOSAIC的BE KOBE字碑是IG打卡熱點，傍晚光線最佳", en:"The BE KOBE sign at umie MOSAIC is a great photo spot — best lighting at dusk" },
-    ],
-    rain:[
-      { zh:"異人館+南京町多為室內，可正常遊覽", en:"Ijinkan and Nankinmachi are mostly covered — fine in rain" },
-      { zh:"雨備：神戸どうぶつ王国（全室內動物園）或UCC咖啡博物館", en:"Rain plan: Kobe Oji Zoo (indoor sections) or UCC Coffee Museum" },
-    ],
-  },
-  {
-    day:8, date:"7/27 (一)", city:"大阪 — USJ", icon:"🍄",
-    titleZh:"燃燒童心！日本環球影城 (USJ)", titleEn:"Universal Studios Japan — Full Day!",
-    color:"#06b6d4",
-    timeline:[
-      { time:"07:00–07:30", icon:"🚆", mainZh:"難波 → 環球城站（JR）", mainEn:"Namba → Universal City Sta. (JR)", descZh:"阪神難波線¥270→JR西九条¥190→環球城。共¥460", descEn:"Hanshin Namba Line ¥270 → JR Nishikujo → Universal City. Total ¥460" },
-      { time:"08:00–21:00", icon:"🎢", mainZh:"日本環球影城 — 全日暢玩", mainEn:"Universal Studios Japan — Full Day", descZh:"Express Pass 4 推薦（提前2個月Klook/KKday購）。入園後立即抽「瑪利歐園區整理券」。素食選項：Jurassic Park區Discovery Restaurant的Vegetarian Curry（全園唯一素食熱食選項）", descEn:"Express Pass 4 recommended (pre-buy 2 months ahead on Klook/KKday). Grab Super Nintendo World timed-entry ticket upon entry. Only vegan hot food: Vegetarian Curry at Discovery Restaurant in Jurassic Park area", mapUrl:"https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" },
-    ],
-    routes:[
-      { label:"難波→USJ", time:"30分", cost:"460", steps:[{ from:"大阪難波", to:"JR西九条", via:"阪神難波線¥270", color:"#E5171F" },{ from:"JR西九条", to:"ユニバーサルシティ", via:"JRゆめ咲線¥190", color:"#F15A22" }] },
-    ],
-    tips:[
-      { icon:"🎢", zh:"Express Pass 4 提前2個月購，價格¥8,800–15,000浮動，越早越便宜", en:"Express Pass 4: buy 2 months ahead. Price ¥8,800–15,000 (fluctuates — earlier is cheaper)" },
-      { icon:"🍙", zh:"USJ素食極少！建議早餐在便利商店買飯糰×4備用", en:"Very limited vegan options in USJ! Buy 4 onigiri at a konbini for backup food" },
-      { icon:"🎮", zh:"Super Nintendo World入場需整理券（免費），入園後立刻去抽", en:"Super Nintendo World requires a timed-entry ticket (free) — grab it immediately upon park entry" },
-    ],
-    rain:[
-      { zh:"USJ雨天照常開園，部分雲霄飛車停駛（Flying Dinosaur、Hollywood Dream）", en:"USJ operates in rain; some rides close (Flying Dinosaur, Hollywood Dream)" },
-      { zh:"絕佳雨備：Super Nintendo World室內遊具、Harry Potter城堡、Minions影院", en:"Great rain options: Super Nintendo World indoor area, Harry Potter castle, Minions theatre" },
-      { zh:"颱風級強降雨備案：天保山大摩天輪+海遊館（全室內）", en:"Typhoon-level rain: Tempozan Ferris Wheel + Osaka Aquarium Kaiyukan (all indoor)" },
-    ],
-  },
-  {
-    day:9, date:"7/28 (二)", city:"大阪 → 關西機場 ✈️", icon:"✈️",
-    titleZh:"難波八阪神社 & 補貨 & 回台灣", titleEn:"Namba Yasaka Shrine + Last Shopping + Fly Home",
-    color:"#84cc16",
-    timeline:[
-      { time:"10:00–11:30", icon:"⛩️", mainZh:"難波八阪神社 — 12公尺獅子殿御朱印", mainEn:"Namba Yasaka Shrine — 12m lion head, goshuin", descZh:"步行10分鐘，最後一顆御朱印收官", descEn:"10-min walk from hotel — final goshuin of the trip!", mapUrl:"https://www.google.com/maps/search/?api=1&query=難波八阪神社" },
-      { time:"11:30–16:00", icon:"🛍️", mainZh:"心齋橋 / 黑門市場 / 高島屋 最後補貨衝刺", mainEn:"Shinsaibashi / Kuromon Market / Takashimaya final shopping sprint", descZh:"退房後行李寄放飯店，輕裝購物。大丸心齋橋/難波高島屋/通天閣新世界商店街", descEn:"Leave luggage at hotel after checkout and shop light. Daimaru Shinsaibashi / Takashimaya / Tsutenkaku Shinsekai", mapUrl:"https://www.google.com/maps/search/?api=1&query=黑門市場" },
-      { time:"16:30", icon:"🚆", mainZh:"南海電鐵 Rapi:t 特急 → 關西機場（40分）", mainEn:"Nankai Rapi:t Ltd. Exp. → KIX (40 min)", descZh:"Klook購券¥1,290（外國人優惠），省¥200。南海難波站出發", descEn:"Klook ticket ¥1,290 (tourist discount saves ¥200). Departs Nankai Namba Sta.", mapUrl:"https://www.google.com/maps/search/?api=1&query=難波駅+南海" },
-      { time:"17:15–19:50", icon:"✈️", mainZh:"辦理登機 — 虎航 IT213 → 桃園", mainEn:"Check-in — Tigerair IT213 → Taoyuan (TPE)", descZh:"關西機場第二航廈廉航專屬，從南海關空站步行10分（有屋簷連通）", descEn:"KIX Terminal 2 (LCC). 10-min covered walkway from Nankai Kansai Airport Sta." },
-    ],
-    routes:[
-      { label:"難波→關西機場 Rapi:t", time:"40分", cost:"1,290", steps:[{ from:"南海難波駅", to:"關西空港駅", via:"南海 ラピート（Rapi:t）", color:"#1B1464" }], note:"Klook預購¥1,290（原價¥1,490），行李空間充足" },
-    ],
-    tips:[
-      { icon:"✈️", zh:"出發前確認行李重量！兩人各20kg託運+10kg手提（虎航）", en:"Check baggage weight before leaving — 20kg checked + 10kg cabin per person (Tigerair)" },
-      { icon:"🧳", zh:"大型行李可在關西機場入境大廳辦理「宅急便」回台（需提前確認服務）", en:"Large bags can be sent home via airport courier services (confirm availability in advance)" },
-    ],
-    rain:[
-      { zh:"全室內購物，無雨備需求✅", en:"All indoor shopping — no rain contingency needed ✅" },
-      { zh:"機場第二航廈從南海關空站步行10分，有屋簷連通", en:"KIX T2 has a 10-min covered walkway from Nankai station — no rain issues" },
-    ],
-  },
-];
-
-/* ── Main App ── */
-function App() {
-  const [lang, setLang] = useState("zh");
-  const [activeTab, setActiveTab] = useState(0);
-  const t = T[lang];
-  const tabs = [
-    ...DAYS.map((d,i) => ({ label: `Day ${d.day}`, icon: d.icon, color: d.color })),
-    { label: t.transport, icon: "", color: "#0f766e" },
-    { label: t.penguin, icon: "", color: "#7e22ce" },
-    { label: t.food, icon: "", color: "#c2410c" },
-    { label: t.checklist, icon: "", color: "#065f46" },
-  ];
-  const renderContent = () => {
-    if (activeTab < 9) return <DayPanel data={DAYS[activeTab]} lang={lang}/>;
-    if (activeTab === 9) return <TransportPanel lang={lang}/>;
-    if (activeTab === 10) return <PenguinPanel lang={lang}/>;
-    if (activeTab === 11) return <FoodPanel lang={lang}/>;
-    if (activeTab === 12) return <ChecklistPanel lang={lang}/>;
-  };
-  const activeColor = tabs[activeTab]?.color || "#6366f1";
-  return (
-    <div style={{maxWidth:600,margin:"0 auto",minHeight:"100vh",background:"#f0f2f5"}}>
-      <div className="header">
-        <div className="header-title">{t.title}</div>
-        <div className="header-sub">{t.subtitle}</div>
-        <div className="header-badges">
-          <span className="badge">✈️ 台灣虎航</span>
-          <span className="badge">🌿 素食友善</span>
-          <span className="badge">🐧 企鵝掃貨</span>
-          <span className="badge">⛩️ 御朱印</span>
-        </div>
-        <button className="lang-btn" onClick={() => setLang(lang==="zh"?"en":"zh")}>{t.lang}</button>
-      </div>
-      <div className="tab-bar">
-        {tabs.map((tab, i) => (
-          <button
-            key={i}
-            className={`tab${activeTab===i?" active":""}`}
-            style={{"--day-color": tab.color}}
-            onClick={() => setActiveTab(i)}
-          >
-            {tab.icon && <span>{tab.icon}</span>}
-            <span>{tab.label}</span>
-          </button>
-        ))}
-      </div>
-      <div key={`${activeTab}-${lang}`}>{renderContent()}</div>
-      <div style={{textAlign:"center",padding:"20px 0",fontSize:11,color:"#94a3b8"}}>
-        🌸 {lang==="zh"?"祝旅途愉快！滿載御朱印・企鵝・正能量平安返台":"Have a wonderful trip! Come home full of goshuin, penguins & good vibes 🐧⛩️🎆"}
-      </div>
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-</script>
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
 </body>
 </html>
