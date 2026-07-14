@@ -1,860 +1,1533 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 夏日夢幻大冒險 | 🐧 正能量慢活旅行手冊 v7</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 'sans': ['"Nunito"', '"M PLUS Rounded 1c"', 'sans-serif'] },
-                    colors: {
-                        peng: { 
-                            blue: '#D2E8F9', // 企鵝天藍色
-                            pink: '#FFDEE9', // 櫻花粉色
-                            yellow: '#FFF5C3', // 溫暖麥芽黃
-                            green: '#E2F0D9', // 輕柔草地綠
-                            purple: '#EADCF7', // 浪漫淡紫色
-                            grey: '#A1A8C3', // 正能量企鵝灰
-                            dark: '#1E293B', // 優雅深炭灰
-                            accent: '#FF8E94' // 腮紅亮粉紅
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Neobrutalism Kawaii Borders & Shadows matching Koupen-chan aesthetic */
-        body { 
-            background-color: #FAF6EE; 
-            background-image: radial-gradient(#D2E8F9 1.5px, transparent 1.5px); 
-            background-size: 24px 24px; 
-        }
-        .kawaii-border {
-            border: 4px solid #1E293B;
-        }
-        .kawaii-card { 
-            border: 4px solid #1E293B; 
-            box-shadow: 6px 6px 0px #1E293B; 
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .kawaii-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 8px 8px 0px #1E293B;
-        }
-        .kawaii-btn {
-            border: 3px solid #1E293B;
-            box-shadow: 4px 4px 0px #1E293B;
-            transition: all 0.1s ease;
-        }
-        .kawaii-btn:active {
-            transform: translate(3px, 3px);
-            box-shadow: 1px 1px 0px #1E293B;
-        }
-        .sticky-nav { 
-            position: sticky; 
-            top: 0; 
-            z-index: 50; 
-            background: rgba(250, 246, 238, 0.95); 
-            backdrop-filter: blur(10px); 
-            border-bottom: 4px solid #1E293B; 
-        }
-        .nav-btn {
-            transition: all 0.15s ease-in-out;
-        }
-        .nav-btn.active { 
-            background-color: #1E293B; 
-            color: #FFF5C3; 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 0px #FF8E94; 
-        }
-        .module-section { display: none; animation: fadeIn 0.4s ease-out; }
-        .module-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .img-header { height: 180px; object-fit: cover; width: 100%; border-bottom: 4px solid #1E293B; background-color: #e2e8f0; }
-        .editable-note { border: 3px dashed #1E293B; padding: 12px; border-radius: 16px; background: #FFF; min-height: 80px; outline: none; font-size: 0.9rem; }
-        .map-btn { display: inline-flex; align-items: center; gap: 4px; background: #FFF; color: #1E293B; padding: 6px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; border: 2.5px solid #1E293B; transition: all 0.1s; }
-        .map-btn:hover { background: #D2E8F9; transform: scale(1.05); }
-        .time-badge { background: #1E293B; color: white; padding: 3px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-right: 8px; border: 2px solid #1E293B; white-space: nowrap; display: inline-block; }
-        .closing-tip { background: #FFF; border: 3px solid #1E293B; border-radius: 16px; padding: 12px; font-size: 0.8rem; margin-top: 12px; }
-        .checkbox-custom { width: 24px; height: 24px; border: 3px solid #1E293B; border-radius: 8px; appearance: none; outline: none; cursor: pointer; transition: 0.1s; position: relative; flex-shrink: 0; }
-        .checkbox-custom:checked { background-color: #FF8E94; }
-        .checkbox-custom:checked::after { content: '✔'; position: absolute; top: -4px; left: 3px; font-size: 16px; color: #1E293B; font-weight: 900; }
-        
-        /* Speech Bubble design for Koupen-chan */
-        .bubble-speech { position: relative; background: #fff; border: 3px solid #1e293b; border-radius: 16px; min-height: 50px; box-shadow: 3px 3px 0px #1e293b; }
-        .bubble-speech::after, .bubble-speech::before { right: 100%; top: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
-        .bubble-speech::after { border-color: rgba(255, 255, 255, 0); border-right-color: #fff; border-width: 10px; margin-top: -10px; }
-        .bubble-speech::before { border-color: rgba(30, 41, 59, 0); border-right-color: #1e293b; border-width: 14px; margin-top: -14px; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFECEF">
+  <title>🌸 2026 夏日夢幻大冒險：名古屋・京都・大阪・神戶 9天8夜</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and Babel -->
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
 
-        /* Mascot idle animation */
-        @keyframes bob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#FFECEF',    // 溫暖粉
+              pinkDark: '#FF8A9F',
+              blue: '#E3F2FD',    // 晴空藍
+              blueDark: '#4FA3F7',
+              yellow: '#FFF9E6',  // 奶油黃
+              yellowDark: '#FFC107',
+              cream: '#FFFDF9',   // 溫潤米白
+              green: '#E8F5E9',   // 幸運綠
+              greenDark: '#4CAF50',
+            }
+          }
         }
-        .animate-bob { animation: bob 3s ease-in-out infinite; }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #FFFDF9; /* brand.cream */
+    }
+    /* 隱藏捲軸但保留滑動功能 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* 動畫效果 */
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-in {
+      animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-cute-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes popBubble {
+      from { opacity: 0; transform: scale(0.85) translate(10px, 10px); }
+      to { opacity: 1; transform: scale(1) translate(0, 0); }
+    }
+    .animate-pop-bubble {
+      animation: popBubble 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+  </style>
 </head>
-<body class="text-peng-dark antialiased">
+<body class="text-slate-700 antialiased selection:bg-brand-pinkDark selection:text-white">
+  <div id="root"></div>
 
-    <header class="max-w-4xl mx-auto pt-8 px-4 text-center">
-        <!-- SVG Koupen-chan Guide Mascot -->
-        <div class="relative w-36 h-32 mx-auto mb-2 cursor-pointer group" onclick="sayCheer()">
-            <svg class="w-full h-full animate-bob" viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
-                <!-- Outer Shadow / Border Contour -->
-                <ellipse cx="70" cy="65" rx="52" ry="46" fill="#1E293B"/>
-                
-                <!-- Main Body (Koupen-chan Soft Grey) -->
-                <ellipse cx="70" cy="65" rx="48" ry="42" fill="#8C93A8"/>
-                
-                <!-- White Tummy -->
-                <path d="M 32 75 C 32 45, 108 45, 108 75 C 108 98, 32 98, 32 75 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4"/>
-                
-                <!-- Left Foot -->
-                <ellipse cx="45" cy="104" rx="10" ry="6" fill="#1E293B"/>
-                <ellipse cx="45" cy="103" rx="8" ry="4" fill="#FFF5C3"/>
-                <!-- Right Foot -->
-                <ellipse cx="95" cy="104" rx="10" ry="6" fill="#1E293B"/>
-                <ellipse cx="95" cy="103" rx="8" ry="4" fill="#FFF5C3"/>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
 
-                <!-- Left Arm (Flapping) -->
-                <path d="M 24 60 C 14 55, 12 70, 24 75 Z" fill="#8C93A8" stroke="#1E293B" stroke-width="4"/>
-                <!-- Right Arm (Holding Flag) -->
-                <path d="M 116 60 C 126 55, 128 70, 116 75 Z" fill="#8C93A8" stroke="#1E293B" stroke-width="4"/>
-                
-                <!-- Eyes -->
-                <circle cx="52" cy="56" r="4.5" fill="#1E293B"/>
-                <circle cx="88" cy="56" r="4.5" fill="#1E293B"/>
-                
-                <!-- Cheeks (Blushing Pink) -->
-                <ellipse cx="42" cy="64" rx="8" ry="4.5" fill="#FF8E94" opacity="0.8"/>
-                <ellipse cx="98" cy="64" rx="8" ry="4.5" fill="#FF8E94" opacity="0.8"/>
-                
-                <!-- Beak (Cute Yellow) -->
-                <ellipse cx="70" cy="61" rx="6" ry="4" fill="#FFF5C3" stroke="#1E293B" stroke-width="3"/>
-                
-                <!-- Tour Guide Hat -->
-                <path d="M 50 25 C 50 12, 90 12, 90 25 Z" fill="#1E293B" stroke="#1E293B" stroke-width="3"/>
-                <rect x="46" y="24" width="48" height="5" rx="2" fill="#FF8E94" stroke="#1E293B" stroke-width="3"/>
-                <!-- Little Clover on Hat -->
-                <circle cx="70" cy="12" r="3" fill="#A8E6CF"/>
-                <circle cx="74" cy="15" r="3" fill="#A8E6CF"/>
-                <circle cx="66" cy="15" r="3" fill="#A8E6CF"/>
-                
-                <!-- Guide Flag Stick -->
-                <line x1="120" y1="70" x2="124" y2="20" stroke="#1E293B" stroke-width="4"/>
-                <!-- Guide Flag (Yellow) -->
-                <polygon points="124,20 142,28 124,36" fill="#FFF5C3" stroke="#1E293B" stroke-width="3"/>
-                <text x="127" y="30" font-family="sans" font-size="7" font-weight="900" fill="#1E293B" transform="rotate(10, 127, 30)">導遊</text>
-            </svg>
-            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-peng-pink border-2 border-peng-dark px-2.5 py-0.5 rounded-full text-[11px] font-black shadow-[2px_2px_0px_#1E293B]">
-                點我🐧有驚喜
-            </div>
+    // --- 正能量企鵝語錄資料庫 ---
+    const KOUPEN_QUOTES = [
+      "今天也有好好照著行程走，真是了不起！(撫摸)",
+      "名古屋花火中止也沒關係，天神祭的 3,000 發會加倍燦爛喔！",
+      "一想到能吃到純素大阪燒，就覺得好期待呢！",
+      "就算下雨也沒關係喔，日本的拱廊商店街最溫暖了！",
+      "三十代的旅行就是要慢活、舒服、不勉強，多在咖啡廳坐坐吧！",
+      "買到心儀的企鵝娃娃時，企鵝也會為你感到無比高興喔！",
+      "記得多喝水、擦防曬，7 月的日本很熱，要健健康康地玩！",
+      "收集御朱印的時候，神明一定會感受到你的誠心喔！",
+      "在青丹吉的 2 號車廂買限定點心，是旅途中最幸福的儀式感！",
+      "豐鄉小學校的音樂教室，記得替輕音部的大家拍張照喔！",
+      "行李過磅了嗎？20kg 以內，企鵝幫你一起祈禱！",
+      "今天一整天也辛苦了！在鴨川畔吹晚風的你，閃閃發光！"
+    ];
+
+    // --- 天氣模組（Open-Meteo 免費 API，多城市分段抓取）---
+    const WEATHER_SOURCES = [
+      { key: "nagoya", lat: 35.1815, lon: 136.9066, start: "2026-07-20", end: "2026-07-21" },
+      { key: "kyoto",  lat: 35.0116, lon: 135.7681, start: "2026-07-22", end: "2026-07-24" },
+      { key: "osaka",  lat: 34.6937, lon: 135.5023, start: "2026-07-25", end: "2026-07-28" },
+      { key: "kobe",   lat: 34.6901, lon: 135.1955, start: "2026-07-27", end: "2026-07-27" }
+    ];
+
+    function wmoToEmoji(code) {
+      if (code === 0)  return { icon: "☀️", zh: "晴天" };
+      if (code <= 3)   return { icon: "⛅", zh: "多雲" };
+      if (code <= 49)  return { icon: "🌫️", zh: "霧/薄霧" };
+      if (code <= 67)  return { icon: "🌧️", zh: "降雨" };
+      if (code <= 77)  return { icon: "❄️", zh: "降雪" };
+      if (code <= 82)  return { icon: "🌦️", zh: "陣雨" };
+      if (code <= 99)  return { icon: "⛈️", zh: "雷陣雨" };
+      return { icon: "🌡️", zh: "未知" };
+    }
+
+    function getClothingTip(maxC, minC, precipMm) {
+      const diff = maxC - minC;
+      let base = maxC >= 28 ? "輕薄短袖＋防曬"
+               : maxC >= 22 ? "短袖＋薄外套"
+               : maxC >= 16 ? "長袖＋薄外套"
+               : "毛衣＋厚外套";
+      const tips = [base];
+      if (diff >= 10) tips.push("日夜溫差大，建議洋蔥穿搭");
+      if (precipMm >= 1) tips.push(`預計降雨 ${precipMm.toFixed(1)}mm，帶摺疊傘`);
+      return tips.join("，");
+    }
+
+    // --- 每日行程詳細資料 ---
+    const DAYS_DATA = [
+      {
+        day: 1,
+        date: "2026/07/20 (一)",
+        iso: "2026-07-20",
+        title: "企鵝首購・名駅慢活",
+        city: "名古屋",
+        theme: "企鵝序幕 🐧",
+        color: "from-indigo-400 to-blue-400",
+        bgLight: "bg-indigo-50/50",
+        border: "border-indigo-100",
+        text: "text-indigo-600",
+        wx: { city: "nagoya", label: "名古屋" },
+        timeline: [
+          { time: "06:00", icon: "🚗", title: "出發前往桃園機場 T1", desc: "建議 07:00 前抵達辦理報到與託運（起飛前 2 小時）；兩人各 20kg 託運行李記得先過磅。" },
+          { time: "09:00", icon: "✈️", title: "台灣虎航 IT206 起飛", desc: "桃園機場 T1 ➔ 12:55 抵達名古屋中部國際機場 (NGO)。" },
+          { time: "13:30", icon: "🚆", title: "名鐵 μ-SKY 特急", desc: "28 分鐘直達名鐵名古屋站，全車指定席附大型行李架。乘車券 980 + μ-Ticket 450 円。", map: "https://www.google.com/maps/search/?api=1&query=Chubu+Centrair+International+Airport+Station" },
+          { time: "14:30", icon: "🏨", title: "三井花園普米爾 Check-in", desc: "名古屋站步行約 5 分、地下街直結；18 樓高空大廳開啟週年序幕！", map: "https://www.google.com/maps/search/?api=1&query=Mitsui+Garden+Hotel+Nagoya+Premier" },
+          { time: "15:30", icon: "🐧", title: "企鵝首站：Kiddy Land 名古屋店", desc: "名古屋站 JR Gate Tower 內（10:00–21:00），入手旅程第一隻正能量企鵝夥伴同行！", map: "https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Nagoya+Gate+Tower" },
+          { time: "16:30", icon: "🛍️", title: "名駅慢活購物（花火中止對策）", desc: "⚠️ 2026 名古屋港祭「花火大會中止」（亞運選手村影響）。改在高島屋、大名古屋大樓慢逛；想感受祭典氣氛可搭地下鐵去看山車巡行 (16:50–21:30) 與總舞。", map: "https://www.google.com/maps/search/?api=1&query=JR+Central+Towers+Nagoya" },
+          { time: "18:00", icon: "🍽️", title: "晚餐：名駅蔬食友善餐廳", desc: "⚠️ T's Tantan 名古屋店疑已歇業（官方名單僅剩東京各分店）。改選名駅或榮的蔬食友善店，出發前以 Google / HappyCow 再確認。" }
+        ],
+        cafe: {
+          name: "コメダ珈琲店 (Komeda's Coffee)",
+          desc: "名古屋在地連鎖始祖，體驗「點咖啡送點心」的傳統文化（蔬食友善）。",
+          map: "https://www.google.com/maps/search/?api=1&query=Komeda+Coffee+Nagoya+Station"
+        },
+        rainPlan: "全程可待在與名古屋站共構的 JR Central Towers 高島屋百貨與地下街，完全不淋雨！",
+        tips: "花火中止別難過——Day 6 天神祭 3,000 發花火才是本次主場！第一晚照 18:00 吃晚餐、早點休息調節奏。"
+      },
+      {
+        day: 2,
+        date: "2026/07/21 (二)",
+        iso: "2026-07-21",
+        title: "名古屋城・大須公仔",
+        city: "名古屋",
+        theme: "公仔獵捕 ⛩️",
+        color: "from-sky-400 to-sky-500",
+        bgLight: "bg-sky-50/50",
+        border: "border-sky-100",
+        text: "text-sky-600",
+        wx: { city: "nagoya", label: "名古屋" },
+        timeline: [
+          { time: "10:00", icon: "🏯", title: "名古屋城與本丸御殿", desc: "地下鐵名城線至名古屋城站。欣賞金碧輝煌的屏風壁畫，收集「御城印」。", map: "https://www.google.com/maps/search/?api=1&query=Nagoya+Castle" },
+          { time: "11:45", icon: "🍽️", title: "午餐：金鯱橫丁", desc: "名古屋城旁美食街，挑蔬食友善選項；或移動到大須商店街再吃也 OK。", map: "https://www.google.com/maps/search/?api=1&query=Kinshachi+Yokocho+Nagoya" },
+          { time: "13:00", icon: "🛍️", title: "大須商店街大冒險", desc: "百年商店街全覆蓋拱廊，午後雷陣雨也安心漫遊挖寶。", map: "https://www.google.com/maps/search/?api=1&query=Osu+Shopping+District" },
+          { time: "13:30", icon: "🧸", title: "精準公仔採購二連擊", desc: "狂掃 Mandarake 與 Jungle，尋找珍稀模型與黏土人 (Nendoroid)。", map: "https://www.google.com/maps/search/?api=1&query=Mandarake+Nagoya" },
+          { time: "15:30", icon: "🍡", title: "大須外郎糕下午茶", desc: "百年「全素」名物 ういろ，現場吃一份、伴手禮品項先筆記！", map: "https://www.google.com/maps/search/?api=1&query=Osu+Uiro+Nagoya" },
+          { time: "16:30", icon: "🛍️", title: "榮商圈：Loft 名古屋店", desc: "文具迷天堂與「花丸商店」企鵝療癒專區，掃貨文具小物！", map: "https://www.google.com/maps/search/?api=1&query=Loft+Nagoya" },
+          { time: "18:00", icon: "🍽️", title: "晚餐：榮商圈蔬食友善", desc: "準時 18:00 開動，吃飽才有力氣看夜景。" },
+          { time: "19:15", icon: "🌃", title: "Oasis 21 水之宇宙船夜景", desc: "霓虹點燈超浪漫，晚餐後步行即達，極富未來感與情調。", map: "https://www.google.com/maps/search/?api=1&query=Oasis+21" }
+        ],
+        cafe: {
+          name: "Trunk Coffee",
+          desc: "北歐簡約美學手沖名店；或到名古屋 PARCO 的 PEANUTS Cafe 拍可愛史努比照。",
+          map: "https://www.google.com/maps/search/?api=1&query=Trunk+Coffee+Nagoya"
+        },
+        rainPlan: "大須商店街全覆蓋巨型拱廊＋榮地下街，就算午後雷陣雨也絲毫不受影響！",
+        tips: "名古屋伴手禮的「最後採買時機」＝明天 Day 3 離開前的 ESCA 地下街，今天先探好想買的品項清單！"
+      },
+      {
+        day: 3,
+        date: "2026/07/22 (三)",
+        iso: "2026-07-22",
+        title: "熱田神宮・移動京都",
+        city: "名古屋 ➔ 京都",
+        theme: "新幹線閃現 🚄",
+        color: "from-amber-400 to-orange-400",
+        bgLight: "bg-amber-50/50",
+        border: "border-amber-100",
+        text: "text-amber-600",
+        wx: { city: "kyoto", label: "京都" },
+        timeline: [
+          { time: "09:00", icon: "⛩️", title: "熱田神宮參拜", desc: "名鐵本線 6 分鐘直達神宮前。參拜存放草薙神劍之聖地，收集大氣的御朱印。", map: "https://www.google.com/maps/search/?api=1&query=Atsuta+Jingu" },
+          { time: "11:30", icon: "🍜", title: "午餐：宮きしめん 神宮店", desc: "「蔬食 OK」，在神宮森林大樹下享用，記得跟店員點「昆布高湯」口味喔！", map: "https://www.google.com/maps/search/?api=1&query=Miya+Kishimen+Atsuta" },
+          { time: "13:00", icon: "🎁", title: "ESCA 地下街伴手禮衝刺", desc: "名古屋伴手禮最後採買！小倉紅豆吐司夾心餅乾等名古屋味一次買齊。", map: "https://www.google.com/maps/search/?api=1&query=ESCA+Nagoya" },
+          { time: "14:30", icon: "🚄", title: "東海道新幹線 ➔ 京都", desc: "34 分鐘閃現！旺季建議用 Smart EX App 訂指定席（約 3,070 円）卡位最安心。", map: "https://www.google.com/maps/search/?api=1&query=Nagoya+Station+Shinkansen" },
+          { time: "15:30", icon: "🏨", title: "京都塔酒店 Check-in", desc: "京都站正對面步行 2 分、地下通道直結，位置神級方便！先把衣服投洗烘。", map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Tower+Hotel" },
+          { time: "16:30", icon: "🚶", title: "鴨川散步・先斗町", desc: "石板小徑與河畔晚風，週年紀念的浪漫時刻。", map: "https://www.google.com/maps/search/?api=1&query=Pontocho+Kyoto" },
+          { time: "18:00", icon: "🍽️", title: "晚餐：Veg Out 鴨川河景", desc: "七條大橋旁「全素」精品餐廳，坐窗邊看靜謐鴨川；建議先訂位。", map: "https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto" },
+          { time: "19:30", icon: "🏮", title: "祇園祭・後祭宵山", desc: "2026 後祭宵山＝7/21–23，今晚第一次感受！高掛燈籠與華麗山鉾超夢幻。", map: "https://www.google.com/maps/search/?api=1&query=%E7%A5%87%E5%9C%92%E7%A5%AD+%E5%BE%8C%E7%A5%AD+%E5%AE%B5%E5%B1%B1+%E4%BA%AC%E9%83%BD" }
+        ],
+        cafe: {
+          name: "鴨川河畔外帶咖啡",
+          desc: "買杯冰拿鐵坐在鴨川畔階梯上，吹著京都夏日微風，看落日染紅溪流。",
+          map: "https://www.google.com/maps/search/?api=1&query=Kamo+River+Kyoto"
+        },
+        rainPlan: "若雨勢大，改逛京都車站共構的 Porta 地下街與京都塔 Sando，全程室內暢行！",
+        tips: "宵山期間烏丸通周邊有人潮管制，輕裝出發、先確認回程路線。後祭比前祭悠閒許多，慢慢逛剛剛好。"
+      },
+      {
+        day: 4,
+        date: "2026/07/23 (四)",
+        iso: "2026-07-23",
+        title: "K-ON聖地・近江八幡",
+        city: "京都 ↔ 滋賀",
+        theme: "動漫青春魂 🎸",
+        color: "from-emerald-400 to-teal-400",
+        bgLight: "bg-emerald-50/50",
+        border: "border-emerald-100",
+        text: "text-emerald-600",
+        wx: { city: "kyoto", label: "京都・滋賀" },
+        timeline: [
+          { time: "08:30", icon: "🚆", title: "京都 ➔ 彥根 ➔ 豐鄉", desc: "JR 琵琶湖線新快速約 50 分至彥根，轉近江鐵道至豐鄉站。平日班次少，先查好時刻！", map: "https://www.google.com/maps/search/?api=1&query=Toyosato+Station+Shiga" },
+          { time: "10:30", icon: "🏫", title: "豐鄉小學校舊校舍巡禮", desc: "K-ON! 輕音部聖地！音樂教室留影、部員證周邊；舊圖書館有冷氣可避暑。「飛出小童」K-ON 版吊飾必收！", map: "https://www.google.com/maps/search/?api=1&query=Toyosato+Elementary+School" },
+          { time: "12:15", icon: "🚆", title: "近江鐵道 ➔ 近江八幡", desc: "經八日市轉乘約 45 分鐘，一路是新海誠般的藍天與稻田。" },
+          { time: "13:15", icon: "🍽️", title: "午餐：為也庵 或 日牟禮茶屋", desc: "百年古宅蕎麥麵（點野菜天婦羅）；たねや日牟禮茶屋有全素彈牙的「赤蒟蒻」。", map: "https://www.google.com/maps/search/?api=1&query=Taneya+Himure+Omihachiman" },
+          { time: "14:15", icon: "🚣", title: "八幡堀手搖船＋新町通", desc: "遮陽棚手搖船隨水波盪漾超涼爽，古街商人宅小店挖精緻手工藝品。", map: "https://www.google.com/maps/search/?api=1&query=Hachimanbori+Omihachiman" },
+          { time: "16:00", icon: "🧁", title: "La Collina 近江八幡", desc: "Club Harie 年輪蛋糕總本店！傍晚斜光下的草屋頂如童話般透明。", map: "https://www.google.com/maps/search/?api=1&query=La+Collina+Omihachiman" },
+          { time: "17:30", icon: "🚆", title: "JR 新快速 ➔ 京都", desc: "近江八幡直達京都約 35 分鐘，回程單一路線不折返。" },
+          { time: "18:30", icon: "🍽️", title: "晚餐：Mumokuteki Cafe", desc: "河原町高質感日式蔬食定食，炸豆包與時蔬超美味（需預約）。", map: "https://www.google.com/maps/search/?api=1&query=Mumokuteki+Cafe+%26+Foods+Kyoto" },
+          { time: "19:45", icon: "🐧", title: "Kiddy Land 京都店＋宵山最終夜", desc: "入手京都限定企鵝（營業至 21:00）➔ 後祭宵山最後一晚，燈亮山鉾最美收尾！", map: "https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Kyoto+Kawaramachi" }
+        ],
+        cafe: {
+          name: "% Arabica Kyoto (藤井大丸店)",
+          desc: "京都極具盛名的極簡風手沖與拿鐵，河原町行程順路來一杯。",
+          map: "https://www.google.com/maps/search/?api=1&query=Arabica+Coffee+Kyoto"
+        },
+        rainPlan: "校舍與 La Collina 以室內為主；若遇大雨可改「A 案」：下午直接回四条河原町百貨（高島屋 S.C.、Nintendo Kyoto）購物避雨。",
+        tips: "近江鐵道 2026/3 起支援 ICOCA！紙本一日券已廢止，全線 1 日券「1デイスマイル」1,500 円需用 RYDE PASS App 購買。"
+      },
+      {
+        day: 5,
+        date: "2026/07/24 (五)",
+        iso: "2026-07-24",
+        title: "伏見稻荷・青丹吉特急",
+        city: "京都 ➔ 大阪",
+        theme: "千本鳥居 ⛩️",
+        color: "from-pink-400 to-rose-400",
+        bgLight: "bg-pink-50/50",
+        border: "border-pink-100",
+        text: "text-rose-600",
+        wx: { city: "kyoto", label: "京都" },
+        timeline: [
+          { time: "08:00", icon: "🚆", title: "JR 奈良線 ➔ 稻荷站", desc: "京都站出發 2 站 5 分鐘，清晨最涼、人最少，攝影黃金時段。", map: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+          { time: "08:30", icon: "⛩️", title: "伏見稻荷大社・千本鳥居", desc: "走進朱紅隧道至奧社奉拝所（狐狸繪馬）；抽開運籤、收集狐狸御朱印。", map: "https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" },
+          { time: "09:30", icon: "⛰️", title: "建議走到「四ツ辻」折返", desc: "往復約 1.5 小時可賞京都市絕景；7 月高溫高濕「不建議攻頂」（來回 2.5–3 小時的小登山）。" },
+          { time: "11:30", icon: "🍽️", title: "午餐：參道稻荷壽司", desc: "就地享用稻荷豆皮壽司＋きつねうどん，狐狸主題吃好吃滿！" },
+          { time: "13:00", icon: "🚆", title: "回京都站（彈性時間）", desc: "體力好可順路東福寺收御朱印；累了就回飯店吹冷氣休息儲備體力。", map: "https://www.google.com/maps/search/?api=1&query=Tofukuji+Kyoto" },
+          { time: "15:30", icon: "💼", title: "領行李 ➔ 近鐵京都站", desc: "京都塔酒店取回行李，前往近鐵月台準備登車。", map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Station+Kintetsu" },
+          { time: "16:50", icon: "🚃", title: "觀光特急「あをによし」", desc: "典雅復古紫車廂雙人沙龍席！2 號車廂必買限定奶油夾心餅＋大和茶啤酒（先墊墊胃）。" },
+          { time: "18:01", icon: "🏨", title: "抵達大阪難波 ➔ Check-in", desc: "難波京阪格蘭德飯店（近鐵難波步行約 10 分），放行李輕裝出門，順路逛法善寺橫丁。", map: "https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Namba+Grande" },
+          { time: "19:00", icon: "🍽️", title: "晚餐：OKO 純素大阪燒", desc: "⚠️ 已遷至東心齋橋（長堀橋站步行 3 分）、18:00 開店；預約 19:00 場次最順。", map: "https://www.google.com/maps/search/?api=1&query=OKO+Okonomiyaki+Higashi+Shinsaibashi" }
+        ],
+        cafe: {
+          name: "あをによし 2 號車廂吧台",
+          desc: "限定奶油夾心餅與奈良精釀啤酒，邊品嚐邊欣賞窗外古都鐵道風景。",
+          map: "https://www.google.com/maps/search/?api=1&query=Kyoto+Station+Kintetsu"
+        },
+        rainPlan: "千本鳥居雨天別有氛圍（記得帶傘）；下午移動與晚間行程皆為室內。",
+        tips: "本日晚餐特例 19:00——因列車 18:01 才抵達；OKO 需提前 1–2 個月預約，車上先吃限定點心墊胃剛剛好！"
+      },
+      {
+        day: 6,
+        date: "2026/07/25 (六)",
+        iso: "2026-07-25",
+        title: "公仔街・梅田・天神花火",
+        city: "大阪",
+        theme: "天神花火 🎇",
+        color: "from-purple-400 to-indigo-400",
+        bgLight: "bg-purple-50/50",
+        border: "border-purple-100",
+        text: "text-purple-600",
+        wx: { city: "osaka", label: "大阪" },
+        timeline: [
+          { time: "09:00", icon: "⛩️", title: "大國主神社 或 蔬食早午餐", desc: "公仔店 11:00 才開門！先到大國主神社求「種銭」御朱印，或在難波周邊悠閒吃蔬食早午餐。", map: "https://www.google.com/maps/search/?api=1&query=Okuninushi+Shrine+Osaka" },
+          { time: "11:00", icon: "🧸", title: "日本橋 Den Den Town", desc: "飯店步行 3 分鐘即達！Animate 等 11:00 開門；模型、黏土人、二手相機買完先提回飯店放。", map: "https://www.google.com/maps/search/?api=1&query=Den+Den+Town+Osaka" },
+          { time: "13:00", icon: "🍽️", title: "午餐：Paprika 食堂 Vegan", desc: "難波全素指標老店，大豆素肉漢堡排、純素起司塔極推！", map: "https://www.google.com/maps/search/?api=1&query=Paprika+%E9%A3%9F%E5%A0%82+Vegan+%E9%9B%A3%E6%B3%A2" },
+          { time: "14:30", icon: "🐧", title: "Kiddy Land 大阪梅田店", desc: "阪急三番街北館 B1F，西日本最大企鵝櫃位，夢幻聯名一次收齊！", map: "https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Osaka+Umeda" },
+          { time: "15:30", icon: "📷", title: "3C 家電：Yodobashi 梅田", desc: "免稅門檻同店同日含稅 5,500 円、記得帶護照（2026/7 仍為店頭直接免稅，新退稅制 11/1 才上路）。", map: "https://www.google.com/maps/search/?api=1&query=Yodobashi+Camera+Umeda" },
+          { time: "17:00", icon: "🍽️", title: "提早晚餐（梅田）", desc: "花火日特例 17:00 開動，吃飽才有體力卡位看整場！" },
+          { time: "18:00", icon: "🚇", title: "移動櫻之宮公園卡位", desc: "週六人潮比平日多 2–3 成，越早到位置越好；帶野餐墊與水。", map: "https://www.google.com/maps/search/?api=1&query=Sakuranomiya+Park" },
+          { time: "19:30", icon: "🎇", title: "天神祭奉納花火", desc: "19:30–20:50 約 3,000 發＋船渡御篝火，日本三大祭的高潮，週年紀念最浪漫一夜！" },
+          { time: "20:35", icon: "🏃", title: "撤離時機自選", desc: "提早 15 分鐘走最順暢；想看最後 5 分鐘千發壓軸就留到底，但散場需多抓 40 分鐘。" }
+        ],
+        cafe: {
+          name: "Moto Coffee (北濱河景店)",
+          desc: "中之島河景露台、有燕麥奶；營業偏日間，花火前的下午有空檔再去。",
+          map: "https://www.google.com/maps/search/?api=1&query=Moto+Coffee+Osaka"
+        },
+        rainPlan: "奉納花火遇雨照放（暴風雨才中止）；若真的中止，直接轉戰梅田 LUCUA 1100 瘋狂購物！",
+        tips: "撤離走北側 JR 桜ノ宮站或南側京橋站分流；回程地鐵擠爆是正常的，保持企鵝般的平常心。"
+      },
+      {
+        day: 7,
+        date: "2026/07/26 (日)",
+        iso: "2026-07-26",
+        title: "環球影城全日",
+        city: "大阪",
+        theme: "超級瑪利歐 🍄",
+        color: "from-cyan-400 to-blue-400",
+        bgLight: "bg-cyan-50/50",
+        border: "border-cyan-100",
+        text: "text-cyan-600",
+        wx: { city: "osaka", label: "大阪" },
+        timeline: [
+          { time: "07:30", icon: "🚆", title: "出發環球影城", desc: "阪神難波線至西九条，轉 JR 夢咲線直達 Universal City 站。", map: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" },
+          { time: "08:15", icon: "🎢", title: "USJ 開園衝刺", desc: "門票＋快速通關已購！週日暑假人潮多，越早入園越好。", map: "https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan" },
+          { time: "08:30", icon: "📱", title: "立刻打開 USJ 官方 App", desc: "領取任天堂世界等熱門區「e 整理券／抽選券」，隨時看排隊時間調整動線。" },
+          { time: "09:00", icon: "🍄", title: "超級任天堂世界", desc: "戴上「Power-Up 手環」敲問號磚、玩庫巴挑戰賽，星星爆米花桶補充正能量！" },
+          { time: "12:30", icon: "🍛", title: "午餐：Discovery Restaurant", desc: "侏儸紀公園區罕見供應的「全素咖哩飯」；背包裡備妥超商素飯糰更安心。", map: "https://www.google.com/maps/search/?api=1&query=Discovery+Restaurant+USJ" },
+          { time: "14:00", icon: "⚡", title: "哈利波特魔法世界", desc: "帶「互動魔杖」施展咒語，活米村喝奶油啤酒歇腳避暑。" },
+          { time: "18:00", icon: "🍽️", title: "晚餐：園內或環球外街", desc: "Beverly Hills Boulangerie 有蔬食輕食三明治；玩到閉園也 OK。" },
+          { time: "19:30", icon: "🛍️", title: "大地球合照＋最後補貨", desc: "瑪利歐、哈利波特週年紀念品收齊，滿足返回難波！" }
+        ],
+        cafe: {
+          name: "Beverly Hills Boulangerie",
+          desc: "園區內最推薦的歇腳咖啡廳，提供蔬食三明治與各式甜點。",
+          map: "https://www.google.com/maps/search/?api=1&query=Beverly+Hills+Boulangerie+USJ"
+        },
+        rainPlan: "USJ 雨天多數設施照常運作；若遇颱風級暴雨，改去海遊館（全室內巨大水族館）。",
+        tips: "攜帶清單：瑪利歐 Power-Up 手環、哈利波特互動魔杖、行動電源、鹽糖涼感巾、輕便雨衣。快通就是 30 代的膝蓋救星！"
+      },
+      {
+        day: 8,
+        date: "2026/07/27 (一)",
+        iso: "2026-07-27",
+        title: "神戶異國・港灣夜景",
+        city: "大阪 ➔ 神戶",
+        theme: "百萬夜景 ⚓",
+        color: "from-orange-400 to-red-400",
+        bgLight: "bg-orange-50/50",
+        border: "border-orange-100",
+        text: "text-orange-600",
+        wx: { city: "kobe", label: "神戶" },
+        timeline: [
+          { time: "10:00", icon: "🚆", title: "阪神快速急行 ➔ 三宮", desc: "大阪難波直達 45 分鐘免轉乘（單程約 410 円），ICOCA 嗶進站即可。", map: "https://www.google.com/maps/search/?api=1&query=Kobe+Sannomiya+Station" },
+          { time: "11:00", icon: "⛩️", title: "生田神社參拜", desc: "關西最強結緣聖地！購買「水引御守」、體驗森林之泉「水占卜」。", map: "https://www.google.com/maps/search/?api=1&query=Ikuta+Shrine" },
+          { time: "11:45", icon: "🍽️", title: "午餐：Modernark pharm cafe", desc: "元町步行 7 分（11:30 開）；2026/4 整修後重新開幕，看板蔬食拼盤＋玄米咖哩。", map: "https://www.google.com/maps/search/?api=1&query=Modernark+pharm+cafe" },
+          { time: "13:30", icon: "🏡", title: "北野異人館街散策", desc: "風見雞館、萌黃館等歐風洋房，山手坡道浪漫異國風情滿點。", map: "https://www.google.com/maps/search/?api=1&query=Kitano+Ijinkan-gai" },
+          { time: "15:00", icon: "☕", title: "神戶星巴克北野物語館", desc: "登錄文化財的百年洋房店，二樓打字機老件與復古木裝潢超好拍。", map: "https://www.google.com/maps/search/?api=1&query=Starbucks+Kitano+Monogatari-kan" },
+          { time: "17:00", icon: "⚓", title: "神戶港 umie Mosaic", desc: "港灣木棧道吹海風，跟超熱門地標「BE KOBE」白色字碑合照！", map: "https://www.google.com/maps/search/?api=1&query=Kobe+Harborland+umie" },
+          { time: "18:00", icon: "🍽️", title: "晚餐：Mosaic 港景餐廳", desc: "挑蔬食友善店家坐港邊，邊吃邊等神戶塔點燈。" },
+          { time: "19:30", icon: "🌃", title: "港灣百萬夜景 ➔ 回難波", desc: "鮮紅神戶塔與摩天輪燈光滿載後，搭阪神電車返回大阪。" }
+        ],
+        cafe: {
+          name: "神戶星巴克北野物語館",
+          desc: "歷史文化遺產中的咖啡屋，美感與儀式感滿格。",
+          map: "https://www.google.com/maps/search/?api=1&query=Starbucks+Kitano+Monogatari-kan"
+        },
+        rainPlan: "神戶港 umie 與 Mosaic 室內空間極寬廣、景觀天橋互通，雨天逛街吃甜點完全不掃興！",
+        tips: "週一出發完美避開週日人潮；北野坡道多，記得穿好走的鞋。Modernark 週一營業至 19:00，想吃就排中午！"
+      },
+      {
+        day: 9,
+        date: "2026/07/28 (二)",
+        iso: "2026-07-28",
+        title: "難波掃貨・返台",
+        city: "大阪 ➔ 桃園",
+        theme: "完美收官 ✈️",
+        color: "from-lime-400 to-green-400",
+        bgLight: "bg-lime-50/50",
+        border: "border-lime-100",
+        text: "text-green-600",
+        wx: { city: "osaka", label: "大阪" },
+        timeline: [
+          { time: "10:00", icon: "🏨", title: "退房＋行李寄放櫃檯", desc: "打包完先過磅！廉航託運 20kg 上限秤重嚴格。" },
+          { time: "10:30", icon: "⛩️", title: "難波八阪神社", desc: "步行 10 分鐘。12 米巨大獅子殿咬住好運與財運，收下旅程最後一枚御朱印！", map: "https://www.google.com/maps/search/?api=1&query=Namba+Yasaka+Shrine" },
+          { time: "11:30", icon: "💊", title: "大國藥局難波店掃貨", desc: "飯店步行 3–5 分；同店同日湊滿含稅 5,500 円即可免稅、記得帶護照。", map: "https://www.google.com/maps/search/?api=1&query=Daikoku+Drug+Namba" },
+          { time: "12:30", icon: "🍽️", title: "午餐：難波快速解決", desc: "心齋橋筋順路輕食即可，保留體力給最後採購。" },
+          { time: "13:30", icon: "🛒", title: "Life 超市難波店", desc: "飯店樓下直通！全素昆布醬油、日本在地零食最後補貨。", map: "https://www.google.com/maps/search/?api=1&query=Life+Supermarket+Namba" },
+          { time: "16:00", icon: "💼", title: "領行李 ➔ 南海難波站", desc: "無障礙通道步行 6 分鐘，從容不趕。", map: "https://www.google.com/maps/search/?api=1&query=Nankai+Namba+Station" },
+          { time: "16:20", icon: "🚄", title: "南海 Rapi:t ➔ 關西機場", desc: "約 40 分鐘、17:00 前抵達 KIX 第一航廈（比壓線方案多出 1 小時緩衝）。" },
+          { time: "17:20", icon: "✈️", title: "虎航 IT213 報到託運", desc: "櫃檯於起飛前 60 分鐘（18:50）截止；辦完進管制區做免稅最後採買。" },
+          { time: "19:50", icon: "🛫", title: "起飛返台", desc: "21:45 平安抵達桃園機場 T1，滿載企鵝與御朱印回家！" }
+        ],
+        cafe: {
+          name: "KIX 管制區咖啡小歇",
+          desc: "提早到機場的犒賞——坐下來慢慢回顧這 9 天的企鵝與御朱印戰利品。",
+          map: "https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport+Terminal+1"
+        },
+        rainPlan: "難波全地下連通、Rapi:t 到機場為全室內動線，下雨完全沒差！",
+        tips: "原案 17:05 出發雖趕得上 18:50 截止但零緩衝；強烈建議 16:00–16:30 就出發，換一杯安心的機場咖啡。"
+      }
+    ];
+
+    // --- 交通票券總盤點（2026 查證版）---
+    const TICKETS_DATA = [
+      { name: "行動 ICOCA / Suica（iPhone 錢包）", verdict: "主力", tone: "blue", price: "免押金", note: "市內移動全靠它：地鐵、阪神、JR、USJ 交通；近江鐵道 2026/3 起也支援。" },
+      { name: "大阪周遊券 (Osaka Amazing Pass)", verdict: "不買", tone: "rose", price: "1日 3,500／2日 5,000 円", note: "本行程以購物、祭典、USJ 為主，周遊券涵蓋的觀光設施幾乎用不到。" },
+      { name: "名鐵 μ-SKY（機場 ➔ 名古屋）", verdict: "要買", tone: "green", price: "約 1,430 円", note: "乘車券 980＋μ-Ticket 450；全指定席附行李架。Klook 有 QR 乘車票可比價。" },
+      { name: "東海道新幹線 名古屋 ➔ 京都", verdict: "要買", tone: "green", price: "指定席約 3,070 円", note: "旺季用 Smart EX App 訂指定席卡位（自由席約 2,640 円）。" },
+      { name: "近江鐵道 1デイスマイル", verdict: "要買", tone: "green", price: "1,500 円", note: "僅 RYDE PASS App／iCONPASS 販售，紙本票已廢止；平日班次少先查時刻。" },
+      { name: "近鐵 あをによし 京都 ➔ 難波", verdict: "已訂", tone: "green", price: "約 1,960 円", note: "乘車券＋特急券＋特別車兩券；6/24 已開賣，出發前確認訂位成功。" },
+      { name: "阪神電車 難波 ↔ 神戶三宮", verdict: "ICOCA", tone: "blue", price: "單程約 410 円", note: "快速急行直達 45 分；單日來回約 820 円，不需買一日券。" },
+      { name: "南海 Rapi:t 難波 ➔ 關西機場", verdict: "要買", tone: "green", price: "Klook 約 1,300 円", note: "現場約 1,670 円（特急券 2026/4 起調漲）；電子票最划算。" },
+      { name: "USJ 交通（難波 ➔ 環球城）", verdict: "ICOCA", tone: "blue", price: "單程約 400–560 円", note: "阪神難波線 ➔ 西九条轉 JR 夢咲線，嗶卡即可。" }
+    ];
+
+    // --- 伴手禮資料 ---
+    const SOUVENIR_DATA = [
+      { area: "名古屋", name: "小倉紅豆吐司夾心餅", type: "蛋奶素", location: "名古屋站 ESCA 地下街（Day 3 最後採買）" },
+      { area: "名古屋", name: "大須外郎糕 (ういろ)", type: "全素 (無蛋奶)", location: "大須商店街總本舖（Day 2）" },
+      { area: "滋賀", name: "Club Harie 年輪蛋糕", type: "蛋奶素", location: "La Collina 近江八幡總本店（Day 4）" },
+      { area: "滋賀", name: "飛出小童 K-ON 版吊飾", type: "心靈全素 💖", location: "豐鄉小學校內販售（Day 4）" },
+      { area: "京都", name: "Malebranche 茶之菓", type: "蛋奶素", location: "京都車站伊勢丹 B1" },
+      { area: "京都", name: "阿闍梨餅", type: "蛋奶素", location: "京都車站禮品大街" },
+      { area: "大阪", name: "Grand Calbee 厚切薯片", type: "全素 (部分口味)", location: "梅田阪急百貨（Day 6）" },
+      { area: "大阪", name: "Baton d'or (精品級 Pocky)", type: "蛋奶素", location: "難波高島屋" },
+      { area: "跨區", name: "正能量企鵝限量周邊 🐧", type: "心靈全素 💖", location: "各大城市 Kiddy Land / Loft" }
+    ];
+
+    // --- 大國藥局採買資料 ---
+    const DRUG_ITEMS = [
+      "合利他命 EX Plus（維他命B群）", "EVE 止痛系列", "太田胃散", "樂敦 V／養潤水眼藥水",
+      "休足時間 腿部貼片", "龍角散", "めぐりズム 蒸氣眼罩", "日本限定零食餅乾"
+    ];
+
+    // --- 平價超市地圖（各飯店步行範圍）---
+    const SUPERMARKET_DATA = [
+      {
+        area: "名古屋（Day 1–2）",
+        items: [
+          { name: "成城石井 名古屋駅廣小路口店", walk: "車站步行約 1 分", note: "高級超市價位偏高，適合買精緻食品與伴手。", map: "https://www.google.com/maps/search/?api=1&query=Seijo+Ishii+Nagoya+Hirokoji" },
+          { name: "業務超市 黃金店", walk: "名古屋站步行約 15–20 分", note: "最近的業務超市，量大平價；視體力斟酌前往。", map: "https://www.google.com/maps/search/?api=1&query=Gyomu+Super+Kogane+Nagoya" }
+        ]
+      },
+      {
+        area: "京都（Day 3–4）",
+        items: [
+          { name: "FRESCO 五条店（24 小時）", walk: "京都站步行約 17–20 分", note: "京都站徒步圈最方便的在地平價超市。", map: "https://www.google.com/maps/search/?api=1&query=FRESCO+Gojo+Kyoto" }
+        ]
+      },
+      {
+        area: "大阪難波（Day 5–8）",
+        items: [
+          { name: "Life 超市 難波店", walk: "飯店樓下直通", note: "最方便！全素昆布醬油與零食補給主力。", map: "https://www.google.com/maps/search/?api=1&query=Life+Supermarket+Namba" },
+          { name: "業務超市 日本橋店", walk: "飯店步行約 8–12 分", note: "營業至 21:00，量販平價冷凍食品豐富。", map: "https://www.google.com/maps/search/?api=1&query=Gyomu+Super+Nipponbashi+Osaka" },
+          { name: "超級玉出 日本橋店（24 小時）", walk: "飯店步行約 10–13 分", note: "黃色招牌超低價，宵夜零食好去處。", map: "https://www.google.com/maps/search/?api=1&query=Super+Tamade+Nipponbashi" }
+        ]
+      }
+    ];
+
+    // --- UNIQLO / MUJI / GU 服飾採購 ---
+    const CLOTHING_DATA = [
+      { city: "名古屋", spots: "名古屋站（JR Gate Tower・地下街）與榮商圈均有 UNIQLO／GU／無印良品。" },
+      { city: "京都", spots: "四条河原町（京都 BAL・OPA 一帶）與京都站前均有 UNIQLO／MUJI，Day 4 傍晚順路逛。" },
+      { city: "大阪", spots: "心齋橋筋 UNIQLO/GU 大型店、難波（Namba Parks・なんばCITY）、梅田（LUCUA・阪急三番街）、MUJI 難波/梅田大店。" },
+      { city: "神戶", spots: "三宮中心街／SOGO・OPA 一帶有 UNIQLO／GU／MUJI，Day 8 午後可順路。" }
+    ];
+
+    // --- 必備 App 清單 ---
+    const APPS_DATA = [
+      { name: "Visit Japan Web", desc: "入境審查＋海關申報 QR，出發前先填好" },
+      { name: "乘換案內 / Yahoo!乘換案內", desc: "日本鐵路轉乘、時刻、月台查詢神器" },
+      { name: "Google Maps", desc: "步行導航、店家營業時間查詢" },
+      { name: "iPhone 錢包 ICOCA/Suica", desc: "行動交通卡，嗶手機搭車免押金" },
+      { name: "RYDE PASS", desc: "近江鐵道 1 日券購買（已無紙本票）" },
+      { name: "近鐵特急預約 / Smart EX", desc: "あをによし與新幹線訂票" },
+      { name: "USJ 官方 App", desc: "e 整理券／抽選券、即時排隊時間" },
+      { name: "Payke", desc: "掃商品條碼看中文成分說明（藥妝必備）" },
+      { name: "tenki.jp / Yahoo!天気", desc: "雨雲雷達、颱風動態追蹤" },
+      { name: "Klook / KKday", desc: "Rapi:t、μ-SKY 等電子票券" },
+      { name: "Tabelog", desc: "餐廳評價、蔬食關鍵字搜尋" },
+      { name: "Google 翻譯 / DeepL", desc: "菜單、成分、溝通即時翻譯" }
+    ];
+
+    // --- 待辦清單資料 ---
+    const CHECKLIST_SECTIONS = [
+      {
+        title: "🎫 預約與票券",
+        items: [
+          { id: "chk_flight", text: "虎航來回機票已開票（訂位代號存在本頁上方輸入框，只留在自己手機）", urgent: false, defaultDone: true },
+          { id: "chk_hotels", text: "三間飯店訂房完成（名古屋／京都／難波）", urgent: false, defaultDone: true },
+          { id: "chk_usj", text: "USJ 門票＋快速通關已購（出發前確認 QR 與日期）", urgent: false, defaultDone: true },
+          { id: "chk_aoniyoshi", text: "確認 あをによし 7/24 京都➔難波 車票已搶到（6/24 已開賣）", urgent: true, defaultDone: false },
+          { id: "chk_oko", text: "OKO 大阪燒預約完成（建議 19:00 場次，需提前 1–2 個月）", urgent: true, defaultDone: false },
+          { id: "chk_mumo", text: "Mumokuteki Cafe（Day 4 晚餐 18:30）線上預約", urgent: false, defaultDone: false },
+          { id: "chk_smartex", text: "Smart EX 訂 Day 3 新幹線指定席", urgent: false, defaultDone: false },
+          { id: "chk_rapit", text: "Klook/KKday 購買 Rapi:t 電子票（約 1,300 円）", urgent: false, defaultDone: false }
+        ]
+      },
+      {
+        title: "📱 手機與網路設定",
+        items: [
+          { id: "chk_vjw", text: "填寫 Visit Japan Web（兩人各一份）", urgent: true, defaultDone: false },
+          { id: "chk_esim", text: "開通日本 eSIM / 網路方案", urgent: false, defaultDone: false },
+          { id: "chk_icoca", text: "iPhone 錢包新增 ICOCA/Suica 並儲值", urgent: false, defaultDone: false },
+          { id: "chk_apps", text: "下載 App：乘換案內、tenki.jp、USJ、RYDE PASS、Payke", urgent: false, defaultDone: false },
+          { id: "chk_typhoon", text: "出發前一週追蹤颱風動態＋熟悉虎航改票規則", urgent: false, defaultDone: false }
+        ]
+      },
+      {
+        title: "🎒 行李打包與旅前備忘",
+        items: [
+          { id: "chk_passport", text: "護照效期 6 個月以上、拍照備份", urgent: false, defaultDone: false },
+          { id: "chk_usjgear", text: "帶瑪利歐 Power-Up 手環＋哈利波特互動魔杖（Day 7 要用！）", urgent: true, defaultDone: false },
+          { id: "chk_umbrella", text: "輕便防風摺疊傘 × 2（午後雷陣雨）", urgent: false, defaultDone: false },
+          { id: "chk_heat", text: "防曬 SPF50+、涼感巾、鹽糖／電解質", urgent: false, defaultDone: false },
+          { id: "chk_goshuin", text: "御朱印帳（忘了可在京都 Loft 補買精美款）", urgent: false, defaultDone: false },
+          { id: "chk_bag", text: "特大摺疊袋／預留行李空間（企鵝戰利品用）", urgent: false, defaultDone: false },
+          { id: "chk_power", text: "行動電源（USJ App 開一整天很耗電）", urgent: false, defaultDone: false },
+          { id: "chk_scale", text: "行李秤（託運 20kg 秤重嚴格）", urgent: false, defaultDone: false }
+        ]
+      }
+    ];
+
+    // --- Koupen-chan SVG 向量繪圖組件 ---
+    function KoupenIllust({ size = "w-24 h-24", withClover = true, className = "" }) {
+      return (
+        <svg viewBox="0 0 100 100" class={`${size} ${className} select-none`} fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Main Body (Soft Blue-Grey) */}
+          <circle cx="50" cy="55" r="36" fill="#9FB5C4" />
+
+          {/* Tummy & Face (White) */}
+          <ellipse cx="50" cy="61" rx="27" ry="24" fill="#FFFFFF" />
+          <ellipse cx="50" cy="46" rx="21" ry="15" fill="#FFFFFF" />
+
+          {/* Left Wing */}
+          <path d="M12 55 C8 60, 10 70, 18 68 C22 67, 24 60, 20 54 Z" fill="#9FB5C4" />
+          {/* Right Wing */}
+          <path d="M88 55 C92 60, 90 70, 82 68 C78 67, 76 60, 80 54 Z" fill="#9FB5C4" />
+
+          {/* Cute Pink Cheeks */}
+          <ellipse cx="34" cy="50" rx="6" ry="5" fill="#FFAEC9" />
+          <ellipse cx="66" cy="50" rx="6" ry="5" fill="#FFAEC9" />
+
+          {/* Happy Closed/Sparkly Eyes */}
+          <circle cx="41" cy="44" r="3" fill="#2C3E50" />
+          <circle cx="59" cy="44" r="3" fill="#2C3E50" />
+          {/* Catchlight in eyes */}
+          <circle cx="40" cy="42" r="1" fill="#FFFFFF" />
+          <circle cx="58" cy="42" r="1" fill="#FFFFFF" />
+
+          {/* Cute Triangular Beak */}
+          <polygon points="46,47 54,47 50,53" fill="#FFC72C" />
+
+          {/* Feet */}
+          <ellipse cx="38" cy="90" rx="7" ry="4" fill="#FFC72C" />
+          <ellipse cx="62" cy="90" rx="7" ry="4" fill="#FFC72C" />
+
+          {/* Optional Clover on Head */}
+          {withClover && (
+            <g transform="translate(0, -3)">
+              {/* Stem */}
+              <path d="M50 20 Q52 14 50 8" stroke="#7BC043" stroke-width="2" stroke-linecap="round" />
+              {/* Four Leaves */}
+              <circle cx="47" cy="7" r="4" fill="#7BC043" />
+              <circle cx="53" cy="7" r="4" fill="#7BC043" />
+              <circle cx="50" cy="4" r="4" fill="#7BC043" />
+              <circle cx="50" cy="10" r="4" fill="#7BC043" />
+            </g>
+          )}
+        </svg>
+      );
+    }
+
+    // --- 天氣穿搭卡片 ---
+    function WeatherCard({ w, label }) {
+      if (!w) {
+        return (
+          <div class="bg-slate-50 border border-dashed border-slate-200 rounded-2xl px-4 py-3 mt-5 text-[10px] text-slate-400 text-center font-bold">
+            ☁️ 天氣資料載入中…（超出 16 天預報範圍或離線時不顯示）
+          </div>
+        );
+      }
+      return (
+        <div class="bg-brand-blue/40 border border-brand-blueDark/10 rounded-2xl p-4 mt-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-black text-blue-700 flex items-center gap-1.5">
+              <span>{w.icon}</span> 當日天氣（{label}）
+              <span class="text-[10px] font-bold text-blue-500">{w.zh}</span>
+            </h3>
+            <span class="text-[10px] font-black text-slate-500">🌡️ {w.max}° / {w.min}°C</span>
+          </div>
+          <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-[11px] font-bold text-slate-600">
+            <span>🌂 降雨 {w.precip} mm</span>
+          </div>
+          <div class="mt-2 text-[11px] text-blue-800 font-bold leading-relaxed">
+            👕 穿搭建議：{w.clothing}
+          </div>
         </div>
+      );
+    }
 
-        <h1 class="text-3xl md:text-5xl font-black mb-1 tracking-tight">夏日夢幻大冒險 <span class="text-peng-accent">2026</span></h1>
-        <p class="text-base md:text-xl font-black text-slate-500">名古屋 · 京都 · 大阪 · 神戶 9天8夜</p>
-        <p class="text-xs md:text-sm font-extrabold text-peng-accent mt-1.5">💕 Alan & Qi 結婚一週年慢活紀念版 💕</p>
-        
-        <!-- Major cancellation update alert box -->
-        <div class="mt-4 bg-red-50 border-4 border-red-400 p-3.5 rounded-2xl text-left shadow-[4px_4px_0px_#1E293B]">
-            <p class="text-xs font-black text-red-700 flex items-center gap-1.5">
-                <i class="fa-solid fa-triangle-exclamation text-sm animate-pulse"></i> 
-                <span>⚠️ 2026 重大行程變更公告（東海テレビ 2026/05/19 報導）：</span>
-            </p>
-            <p class="text-[11px] font-bold text-red-800 mt-1 leading-relaxed">
-                經官方確認，2026年「海之日名古屋港祭」花火大會因秋季亞洲/亞帕運選手宿舍建於名古屋港觀覽區，導致空間不足<b>已宣布中止施放</b>。7/20 港區現場僅保留山車巡行與總舞。Day 1 路線已為您改為極致悠閒的<b>「名駅慢活從容方案」</b>！
-            </p>
-        </div>
+    // --- 主程式 ---
+    function App() {
+      const [currentDay, setCurrentDay] = useState(1);
+      const [activeTab, setActiveTab] = useState("itinerary"); // itinerary | transport | shopping | checklist | budget
+      const [countdownMain, setCountdownMain] = useState({ label: "✨ 距離夢幻冒險出發倒數 (7/20 09:00)", text: "" });
+      const [countdownHanabi, setCountdownHanabi] = useState("");
+      const [quote, setQuote] = useState(KOUPEN_QUOTES[0]);
+      const [toast, setToast] = useState(null);
+      const [showBubble, setShowBubble] = useState(true);
+      const [weather, setWeather] = useState({}); // key: "city|YYYY-MM-DD"
 
-        <!-- Flight Information -->
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-            <!-- Outbound Flight -->
-            <div class="kawaii-card bg-peng-pink p-4 rounded-2xl">
-                <div class="flex items-center justify-between border-b-2 border-slate-800 pb-2 mb-2">
-                    <span class="font-black text-xs md:text-sm">✈️ 去程虎航 IT206</span>
-                    <span class="bg-white border-2 border-slate-800 px-2 py-0.5 rounded text-[10px] font-bold">桃園 T1 ➔ 中部 T1</span>
-                </div>
-                <p class="font-black text-base md:text-lg">7/20 (一) 09:00 起飛 ➔ 12:55 抵達</p>
-                <div class="mt-2 bg-white/60 p-2 rounded-lg text-xs font-bold space-y-1">
-                    <p class="text-peng-accent">🚗 機場接送：06:00 準時上車（預約完畢）</p>
-                    <p>🎟️ 預訂代號：WD9K9X | 託運 20kg + 手提 10kg</p>
-                </div>
-            </div>
-            <!-- Return Flight -->
-            <div class="kawaii-card bg-peng-blue p-4 rounded-2xl">
-                <div class="flex items-center justify-between border-b-2 border-slate-800 pb-2 mb-2">
-                    <span class="font-black text-xs md:text-sm">✈️ 回程虎航 IT213</span>
-                    <span class="bg-white border-2 border-slate-800 px-2 py-0.5 rounded text-[10px] font-bold">關西 T1 ➔ 桃園 T1</span>
-                </div>
-                <p class="font-black text-base md:text-lg">7/28 (二) 19:50 起飛 ➔ 21:45 抵達</p>
-                <div class="mt-2 bg-white/60 p-2 rounded-lg text-xs font-bold space-y-1 text-slate-800">
-                    <p class="text-amber-800">⚠️ KIX 航廈說明：虎航在第一航廈(T1)！2026 T1 持續部分整修但正常營運。</p>
-                    <p class="text-peng-dark">🚗 安全出發時程：建議 16:00-16:30 由南海難波搭特急 Rapi:t 前往。</p>
-                </div>
-            </div>
-        </div>
+      // 訂位代號與訂房代號：僅存在使用者裝置的 localStorage（不進 Git、不上傳）
+      const [pnr, setPnr] = useState(() => localStorage.getItem("travel_pnr_v1") || "");
+      const [hotel1, setHotel1] = useState(() => localStorage.getItem("travel_hotel1") || "");
+      const [hotel2, setHotel2] = useState(() => localStorage.getItem("travel_hotel2") || "");
+      const [hotel3, setHotel3] = useState(() => localStorage.getItem("travel_hotel3") || "");
 
-        <!-- Accommodation Cards -->
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            <!-- Nagoya Hotel -->
-            <div class="kawaii-card bg-white p-4 rounded-2xl flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-peng-yellow border-2 border-slate-800 px-2 py-0.5 rounded-full uppercase">Day 1 - 2 名古屋</span>
-                    <h3 class="font-black text-sm md:text-base mt-2">三井花園飯店名古屋普米爾</h3>
-                    <p class="text-[11px] text-slate-500 mt-1 font-bold">名古屋站地下街直結，步行5分鐘。18樓高空大廳，下雨也免驚！</p>
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Mitsui+Garden+Hotel+Nagoya+Premier" target="_blank" class="map-btn mt-3 justify-center"><i class="fa-solid fa-location-dot"></i> 地圖與導航</a>
-            </div>
-            <!-- Kyoto Hotel -->
-            <div class="kawaii-card bg-white p-4 rounded-2xl flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-peng-green border-2 border-slate-800 px-2 py-0.5 rounded-full uppercase">Day 3 - 4 京都</span>
-                    <h3 class="font-black text-sm md:text-base mt-2">京都塔酒店</h3>
-                    <p class="text-[11px] text-slate-500 mt-1 font-bold">京都站正對面，地下通道直結2分鐘。交通位置極速便利。</p>
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Kyoto+Tower+Hotel" target="_blank" class="map-btn mt-3 justify-center"><i class="fa-solid fa-location-dot"></i> 地圖與導航</a>
-            </div>
-            <!-- Osaka Hotel -->
-            <div class="kawaii-card bg-white p-4 rounded-2xl flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-peng-pink border-2 border-slate-800 px-2 py-0.5 rounded-full uppercase">Day 5 - 8 大阪</span>
-                    <h3 class="font-black text-sm md:text-base mt-2">難波京阪格蘭德飯店</h3>
-                    <p class="text-[11px] text-slate-500 mt-1 font-bold">南海難波站步行6分鐘，直結 Namba Parks，下樓直通 Life 超市。</p>
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Namba+Grande" target="_blank" class="map-btn mt-3 justify-center"><i class="fa-solid fa-location-dot"></i> 地圖與導航</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Interactive Speech Bubble and Currency Helper -->
-    <div class="max-w-4xl mx-auto px-4 mt-6">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-            <!-- Penguin Speech Box -->
-            <div class="kawaii-card bg-white p-4 rounded-2xl flex items-center gap-4 md:col-span-8 cursor-pointer" onclick="sayCheer()">
-                <div class="text-5xl animate-bounce">🐧</div>
-                <div class="bubble-speech p-3 flex-1 text-xs md:text-sm font-black flex items-center">
-                    <span id="cheer-text">「起大早準備去旅行的你，真的是太了不起了喔！(點我聽正能量企鵝導遊說話)」</span>
-                </div>
-            </div>
-            <!-- Interactive Currency Converter -->
-            <div class="kawaii-card bg-peng-yellow p-4 rounded-2xl md:col-span-4 flex flex-col justify-between">
-                <div class="text-xs font-black flex items-center gap-1 mb-1">
-                    <span>🪙 企鵝匯率幫手 (1 円 ≈ 0.20 新台幣)</span>
-                </div>
-                <div class="flex gap-2">
-                    <input type="number" id="jpy-input" placeholder="日圓 JPY" class="w-1/2 p-2 text-xs font-bold rounded-lg border-2 border-slate-800 text-center" oninput="convertCurrency('jpy')">
-                    <input type="number" id="twd-input" placeholder="台幣 TWD" class="w-1/2 p-2 text-xs font-bold rounded-lg border-2 border-slate-800 text-center" oninput="convertCurrency('twd')">
-                </div>
-                <div class="text-[10px] font-bold text-slate-500 mt-1 text-center">雙向即時換算，出國刷卡掃貨必備</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tabbed Sticky Navigation Bar -->
-    <nav class="sticky-nav mt-8 px-2 py-3 overflow-x-auto no-scrollbar">
-        <div class="max-w-4xl mx-auto flex justify-start md:justify-center gap-2 min-w-[580px] px-2">
-            <button onclick="showModule('nagoya')" id="btn-nagoya" class="nav-btn kawaii-btn px-4 py-2 rounded-2xl bg-white font-black text-xs md:text-sm">📍 名古屋 D1-D2</button>
-            <button onclick="showModule('kyoto')" id="btn-kyoto" class="nav-btn kawaii-btn px-4 py-2 rounded-2xl bg-white font-black text-xs md:text-sm">🏮 京都滋賀 D3-D5</button>
-            <button onclick="showModule('osaka')" id="btn-osaka" class="nav-btn kawaii-btn px-4 py-2 rounded-2xl bg-white font-black text-xs md:text-sm">🐙 大阪神戶 D6-D9</button>
-            <button onclick="showModule('survival')" id="btn-survival" class="nav-btn kawaii-btn px-4 py-2 rounded-2xl bg-peng-yellow font-black text-xs md:text-sm">🎒 行前與採購攻略</button>
-        </div>
-    </nav>
-
-    <!-- MAIN MODULES -->
-    <main class="max-w-4xl mx-auto p-4 mt-2">
-        
-        <!-- ================= NAGOYA MODULE ================= -->
-        <div id="module-nagoya" class="module-section active space-y-8">
-            <!-- Day 1 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Nagoya Station">
-                <div class="p-4 md:p-6">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <span class="text-xs font-black bg-peng-blue px-3 py-1 rounded border-2 border-slate-800 uppercase">7/20 (一) DAY 1</span>
-                        <span class="text-[11px] font-black bg-red-100 text-red-700 px-2 py-0.5 rounded border border-red-400">⚠️ 2026 港灣花火中止對策</span>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">企鵝首購首發 ➔ 名駅商圈慢活享受夜 🛍️</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">06:00</span><span>預約機場送機上車，07:00 前抵達第一航廈 T1 辦理報到與託運。</span></div>
-                        <div class="flex items-start"><span class="time-badge">12:55</span><span>抵達名古屋中部機場 T1 ➔ 搭乘 <b>名鐵 μ-SKY 特急</b> (28分鐘直達，乘車券 980 円 + μ-Ticket 450 円 = 1,430 円/人)。 <a href="https://www.google.com/maps/search/?api=1&query=Nagoya+Station" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">14:30</span><span>辦理 Check-in (三井花園名古屋普米爾，18樓高空大廳，地下街直結)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">15:00</span><span>🐧 <b>正能量企鵝首購首發站：</b> 直奔飯店樓下 <b>Kiddy Land 名古屋店</b> (現址：名古屋站 JR Gate Tower 1F，10:00–21:00) 搶先入手第一波企鵝週年周邊！ <a href="https://www.google.com/maps/search/?api=1&query=Kiddy+Land+Nagoya+JR+Gate+Tower" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">17:00</span><span><b>花火中止雙軌防護方案：</b><br>
-                            <span class="text-emerald-700">★【方案 A・推薦・極致省力】</span>留在名駅商圈慢活：悠閒逛 JR Central Towers、高島屋、大名古屋大樓，晚餐約 18:00 正常時段開動，週年紀念第一晚從容。<br>
-                            <span class="text-amber-700">★【方案 B・祭典派】</span>仍可搭地下鐵到名古屋港站看山車巡行 (16:50–21:30) 與總舞 (18:20–20:00)，但需留意人潮，並在 17:00 前先在港區周邊用餐。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:00</span><span>🍽️ <b>晚餐備案：</b> 名古屋站內或榮的蔬食友善餐廳（如 The Cycle、Vege deli 或百貨美食街可客製蔬食）。<br>
-                            <span class="text-red-500 font-extrabold text-[11px] block mt-1">※ 查證提示：原名駅 T's Tantan 官方店鋪名單已無名古屋店，疑似歇業。請改踩上述替代店！</span></span></div>
-                        <div class="flex items-start"><span class="time-badge">21:30</span><span>☕ <b>宵夜茶點：</b> 散步前往名駅周邊的 <b>Komeda's Coffee (コメダ珈琲店)</b> 享受經典連鎖吐司小點。</span></div>
-                    </div>
-
-                    <div class="closing-tip text-slate-600 border-peng-blue bg-peng-blue/10">
-                        <p class="font-black text-slate-800"><i class="fa-solid fa-circle-info"></i> 名駅慢活守則：</p>
-                        <p class="mt-1">第一天在機場交通與步行需要保留體力。花火中止讓我們省去了大暑烈日下人擠人的負擔，回到 30 代最從容的一週年蜜月開場！</p>
-                    </div>
-
-                    <div class="mt-4">
-                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記 / 戰利品記帳</p>
-                        <div class="editable-note" contenteditable="true" id="note-1" onblur="saveNote(1)">今天買到哪幾隻超棒的限定版正能量企鵝？記錄在這邊吧！</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Day 2 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Nagoya Castle">
-                <div class="p-4 md:p-6">
-                    <span class="text-xs font-black bg-peng-blue px-3 py-1 rounded border-2 border-slate-800 uppercase">7/21 (二) DAY 2</span>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">金鱗本丸御殿 ➔ 大須商店街掃公仔與 Oasis 21 飛船 🏰</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">10:00</span><span>前往參觀 <b>名古屋城</b> (欣賞本丸御殿、收集御城印)。 <a href="https://www.google.com/maps/search/?api=1&query=Nagoya+Castle" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">11:30</span><span>🍽️ <b>午餐：</b> 金シャチ横丁（金魚街）或本丸周邊輕食、豆腐料理、蔬食友善烏龍麵。</span></div>
-                        <div class="flex items-start"><span class="time-badge">13:00</span><span>前往擁有防雨頂棚的 <b>大須商店街</b>。</span></div>
-                        <div class="flex items-start"><span class="time-badge">13:30</span><span>🛍️ <b>公仔精準挖寶：</b> 鎖定 <b>Mandarake</b>、<b>Jungle</b> 動漫二手公仔店！購買特色全素名產「大須外郎糕」(ういろ，無蛋奶)。 <a href="https://www.google.com/maps/search/?api=1&query=Osu+Shopping+District" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">16:30</span><span>榮商圈 <b>Loft 名古屋店</b> 巡禮，朝聖「花丸商店」企鵝專區。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:00</span><span>🍽️ <b>晚餐：</b> 榮周邊蔬食友善餐廳 (18:00-18:30開動)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">19:30</span><span>漫步至 <b>Oasis 21 綠之大地</b> 欣賞銀河宇宙船點燈，或在 <b>PEANUTS Cafe</b> (名古屋 PARCO) 拍照打卡。</span></div>
-                    </div>
-
-                    <div class="closing-tip text-slate-600 border-slate-400">
-                        <p class="font-black text-slate-800"><i class="fa-solid fa-star"></i> 伴手禮提醒：</p>
-                        <p class="mt-1">名古屋在地伴手禮（小倉紅豆吐司夾心餅、大須外郎糕）最後採買的最佳時機為 <b>Day 3 上午</b> 離開名古屋前，在名古屋站 ESCA 地下街一次買齊，免去中途提行李負擔！</p>
-                    </div>
-
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍/ 日記</p><div class="editable-note" contenteditable="true" id="note-2" onblur="saveNote(2)"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= KYOTO MODULE ================= -->
-        <div id="module-kyoto" class="module-section space-y-8">
-            <!-- Day 3 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Kamogawa River">
-                <div class="p-4 md:p-6">
-                    <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800 uppercase">7/22 (三) DAY 3</span>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">熱田神宮草薙劍 ➔ 東海道新幹線 ➔ 鴨川散步宵山夜 🚄</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">09:00</span><span>退房寄存行李 ➔ 搭乘名鐵 6 分鐘直達 <b>熱田神宮</b> 參拜、收集神宮御朱印。 <a href="https://www.google.com/maps/search/?api=1&query=Atsuta+Jingu" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">11:30</span><span>🍽️ <b>午餐：</b> 神宮內 <b>宮きしめん (Miya Kishimen)</b> (<b>昆布高湯蔬食 OK</b>，營業時間依神宮境內為準)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">13:00</span><span>返回名古屋站「ESCA地下街」將小倉紅豆夾心餅乾伴手禮一次買齊，回飯店提行李。</span></div>
-                        <div class="flex items-start"><span class="time-badge">14:30</span><span>搭乘 <b>東海道新幹線</b> 前往京都 (車程約 34 分鐘，自由席約 2,640 円、指定席約 3,070 円)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">15:30</span><span>抵達京都塔酒店 Check-in (與京都站直結，建議此處將衣服投遞洗烘)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:30</span><span>散步至 <b>鴨川畔</b> ➔ 慢遊先斗町，感受祇園祭後祭宵山的古風點燈氣氛。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:00</span><span>🍽️ <b>晚餐：</b> 鴨川旁極品全素 <b>Veg Out</b> (建議提前預訂，邊吃邊看鴨川夕照超療癒)。 <a href="https://www.google.com/maps/search/?api=1&query=Veg+Out+Kyoto" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-3" onblur="saveNote(3)"></div></div>
-                </div>
-            </div>
-
-            <!-- Day 4 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Omihachiman">
-                <div class="p-4 md:p-6">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800 uppercase">7/23 (四) DAY 4</span>
-                        <span class="text-[11px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-400">★ 體力最省・近江八幡 B 方案</span>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">輕音部聖地 ➔ 近江八幡水鄉 ➔ La Collina ➔ 祇園祭後祭宵山 🎸</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">09:00</span><span>京都站搭乘 JR 琵琶湖線至「彥根站」轉近江鐵道。</span></div>
-                        <div class="flex items-start"><span class="time-badge">10:30</span><span>朝聖 <b>豐鄉小學校舊校舍群</b> (K-ON! 聖地，舊圖書館內有冷氣可消暑)。 <a href="https://www.google.com/maps/search/?api=1&query=Toyosato+Elementary+School" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">13:30</span><span>🍽️ <b>午餐：</b> 「為也庵」享用蕎麥麵天婦羅，或在「たねや (Taneya) 日牟禮茶屋」品嚐全素名物赤蒟蒻與蒸飯。</span></div>
-                        <div class="flex items-start"><span class="time-badge">14:00</span><span><b>近江八幡水鄉與古街散策：</b> 八幡堀手搖船與新町通古街小店。</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:30</span><span>朝聖童話草屋頂 <b>La Collina 近江八幡</b>，品嚐年輪蛋糕並購買 K-ON 版飛出小童吊飾。 <a href="https://www.google.com/maps/search/?api=1&query=La+Collina" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">17:30</span><span>搭乘 JR 直達京都，回程單一、避免來回折返。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:30</span><span>🍽️ <b>晚餐：</b> 四条河原町 <b>Mumokuteki Cafe & Foods</b> (日式美學精緻蔬食，建議提前預約)。 <a href="https://www.google.com/maps/search/?api=1&query=Mumokuteki+Kyoto" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">20:00</span><span><b>後祭宵山漫步：</b> 順路去 <b>Kiddy Land 京都四条河原町店</b> (河原町通 1-3F，11:00-21:00) 買京都限定企鵝 ➔ 漫步欣賞祇園祭「後祭宵山」夜間點燈山鉾！</span></div>
-                    </div>
-
-                    <div class="closing-tip text-slate-600 border-peng-green bg-peng-green/10">
-                        <p class="font-black text-slate-800"><i class="fa-solid fa-circle-info"></i> 近江鐵道 & 宵山 2026 數位指南：</p>
-                        <p class="mt-1 text-[11px] leading-relaxed">
-                            1. <b>近江鐵道新制</b>：2026/03 起近江鐵道已導入 ICOCA，並廢止紙本普通乘車券。全線一日券「1 デイスマイルチケット」(1,500 円) 僅能透過 <b>RYDE PASS App</b> 數位購買！平日班次少，請先查好去回時刻。<br>
-                            2. <b>祇園祭後祭宵山</b>：2026年後祭宵山確為 7/21-23，今晚剛好趕上！人潮較前祭少，氣氛更優閒，極適合收集山鉾町御朱印。
-                        </p>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-4" onblur="saveNote(4)"></div></div>
-                </div>
-            </div>
-
-            <!-- Day 5 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Fushimi Inari">
-                <div class="p-4 md:p-6">
-                    <span class="text-xs font-black bg-peng-green px-3 py-1 rounded border-2 border-slate-800 uppercase">7/24 (五) DAY 5</span>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">伏見狐狸朱印 ➔ 柯南迷宮六角堂 ➔ 青丹吉奢華特急 🦊</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">08:15</span><span>辦理退房、行李寄放前台 ➔ 抵達 <b>伏見稻荷大社</b> 避開團客與正午酷熱。</span></div>
-                        <div class="flex items-start"><span class="time-badge">08:30</span><span><b>三十代安全攻頂指引：</b> 7月高溫高濕，<b>強烈建議以「四ツ辻」為折返上限</b>（來回約1.5小時，可收集千本鳥居與絕景）；攻頂一之峰（來回需2.5小時）極耗體力且易中暑，不推薦。 <a href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">11:30</span><span>🍽️ <b>午餐：</b> 稻荷參道「祢ざめ家 (Nezameya)」享用名物稻荷豆皮壽司與狐狸烏龍麵，就地解決！</span></div>
-                        <div class="flex items-start"><span class="time-badge">13:00</span><span><b>《名偵探柯南：迷宮的十字路口》聖地巡禮：</b> 參拜 <b>頂法寺六角堂</b> (劇中元太迷路、柯南平次相遇處，買鴿子御守) 或 <b>佛光寺</b> (院內有 D&D 文青選物與茶室)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">15:30</span><span>返回京都車站提領行李。</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:50</span><span>搭乘 <b>近鐵觀光特急「あをによし Aoniyoshi」</b> 至大阪難波（京都➔難波約1,960円/人，訂雙人沙龍席！2 號車廂買限定奶油餅乾和大和茶啤酒）。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:01</span><span>抵達大阪 ➔ 飯店 Check-in 放行李 ➔ 慢步法善寺橫丁。</span></div>
-                        <div class="flex items-start"><span class="time-badge">19:30</span><span>🍽️ <b>晚餐：</b> 預約東心齋橋 <b>OKO大阪燒</b> (全素無麩質，<b>建議提早 1-2 個月預約 18:00 第一輪</b>，長堀橋站 7 號出口步行 3 分)。 <a href="https://www.google.com/maps/search/?api=1&query=OKO+Okonomiyaki" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                    </div>
-
-                    <div class="closing-tip text-slate-600 border-rose-400 bg-red-50/50">
-                        <p class="font-black text-rose-600"><i class="fa-solid fa-bell"></i> 搶票鬧鐘提示：</p>
-                        <p class="mt-1">「あをによし」請於乘車日 <b>前一個月同日台灣時間 09:30 AM (日本 10:30 AM)</b> 定好鬧鐘在近鐵特急官網準時搶購！</p>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-5" onblur="saveNote(5)"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= OSAKA MODULE ================= -->
-        <div id="module-osaka" class="module-section space-y-8">
-            <!-- Day 6 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Namba">
-                <div class="p-4 md:p-6">
-                    <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800 uppercase">7/25 (六) DAY 6</span>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">大國神宮 ➔ 日本橋梅田掃貨 ➔ 天神祭奉納花火 🎆</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">09:00</span><span><b>晨間慢步與早午餐：</b> 難波吃蔬食早午餐，參拜 <b>敷津松之宮/大國主神社</b> (收集大國樣御朱印) 或 <b>今宮戎神社</b>。</span></div>
-                        <div class="flex items-start"><span class="time-badge">11:00</span><span>步行前往 <b>日本橋 Den Den Town (動漫公仔街)</b> (11:00開門)。買完秒提回飯店放，0 重量負擔！ <a href="https://www.google.com/maps/search/?api=1&query=Den+Den+Town" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">13:30</span><span>搭地鐵至梅田 ➔ 衝 <b>Yodobashi 梅田店</b> (買 3C 家電/相機配件，<b>2026/07 仍適用現行店頭出示護照當場免稅</b>) ➔ 順逛 <b>Kiddy Land 梅田店 (關西企鵝總部)</b>！</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:30</span><span>輕裝前往 <b>櫻之宮公園</b> 卡位（17:00-18:00 前抵達）。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:00</span><span>🍽️ <b>晚餐/午茶：</b> 天神祭屋台小吃，或在花火前的下午去 <b>Moto Coffee</b> (北濱，有燕麥奶) 喝河景咖啡。 <a href="https://www.google.com/maps/search/?api=1&query=Moto+Coffee+Osaka" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">19:30</span><span>觀賞「大阪天神祭」奉納花火 (約 3,000 發，遇雨不順延)。</span></div>
-                    </div>
-
-                    <div class="closing-tip text-slate-600 border-amber-400 bg-amber-50/50">
-                        <p class="font-black text-amber-700"><i class="fa-solid fa-triangle-exclamation"></i> 2026 週六天神祭防擠警告：</p>
-                        <p class="mt-1 text-[11px]">
-                            今年本宮剛好落在<b>週六</b>，預估人潮將達 130 萬人。花火約 20:50 結束，散場極擠。<b>強烈建議在花火放完前 15 分鐘（約 20:35）提早撤離</b>前往地鐵或 JR 桜ノ宮站，避免壅塞，手牽手別走散囉！
-                        </p>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-6" onblur="saveNote(6)"></div></div>
-                </div>
-            </div>
-
-            <!-- Day 7 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1597843797221-722e70e3034a?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="USJ">
-                <div class="p-4 md:p-6">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800 uppercase">7/26 (日) DAY 7</span>
-                        <span class="text-[11px] font-black bg-pink-100 text-pink-700 px-2 py-0.5 rounded border border-pink-400">⚡ 快速通關與裝備已鎖定</span>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">制霸陸地！環球影城 USJ 奇幻冒險全日遊 🍄</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">07:15</span><span>飯店出發 ➔ 難波搭阪神線至西九条轉 JR ゆめ咲線。</span></div>
-                        <div class="flex items-start"><span class="time-badge">08:15</span><span>抵達 <b>日本環球影城 USJ</b> (暑假週日人多，越早到越好)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">11:30</span><span>🍽️ <b>午餐：</b> 侏儸紀公園區 Discovery 餐廳享用 <b>全素咖哩飯</b>（或在休息區享用提前買的超商素飯糰）。</span></div>
-                        <div class="flex items-start"><span class="time-badge">全天</span><span>利用您的 **Express Pass** 暢玩。週末暑假人潮多，一入園就開 USJ 官方 App 搶熱門區「e 整理券/抽選券」，並隨時看 App排隊時間。</span></div>
-                        <div class="flex items-start"><span class="time-badge">18:00</span><span>🍽️ <b>晚餐：</b> 在園外 CityWalk 商店街享用晚餐。</span></div>
-                    </div>
-
-                    <div class="closing-tip text-slate-600 bg-peng-yellow/20 border-peng-yellow">
-                        <p class="font-black text-amber-800"><i class="fa-solid fa-suitcase"></i> 行前背包攜帶與防中暑清單：</p>
-                        <p class="mt-1">瑪利歐手環、哈利波特魔杖、小背包、防暑用品 (涼感巾、鹽糖/水)、行動電源、暴雨備用雨衣。大雨預案為 <b>大阪海遊館</b> (全室內水族館)。</p>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-7" onblur="saveNote(7)"></div></div>
-                </div>
-            </div>
-
-            <!-- Day 8 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef21?auto=format&fit=crop&q=80&w=1200" class="img-header" alt="Kobe">
-                <div class="p-4 md:p-6">
-                    <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800 uppercase">7/27 (一) DAY 8</span>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">結緣生田神社 ➔ 舊教堂改建咖啡 ➔ 神戶港百萬夜景 ⚓</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">10:00</span><span>難波站搭「阪神快速急行」一車直達神戶三宮 (單程約 410 円，直接感應 ICOCA 付款最划算)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">11:00</span><span>參拜關西最強結緣 <b>生田神社</b> (求取水引御守、體驗神奇水占卜)。 <a href="https://www.google.com/maps/search/?api=1&query=Ikuta+Shrine" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">11:30</span><span>🍽️ <b>午餐/午茶：</b> 前往 <b>Modernark pharm cafe</b> (2026/4 整修後全新重開，純素拼盤與玄米咖哩氛圍極讚) 或舊教堂改建的 <b>Cafe Freundlieb</b> 享用烘焙輕食。 <a href="https://www.google.com/maps/search/?api=1&query=Modernark+pharm+cafe" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">13:30</span><span>漫步 <b>北野異人館街</b>，在 <b>神戶星巴克北野物語館</b> 百年洋房喝咖啡。</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:00</span><span>前往 <b>神戶港臨海樂園 (umie Mosaic)</b> 悠閒逛街、吹海風。</span></div>
-                        <div class="flex items-start"><span class="time-badge">19:30</span><span>欣賞紅塔與璀璨神戶港百萬夜景，隨後搭阪神電車回難波。</span></div>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-8" onblur="saveNote(8)"></div></div>
-                </div>
-            </div>
-
-            <!-- Day 9 -->
-            <div class="kawaii-card bg-white rounded-3xl overflow-hidden">
-                <div class="p-4 md:p-6">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <span class="text-xs font-black bg-peng-pink px-3 py-1 rounded border-2 border-slate-800 uppercase">7/28 (二) DAY 9</span>
-                        <span class="text-[11px] font-black bg-amber-100 text-amber-800 px-2 py-0.5 rounded border border-amber-400">🕒 安全出發機場時程已優化</span>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-black mt-3">巨獅八阪神社 ➔ 最後藥妝與超市大採購 ➔ Rapi:t 返台 ✈️</h2>
-                    
-                    <div class="mt-4 space-y-4 text-xs md:text-sm font-bold">
-                        <div class="flex items-start"><span class="time-badge">10:00</span><span>飯店退房，行李寄存前台。</span></div>
-                        <div class="flex items-start"><span class="time-badge">10:30</span><span>步行參拜 <b>難波八阪神社</b> (參拜 12 公尺巨大獅子殿咬住好運、收集超吸睛御朱印)。 <a href="https://www.google.com/maps/search/?api=1&query=Namba+Yasaka+Shrine" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i> 地圖</a></span></div>
-                        <div class="flex items-start"><span class="time-badge">11:30</span><span>難波與心齋橋進行藥妝 (大國藥局) 與服飾最後免稅大採購。</span></div>
-                        <div class="flex items-start"><span class="time-badge">13:30</span><span>飯店樓下 <b>Life 超市 (難波店)</b> 或 <b>業務超市 (日本橋店)</b> 掃蕩在地零食與全素昆布醬油。</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:00</span><span><b>提行李出發 (提早方案)：</b> 16:00-16:30 返回飯店提行李，前往南海難波站。</span></div>
-                        <div class="flex items-start"><span class="time-badge">16:20</span><span>搭乘 <b>16:20-16:40 間的南海電鐵 Rapi:t 特急</b> ➔ 約 17:00-17:20 抵達關西機場第一航廈 (T1)。</span></div>
-                        <div class="flex items-start"><span class="time-badge">17:20</span><span>辦理登機報到、行李託運。18:00 後在管制區內免稅店最後採買。虎航 IT213 19:50 起飛，21:45 降落桃園 T1。</span></div>
-                    </div>
-                    <div class="closing-tip text-slate-600 border-peng-pink bg-peng-pink/10 text-xs">
-                        <p class="font-black text-slate-800">⚠️ 出發防延誤叮嚀：</p>
-                        <p class="mt-1">
-                            原案「17:05 的 Rapi:t、17:45 抵達」雖趕得上 18:50 的關櫃時間，但幾乎沒有逛免稅店與應對突發排隊的緩衝。提早於 <b>16:00 - 16:30 出發</b>，可以給您的一週年旅行劃上最安心、優雅的完美句點！
-                        </p>
-                    </div>
-                    <div class="mt-4"><p class="text-[10px] font-black uppercase text-slate-400 mb-2">✍️ 企鵝日記</p><div class="editable-note" contenteditable="true" id="note-9" onblur="saveNote(9)"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= SURVIVAL MODULE ================= -->
-        <div id="module-survival" class="module-section space-y-8">
-            <!-- CHECKLIST MODULE -->
-            <div class="kawaii-card bg-white p-6 rounded-3xl">
-                <h3 class="text-lg md:text-xl font-black mb-4 flex items-center gap-2"><span>📝</span> 待辦與倒數 Checklists (自動儲存！)</h3>
-                <div class="space-y-3 font-bold text-xs md:text-sm">
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>[6/24 台灣 09:30] 搶あをによし 7/24 京都➔難波 特急券 (Kintetsu 官網)</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>[出發前 1-2 個月] 預約 OKO 大阪燒（18:00 第一輪）</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>[出發前] 預約京都 Mumokuteki Cafe（Day 4 晚上）</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>USJ Express Pass（確認已購，並備妥 QR/日期）</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>登錄 Visit Japan Web 產生入境與海關 QR Code（兩人各一）</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>購買 eSIM 或實體上網卡</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>在 iPhone Wallet 直接新增 ICOCA/Suica 行動卡並加值完畢</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>準備約 30,000 ~ 50,000 日圓現金（部分小店、神社及近江鐵道不收卡）</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>備妥防暑五寶：手持電扇、陽傘、涼感巾、鹽糖/電解質、防曬乳</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>購買南海 Rapi:t 電子票 (Klook/KKday)</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>訂新幹線 名古屋➔京都 (Smart EX)</span>
-                    </label>
-                    <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="checkbox-custom checklist-item" onchange="saveChecklist()">
-                        <span>下載所有必備旅遊 APP (確認是否全部就緒)</span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- APPS AND ESSENTIALS -->
-            <div class="kawaii-card bg-peng-yellow p-6 rounded-3xl">
-                <h3 class="text-lg md:text-xl font-black mb-4">📱 2026 手機必備旅行 APPs</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-bold text-[11px] md:text-xs">
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-xs font-black text-peng-dark mb-1">🚃 Yahoo! 乘換案内 / Jorudan</p>
-                        <p class="text-slate-500">日本轉乘、車次、時刻與月台查詢必備神 App。</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-xs font-black text-peng-dark mb-1">💳 iPhone 錢包 ICOCA / Suica</p>
-                        <p class="text-slate-500">2026 現況：iOS 已支援海外發卡行加值，嗶手機搭車極方便。</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-xs font-black text-peng-dark mb-1">🥗 Payke</p>
-                        <p class="text-slate-500">掃描日本商品條碼看中文說明（藥妝、素食零食成分實用）。</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-xs font-black text-peng-dark mb-1">🗺️ RYDE PASS</p>
-                        <p class="text-slate-500">Day 4 近江鐵道一日券 1,500 円數位專用 (2026/03已廢實體紙票)。</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-xs font-black text-peng-dark mb-1">🌤️ tenki.jp / Yahoo!天氣</p>
-                        <p class="text-slate-500">看雨雲雷達與颱風走向，7月大暑與颱風季出門必看！</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-xs font-black text-peng-dark mb-1">🎢 USJ 官方 App</p>
-                        <p class="text-slate-500">入園抽取熱門區「e 整理券/抽選券」、看即時排隊時間。</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- APPS AND SUPERMARKETS / CLOTHING MAP -->
-            <div class="kawaii-card bg-peng-green p-6 rounded-3xl">
-                <h3 class="text-lg md:text-xl font-black mb-4">🛒 住宿周邊平價超市與服飾採購地圖</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-bold text-xs">
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-sm font-black text-peng-dark mb-1">🏯 名古屋 (三井花園)</p>
-                        <p class="text-slate-500 mt-1"><b>成城石井</b> (廣小路口店，偏貴精品超市，步行1分) / <b>MaxValu 太閤通店</b> (步行12分，平價採購)</p>
-                        <p class="text-slate-400 mt-1 text-[10px]">※ 名古屋站周邊徒步圈內無業務超市。</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-sm font-black text-peng-dark mb-1">🏮 京都 (京都塔)</p>
-                        <p class="text-slate-500 mt-1"><b>Lopia (ロピア)</b> (京都 Yodobashi B2，步行3分，平價神級超市，超大推！) / <b>FRESCO五条店</b> (24h，步行17分，平價)</p>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800">
-                        <p class="text-sm font-black text-peng-dark mb-1">🐙 大阪 (難波京阪)</p>
-                        <p class="text-slate-500 mt-1"><b>Life 超市難波店</b> (飯店樓下直通，掃零食/全素昆布醬油首選) / <b>業務超市日本橋店</b> (步行8-12分) / <b>超級玉出</b> (24h，步行10分)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DRUGSTORE LIST -->
-            <div class="kawaii-card bg-peng-pink p-6 rounded-3xl">
-                <h3 class="text-lg md:text-xl font-black mb-4">💊 大國藥局 (Daikoku) 精選必買與免稅提示</h3>
-                <div class="mb-4 bg-white p-3 rounded-xl border-2 border-slate-800 text-xs font-bold text-amber-700">
-                    💡 2026 現場免稅提醒：日本「先付稅、機場退稅」新制確定延後至 2026/11/1 上路！7月旅遊仍適用現行店頭免稅（同店同日含稅 5,500 円以上結帳直接出示護照當場折抵）。
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-bold">
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="text-sm font-black">1. 合力他命 EX Plus</p>
-                            <p class="text-slate-400">疲勞/維他命 B，緩解眼睛、肩頸疲勞</p>
-                        </div>
-                        <span class="bg-peng-pink border border-slate-800 px-2 py-1 rounded text-[10px]">30代必買</span>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="text-sm font-black">2. EVE Quick 止痛藥 (藍)</p>
-                            <p class="text-slate-400">頭痛、經痛與牙痛見效快 (含有咖啡因)</p>
-                        </div>
-                        <span class="bg-peng-pink border border-slate-800 px-2 py-1 rounded text-[10px]">常備藥</span>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="text-sm font-black">3. ROIHI 溫感穴位貼</p>
-                            <p class="text-slate-400">貼在腳底，貼完隔天原地復活</p>
-                        </div>
-                        <span class="bg-peng-pink border border-slate-800 px-2 py-1 rounded text-[10px]">旅行救星</span>
-                    </div>
-                    <div class="bg-white p-3 rounded-xl border-2 border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="text-sm font-black">4. 若元錠 Wakamoto / 表飛鳴 S</p>
-                            <p class="text-slate-400">外食大餐、大魚大肉之腸胃守護</p>
-                        </div>
-                        <span class="bg-peng-pink border border-slate-800 px-2 py-1 rounded text-[10px]">腸胃保養</span>
-                    </div>
-                </div>
-                <div class="mt-4 bg-red-50 text-red-700 p-3 rounded-xl border-2 border-red-400 text-xs font-extrabold">
-                    ⚠️ 純素者成分警告：軟膠囊/膠囊外殼多含動物性明膠 (gelatin)。純素者建議選擇錠劑，或用 Payke 掃碼確認成分。外用貼片（休足時間、眼罩）可安心使用。
-                </div>
-            </div>
-
-            <!-- TICKET AND TRANSIT SUMMARY -->
-            <div class="kawaii-card bg-peng-blue p-6 rounded-3xl">
-                <h3 class="text-lg md:text-xl font-black mb-4">🎫 2026 本行程交通票券最終盤點</h3>
-                <div class="bg-white p-4 rounded-xl border-2 border-slate-800 text-xs font-bold space-y-3">
-                    <p class="text-rose-500 font-extrabold text-[13px]">🚨 本行程確認不建議購買「大阪周遊券」或「關西周遊卡」，景點完全不合算！</p>
-                    <hr class="border-slate-800">
-                    <p><b>1. 市內交通卡：</b> 推薦 iPhone 行動卡 ICOCA/Suica，免押金且可用台灣信用卡加值。</p>
-                    <p><b>2. μ-SKY 機場特急 (Day 1)：</b> 乘車券 980 円 + μ-Ticket 特別車廂券 450 円 ＝ 1,430 円/人，行李多一定要搭指定席。</p>
-                    <p><b>3. 東海道新幹線 (Day 3)：</b> 名古屋➔京都 自由席約 2,640 円、指定席約 3,070 円。夏季旺季建議 Smart EX 預先訂好指定席。</p>
-                    <p><b>4. 近江鐵道 1 日券 (Day 4)：</b> 大人的 1 デイスマイル 1,500 円，2026/03 起只能在 RYDE PASS App 數位購買，無實體紙票！</p>
-                    <p><b>5. 觀光特急「あをによし」(Day 5)：</b> 乘車券 + 特急券 + 特別車廂券合計約 1,960 円/人，請於前一個月台灣 09:30 網上預約。</p>
-                    <p><b>6. 阪神電車 (Day 8)：</b> 難波➔神戶三宮單程 410 円，來回 820 円。一日券停售，直接感應 ICOCA 最省。</p>
-                    <p><b>7. 南海電鐵 Rapi:t 特急 (Day 9)：</b> Klook/KKday 預購電子票約 1,300 円，比現場買 (1,670 円) 划算得多！</p>
-                </div>
-            </div>
-
-            <!-- VEGAN / GIFT DIRECTORY -->
-            <div class="kawaii-card bg-peng-purple p-6 rounded-3xl">
-                <h3 class="text-lg md:text-xl font-black mb-4">🎁 伴手禮與蔬食快查清單</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left font-bold text-xs border-collapse">
-                        <thead>
-                            <tr class="border-b-2 border-slate-800">
-                                <th class="pb-2">地區</th>
-                                <th class="pb-2">伴手禮推薦</th>
-                                <th class="pb-2">屬性</th>
-                                <th class="pb-2">購買地點</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-200">
-                            <tr>
-                                <td class="py-2">名古屋</td>
-                                <td>大須外郎糕 (ういろ)</td>
-                                <td class="text-emerald-700">全素 (無蛋奶)</td>
-                                <td>大須商店街總本舖</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2">名古屋</td>
-                                <td>小倉紅豆吐司夾心餅</td>
-                                <td class="text-amber-700">蛋奶素</td>
-                                <td>名古屋站 ESCA 地下街</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2">滋賀</td>
-                                <td>Club Harie 年輪蛋糕</td>
-                                <td class="text-amber-700">蛋奶素</td>
-                                <td>La Collina 園區內</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2">京都</td>
-                                <td>Malebranche 茶之菓</td>
-                                <td class="text-amber-700">蛋奶素</td>
-                                <td>京都車站伊勢丹 B1</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2">京都</td>
-                                <td>阿闍梨餅</td>
-                                <td class="text-amber-700">蛋奶素</td>
-                                <td>京都車站禮品大街</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2">大阪</td>
-                                <td>Baton d'or (精品 Pocky)</td>
-                                <td class="text-amber-700">蛋奶素</td>
-                                <td>難波高島屋</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2">跨區</td>
-                                <td class="text-peng-accent">正能量企鵝限定周邊</td>
-                                <td class="text-slate-500">心靈全素 🐧</td>
-                                <td>各地 Kiddy Land / <a href="https://www.koupenchan-store.jp/zh-hant" target="_blank" class="underline">官網</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="text-center pb-20 mt-16 text-slate-400 font-black px-4">
-        <p class="text-sm">🐧 「旅行只要平安出發，開開心心回家，你就是最了不起的人了喔！」</p>
-        <p class="text-[10px] mt-2 tracking-widest uppercase">© 2026 Positive Penguin Adventure Committee | Alan & Qi 1st Anniversary</p>
-    </footer>
-
-    <!-- INTERACTIVE SCRIPTS -->
-    <script>
-        const cheers = [
-            "「今天的行程也很棒喔！記得出門前要把手機與行動電源充滿電！」",
-            "「雖然2026年名古屋港煙火停放了，但能和最喜歡的人一起散步，就很了不起了喔！」",
-            "「走到伏見稻荷記得在『四ツ辻』就要折返喔，三十代防中暑大師！」",
-            "「あをによし的奶油夾心餅乾一定要去 2 號車廂買來吃吃看！」",
-            "「今天天神祭在週六，人潮極多，我們要20:35就先撤退，手牽手不要走散囉！」",
-            "「把公仔買回飯店再去梅田！今天也是極致省力的一天！」",
-            "「有好好帶陽傘與防曬乳出門，你簡直是完美的防暑防曬專家！」",
-            "「去 Kiddy Land 買了很多企鵝的你，今天也給自己充滿了滿滿的正能量呢！」",
-            "「新婚一週年快樂！每天都能開開心心慢活，就是世界上最棒的事喔！」"
-        ];
-
-        function sayCheer() {
-            const randomCheer = cheers[Math.floor(Math.random() * cheers.length)];
-            document.getElementById('cheer-text').innerText = randomCheer;
+      // 預算狀態
+      const [exchangeRate, setExchangeRate] = useState(0.20); // JPY ➔ TWD（2026/7 參考）
+      const [dailyExpenses, setDailyExpenses] = useState(() => {
+        try {
+          const saved = localStorage.getItem("travel_expenses_v1");
+          return saved ? JSON.parse(saved) : Array(9).fill(0);
+        } catch {
+          return Array(9).fill(0);
         }
+      });
 
-        function showModule(name) {
-            document.querySelectorAll('.module-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(`module-${name}`).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`btn-${name}`).classList.add('active');
-            
-            // Smooth scroll to top of content below header
-            window.scrollTo({ top: 380, behavior: 'smooth' });
-        }
+      // Checklist 狀態（v2：預設值與既有勾選合併）
+      const [checkedItems, setCheckedItems] = useState(() => {
+        const initial = {};
+        CHECKLIST_SECTIONS.forEach(sec => {
+          sec.items.forEach(item => {
+            initial[item.id] = item.defaultDone;
+          });
+        });
+        try {
+          const saved = localStorage.getItem("travel_checked_items_v2");
+          if (saved) Object.assign(initial, JSON.parse(saved));
+        } catch {}
+        return initial;
+      });
 
-        // Real-time currency converter using 0.20 as base rate
-        function convertCurrency(source) {
-            const jpyInput = document.getElementById('jpy-input');
-            const twdInput = document.getElementById('twd-input');
-            const rate = 0.20; 
+      // 自動儲存至 LocalStorage
+      useEffect(() => {
+        try {
+          localStorage.setItem("travel_pnr_v1", pnr);
+          localStorage.setItem("travel_hotel1", hotel1);
+          localStorage.setItem("travel_hotel2", hotel2);
+          localStorage.setItem("travel_hotel3", hotel3);
+        } catch {}
+      }, [pnr, hotel1, hotel2, hotel3]);
 
-            if (source === 'jpy') {
-                const jpyValue = parseFloat(jpyInput.value);
-                if (!isNaN(jpyValue)) {
-                    twdInput.value = (jpyValue * rate).toFixed(1);
-                } else {
-                    twdInput.value = '';
-                }
-            } else if (source === 'twd') {
-                const twdValue = parseFloat(twdInput.value);
-                if (!isNaN(twdValue)) {
-                    jpyInput.value = (twdValue / rate).toFixed(0);
-                } else {
-                    jpyInput.value = '';
-                }
-            }
-        }
+      useEffect(() => {
+        try {
+          localStorage.setItem("travel_expenses_v1", JSON.stringify(dailyExpenses));
+        } catch {}
+      }, [dailyExpenses]);
 
-        // Local Storage for Notes
-        function saveNote(id) {
-            const el = document.getElementById(`note-${id}`);
-            if (el) {
-                const content = el.innerText;
-                localStorage.setItem(`peng-trip-v7-note-${id}`, content);
-            }
-        }
+      useEffect(() => {
+        try {
+          localStorage.setItem("travel_checked_items_v2", JSON.stringify(checkedItems));
+        } catch {}
+      }, [checkedItems]);
 
-        function loadNotes() {
-            for (let i = 1; i <= 9; i++) {
-                const saved = localStorage.getItem(`peng-trip-v7-note-${i}`);
-                const el = document.getElementById(`note-${i}`);
-                if (saved && el) el.innerText = saved;
-            }
-        }
+      // 倒數計時（出發 ➔ 出發後自動切換為回程；花火倒數）
+      useEffect(() => {
+        const departTs = new Date("2026-07-20T09:00:00+08:00").getTime();
+        const returnTs = new Date("2026-07-28T19:50:00+09:00").getTime();
+        const hanabiTs = new Date("2026-07-25T19:30:00+09:00").getTime();
 
-        // Local Storage for Checklists
-        function saveChecklist() {
-            const checkboxes = document.querySelectorAll('.checklist-item');
-            const state = [];
-            checkboxes.forEach((cb, idx) => {
-                state.push({ id: idx, checked: cb.checked });
-            });
-            localStorage.setItem('peng-trip-v7-checklist', JSON.stringify(state));
-        }
-
-        function loadChecklist() {
-            const saved = localStorage.getItem('peng-trip-v7-checklist');
-            if (saved) {
-                const state = JSON.parse(saved);
-                state.forEach(item => {
-                    const cb = document.querySelectorAll('.checklist-item')[item.id];
-                    if (cb) {
-                        cb.checked = item.checked;
-                    }
-                });
-            }
-        }
-
-        window.onload = function() {
-            loadNotes();
-            loadChecklist();
-            // Start with random cheer on load
-            sayCheer();
+        const calcCountdown = (target, doneMsg) => {
+          const diff = target - new Date().getTime();
+          if (diff <= 0) return doneMsg;
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+          return `${days}天 ${hours}時 ${minutes}分 ${seconds}秒`;
         };
-    </script>
+
+        const tick = () => {
+          const now = new Date().getTime();
+          if (now < departTs) {
+            setCountdownMain({ label: "✨ 距離夢幻冒險出發倒數 (7/20 09:00)", text: calcCountdown(departTs, "出發囉！✈️") });
+          } else if (now < returnTs) {
+            setCountdownMain({ label: "🛬 旅程進行中！距離回程班機 (7/28 19:50 JST)", text: calcCountdown(returnTs, "準備登機！") });
+          } else {
+            setCountdownMain({ label: "🌸 旅程已圓滿結束", text: "滿載企鵝與回憶，辛苦了！" });
+          }
+          setCountdownHanabi(calcCountdown(hanabiTs, "已綻放完畢，超美的吧！🎆"));
+        };
+
+        tick();
+        const interval = setInterval(tick, 1000);
+        return () => clearInterval(interval);
+      }, []);
+
+      // 天氣抓取（Open-Meteo，多城市分段）
+      useEffect(() => {
+        async function fetchWeather() {
+          const map = {};
+          await Promise.all(WEATHER_SOURCES.map(async (src) => {
+            try {
+              const url = "https://api.open-meteo.com/v1/forecast" +
+                `?latitude=${src.lat}&longitude=${src.lon}` +
+                "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode" +
+                "&timezone=Asia%2FTokyo" +
+                `&start_date=${src.start}&end_date=${src.end}`;
+              const res = await fetch(url);
+              const d = await res.json();
+              if (!d.daily || !d.daily.time) return;
+              d.daily.time.forEach((date, i) => {
+                const wmo = wmoToEmoji(d.daily.weathercode[i]);
+                const maxC = Math.round(d.daily.temperature_2m_max[i]);
+                const minC = Math.round(d.daily.temperature_2m_min[i]);
+                const precip = +((d.daily.precipitation_sum[i] || 0).toFixed(1));
+                map[`${src.key}|${date}`] = {
+                  icon: wmo.icon, zh: wmo.zh,
+                  max: maxC, min: minC, precip,
+                  clothing: getClothingTip(maxC, minC, precip)
+                };
+              });
+            } catch (e) {
+              console.warn("Weather fetch failed:", src.key, e);
+            }
+          }));
+          setWeather(map);
+        }
+        fetchWeather();
+      }, []);
+
+      // 旅程期間自動跳到「今天」的行程（行動裝置查詢神器）
+      useEffect(() => {
+        const t = new Date();
+        const iso = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
+        const todayData = DAYS_DATA.find(d => d.iso === iso);
+        if (todayData) {
+          setCurrentDay(todayData.day);
+          setTimeout(() => showToast(`🐧 已自動切換到今天：Day ${todayData.day}！`), 600);
+        }
+      }, []);
+
+      const showToast = (message) => {
+        setToast(message);
+        setTimeout(() => setToast(null), 3000);
+      };
+
+      const copyPnr = () => {
+        if (!pnr) {
+          showToast("🐧 先在欄位輸入訂位代號再複製喔！");
+          return;
+        }
+        const dummy = document.createElement("input");
+        document.body.appendChild(dummy);
+        dummy.value = pnr;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        showToast("🌸 訂位代號複製成功！");
+      };
+
+      const rollQuote = () => {
+        let nextQuote = quote;
+        while (nextQuote === quote) {
+          nextQuote = KOUPEN_QUOTES[Math.floor(Math.random() * KOUPEN_QUOTES.length)];
+        }
+        setQuote(nextQuote);
+        setShowBubble(true);
+      };
+
+      const goDay = (d) => {
+        setCurrentDay(d);
+        const el = document.getElementById("day-selector");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+
+      const handleExpenseChange = (index, value) => {
+        const updated = [...dailyExpenses];
+        updated[index] = parseFloat(value) || 0;
+        setDailyExpenses(updated);
+      };
+
+      const handleToggleCheck = (id) => {
+        setCheckedItems(prev => ({
+          ...prev,
+          [id]: !prev[id]
+        }));
+      };
+
+      const getChecklistStats = () => {
+        let total = 0;
+        let checked = 0;
+        CHECKLIST_SECTIONS.forEach(sec => {
+          sec.items.forEach(item => {
+            total++;
+            if (checkedItems[item.id]) {
+              checked++;
+            }
+          });
+        });
+        return { total, checked, percent: total === 0 ? 0 : Math.round((checked / total) * 100) };
+      };
+
+      const stats = getChecklistStats();
+      const currentDayData = DAYS_DATA.find(d => d.day === currentDay);
+      const currentWx = weather[`${currentDayData.wx.city}|${currentDayData.iso}`];
+
+      const TABS = [
+        { id: "itinerary", label: "📅 每日行程" },
+        { id: "transport", label: "🎫 交通票券" },
+        { id: "shopping", label: "🛍️ 掃貨地圖" },
+        { id: "checklist", label: "✅ 旅前待辦" },
+        { id: "budget", label: "💰 記帳匯率" }
+      ];
+
+      const verdictTone = (tone) => {
+        if (tone === "green") return "bg-brand-green text-emerald-700";
+        if (tone === "rose") return "bg-brand-pink text-rose-600";
+        return "bg-brand-blue text-blue-700";
+      };
+
+      return (
+        <div class="min-h-screen pb-24 relative max-w-xl mx-auto bg-brand-cream shadow-xl sm:border-x sm:border-pink-100">
+
+          {/* Toast 通知小氣球 */}
+          {toast && (
+            <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-rose-400 text-white px-5 py-3 rounded-full shadow-lg text-xs font-black flex items-center gap-1.5 border border-rose-300">
+              <span>🌸</span> {toast}
+            </div>
+          )}
+
+          {/* Header Cute Banner */}
+          <header class="relative overflow-hidden bg-gradient-to-b from-brand-pink to-white text-slate-700 py-12 px-6 shadow-sm border-b border-pink-100">
+            {/* Soft background decor */}
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-white/60 rounded-full blur-xl"></div>
+            <div class="absolute top-24 -left-12 w-28 h-28 bg-brand-blue/40 rounded-full blur-xl"></div>
+
+            <div class="relative z-10 flex flex-col items-center text-center gap-4">
+              <KoupenIllust size="w-24 h-24" className="animate-cute-float" />
+
+              <div>
+                <span class="inline-block bg-rose-400 text-white px-3 py-1 rounded-full text-[10px] font-black tracking-wider mb-2 shadow-sm uppercase">
+                  💖 30代專屬周年慢活企鵝巡禮版
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight">
+                  2026 夏日夢幻大冒險 🌸
+                </h1>
+                <p class="text-xs text-slate-500 font-bold mt-1">
+                  名古屋 ➔ 京都 ➔ 大阪・神戶 9天8夜 慢活指南
+                </p>
+              </div>
+
+              {/* Tigerair Card（公開版：航廈資訊 + 代號僅存本機） */}
+              <div class="w-full bg-white/80 backdrop-blur-sm p-4 rounded-3xl border border-pink-200/50 shadow-sm flex flex-col gap-2.5 mt-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black text-slate-400 tracking-wider">✈️ 台灣虎航 IT206 / IT213</span>
+                  <span class="text-[9px] font-black bg-brand-green text-emerald-700 px-2 py-0.5 rounded-full">兩人成行</span>
+                </div>
+                <div class="bg-brand-pink/40 rounded-2xl border border-brand-pinkDark/10 px-3 py-2.5 flex flex-col gap-1.5">
+                  <div class="flex items-center justify-between text-[11px] font-black text-slate-700">
+                    <span>7/20 (一) 09:00 桃園 <span class="text-rose-500">T1</span></span>
+                    <span class="text-slate-400">➔</span>
+                    <span>12:55 名古屋 NGO</span>
+                  </div>
+                  <div class="flex items-center justify-between text-[11px] font-black text-slate-700">
+                    <span>7/28 (二) 19:50 關西 <span class="text-rose-500">T1</span></span>
+                    <span class="text-slate-400">➔</span>
+                    <span>21:45 桃園 <span class="text-rose-500">T1</span></span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={pnr}
+                    onChange={(e) => setPnr(e.target.value)}
+                    placeholder="訂位代號（只存在這台裝置，不進 Git）"
+                    class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-[11px] font-bold text-slate-600 focus:outline-none focus:border-rose-300 shadow-inner"
+                  />
+                  <button
+                    onClick={copyPnr}
+                    class="bg-rose-400 hover:bg-rose-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full transition-all active:scale-95 shadow-sm shrink-0"
+                  >
+                    複製
+                  </button>
+                </div>
+                <div class="flex justify-between text-[10px] text-slate-400 font-bold px-1">
+                  <span>💼 兩人皆含 20kg 託運</span>
+                  <span>🎒 隨身 10kg</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          {/* Double Countdown Timers */}
+          <section class="grid grid-cols-1 gap-3 px-4 -mt-4 relative z-20">
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-pink-100 flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-brand-pink flex items-center justify-center text-lg shrink-0 select-none">🛫</div>
+              <div class="min-w-0">
+                <h3 class="text-[10px] font-black text-slate-400 truncate">{countdownMain.label}</h3>
+                <p class="text-sm font-black text-brand-pinkDark mt-0.5 tracking-tight">{countdownMain.text}</p>
+              </div>
+            </div>
+            <div class="bg-white rounded-3xl p-4 shadow-sm border border-pink-100 flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-lg shrink-0 select-none">🎇</div>
+              <div class="min-w-0">
+                <h3 class="text-[10px] font-black text-slate-400 truncate">🎆 天神祭奉納花火倒數 (7/25 19:30 JST・約 3,000 發)</h3>
+                <p class="text-sm font-black text-brand-blueDark mt-0.5 tracking-tight">{countdownHanabi}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Koupen-chan Blessing Quote bar */}
+          <section class="mx-4 mt-4 bg-brand-yellow/50 rounded-3xl p-4 border border-brand-yellowDark/20 flex flex-col items-center text-center gap-3">
+            <div class="text-xs font-black text-amber-600 tracking-wider">🐧 正能量企鵝暖心補給站</div>
+            <p class="text-xs text-slate-600 font-bold leading-relaxed px-2">
+              「 {quote} 」
+            </p>
+            <button
+              onClick={rollQuote}
+              class="bg-amber-400 hover:bg-amber-500 text-white font-black text-[10px] px-4 py-2 rounded-full shadow-sm transition-all active:scale-95"
+            >
+              聆聽其他肯定 💫
+            </button>
+          </section>
+
+          {/* Interactive Hotel Note Code Block */}
+          <section class="mx-4 mt-4 bg-white rounded-3xl p-4 shadow-sm border border-pink-100">
+            <h3 class="text-xs font-black text-slate-700 mb-1 flex items-center gap-1.5">
+              <span>🏨</span> 高機能/共構流住宿 & 步行動線
+            </h3>
+            <p class="text-[9px] text-slate-400 mb-3.5">訂房代號只儲存在你自己的瀏覽器，公開版頁面不含任何代號。</p>
+            <div class="flex flex-col gap-3">
+              {/* Hotel 1 */}
+              <div class="bg-indigo-50/50 p-3.5 rounded-2xl border border-indigo-100 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-md">Day 1-2 名古屋</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Mitsui+Garden+Hotel+Nagoya+Premier" target="_blank" class="text-[10px] text-indigo-500 hover:underline font-bold">🗺️ 導航</a>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-slate-700">三井花園普米爾飯店</h4>
+                  <p class="text-[9px] text-slate-400 mt-0.5">18F 高空大廳；🚶 名古屋站步行約 5 分・地下街直結</p>
+                </div>
+                <input
+                  type="text"
+                  value={hotel1}
+                  onChange={(e) => setHotel1(e.target.value)}
+                  placeholder="請填入訂房確認代號"
+                  class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 focus:outline-none focus:border-indigo-400 shadow-inner"
+                />
+              </div>
+
+              {/* Hotel 2 */}
+              <div class="bg-amber-50/50 p-3.5 rounded-2xl border border-amber-100 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded-md">Day 3-4 京都</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Kyoto+Tower+Hotel" target="_blank" class="text-[10px] text-amber-500 hover:underline font-bold">🗺️ 導航</a>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-slate-700">京都塔酒店</h4>
+                  <p class="text-[9px] text-slate-400 mt-0.5">極速投幣洗衣；🚶 京都站步行約 2 分・地下通道直結</p>
+                </div>
+                <input
+                  type="text"
+                  value={hotel2}
+                  onChange={(e) => setHotel2(e.target.value)}
+                  placeholder="請填入訂房確認代號"
+                  class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 focus:outline-none focus:border-amber-400 shadow-inner"
+                />
+              </div>
+
+              {/* Hotel 3 */}
+              <div class="bg-pink-50/50 p-3.5 rounded-2xl border border-pink-100 flex flex-col gap-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-black bg-pink-100 text-pink-700 px-2 py-0.5 rounded-md">Day 5-8 大阪</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Keihan+Namba+Grande" target="_blank" class="text-[10px] text-pink-500 hover:underline font-bold">🗺️ 導航</a>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-slate-700">難波京阪格蘭德飯店</h4>
+                  <p class="text-[9px] text-slate-400 mt-0.5">Namba Parks 直通、樓下 Life 超市；🚶 南海難波 6 分／近鐵・阪神難波 10 分／御堂筋線難波 7 分</p>
+                </div>
+                <input
+                  type="text"
+                  value={hotel3}
+                  onChange={(e) => setHotel3(e.target.value)}
+                  placeholder="請填入訂房確認代號"
+                  class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 focus:outline-none focus:border-pink-400 shadow-inner"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Navigation Tab Bar (Sticky & swipable on mobile) */}
+          <nav class="sticky top-0 z-30 flex border-b border-pink-100 mt-6 mx-4 bg-white/95 backdrop-blur-sm rounded-t-3xl px-2 pt-2 shadow-sm overflow-x-auto no-scrollbar scroll-smooth">
+            {TABS.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                class={`pb-3.5 px-4 text-xs font-black border-b-2 transition-all shrink-0 flex items-center gap-1.5 ${
+                  activeTab === tab.id
+                    ? "border-brand-pinkDark text-rose-500"
+                    : "border-transparent text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                {tab.label}
+                {tab.id === "checklist" && (
+                  <span class="bg-slate-100 text-[9px] text-slate-500 px-1.5 py-0.5 rounded-full font-black">
+                    {stats.percent}%
+                  </span>
+                )}
+              </button>
+            ))}
+          </nav>
+
+          {/* TAB CONTENT: ITINERARY */}
+          {activeTab === "itinerary" && (
+            <main class="mx-4 mt-3 animate-slide-in">
+              {/* Day horizontal selector（置頂黏附，行動裝置快速切換） */}
+              <div id="day-selector" class="sticky top-[46px] z-20 bg-brand-cream -mx-1 px-1 flex gap-2.5 overflow-x-auto pb-3.5 pt-2 no-scrollbar scroll-smooth">
+                {DAYS_DATA.map(d => (
+                  <button
+                    key={d.day}
+                    onClick={() => setCurrentDay(d.day)}
+                    class={`flex flex-col items-center justify-center p-3 rounded-2xl min-w-[70px] transition-all border ${
+                      currentDay === d.day
+                        ? "bg-rose-400 text-white shadow-md shadow-rose-200 border-rose-400 transform scale-105"
+                        : "bg-white text-slate-500 border-slate-100 hover:border-slate-300"
+                    }`}
+                  >
+                    <span class="text-xs font-black">Day {d.day}</span>
+                    <span class="text-[9px] font-bold opacity-85 mt-0.5">{d.date.slice(5, 10)}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Day content Card */}
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100 mt-1">
+                {/* Card Top Title Block */}
+                <div class="flex items-center gap-3.5 border-b border-pink-50 pb-4">
+                  <div class={`text-xl font-black bg-gradient-to-br ${currentDayData.color} text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-md select-none shrink-0`}>
+                    {currentDay}
+                  </div>
+                  <div>
+                    <h2 class="text-base font-black text-slate-800">{currentDayData.title}</h2>
+                    <p class="text-[10px] text-slate-400 font-bold mt-0.5">{currentDayData.date} | {currentDayData.city} | 主題: {currentDayData.theme}</p>
+                  </div>
+                </div>
+
+                {/* Weather & outfit card */}
+                <WeatherCard w={currentWx} label={currentDayData.wx.label} />
+
+                {/* Timeline loop */}
+                <div class="relative pl-5 border-l border-pink-100/60 ml-3.5 mt-6 flex flex-col gap-6">
+                  {currentDayData.timeline.map((item, idx) => (
+                    <div key={idx} class="relative group">
+                      {/* Pink dot */}
+                      <span class="absolute -left-[29px] top-1 bg-white border-2 border-pink-300 w-4.5 h-4.5 rounded-full flex items-center justify-center">
+                        <span class="w-1.5 h-1.5 bg-pink-400 rounded-full"></span>
+                      </span>
+
+                      <div class="flex flex-col gap-1">
+                        <div class="text-[11px] font-black text-rose-400 tracking-wider">
+                          ⏰ {item.time}
+                        </div>
+                        <div class="bg-brand-pink/10 border border-pink-100/50 rounded-2xl p-3.5">
+                          <div class="flex items-center gap-1.5">
+                            <span class="text-base select-none">{item.icon}</span>
+                            <h4 class="text-xs font-black text-slate-700">{item.title}</h4>
+                            {item.map && (
+                              <a
+                                href={item.map}
+                                target="_blank"
+                                class="text-[9px] text-blue-500 hover:underline flex items-center gap-0.5 ml-auto font-black shrink-0"
+                              >
+                                🗺️ 地圖導航
+                              </a>
+                            )}
+                          </div>
+                          <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed font-medium">{item.desc}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Day Meta Sections */}
+                <div class="flex flex-col gap-4 mt-6 pt-5 border-t border-pink-50">
+                  {/* Recommended Cafe */}
+                  <div class="bg-brand-yellow/30 p-4 rounded-2xl border border-brand-yellowDark/10">
+                    <h3 class="text-xs font-black text-amber-700 flex items-center gap-1.5 mb-2">
+                      <span>☕</span> 網美咖啡/特色餐飲推薦
+                    </h3>
+                    <h4 class="text-xs font-extrabold text-slate-700">{currentDayData.cafe.name}</h4>
+                    <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">{currentDayData.cafe.desc}</p>
+                    <a href={currentDayData.cafe.map} target="_blank" class="inline-block mt-2 text-[9px] text-amber-600 hover:underline font-black">
+                      在地圖中查看 ➔
+                    </a>
+                  </div>
+
+                  {/* Rain Plan */}
+                  <div class="bg-brand-blue/30 p-4 rounded-2xl border border-brand-blueDark/10">
+                    <h3 class="text-xs font-black text-blue-700 flex items-center gap-1.5 mb-1.5">
+                      <span>☔</span> 專屬貼心雨備方案
+                    </h3>
+                    <p class="text-[11px] text-slate-600 font-medium leading-relaxed">{currentDayData.rainPlan}</p>
+                  </div>
+
+                  {/* Quick Tips */}
+                  <div class="bg-brand-green/30 p-4 rounded-2xl border border-brand-greenDark/10">
+                    <h3 class="text-xs font-black text-emerald-700 flex items-center gap-1.5 mb-1.5">
+                      <span>💡</span> 30代慢活貼心小叮嚀
+                    </h3>
+                    <p class="text-[11px] text-slate-600 font-bold leading-relaxed">{currentDayData.tips}</p>
+                  </div>
+                </div>
+
+                {/* Prev / Next day quick nav（單手拇指友善） */}
+                <div class="flex items-center justify-between gap-3 mt-6 pt-4 border-t border-pink-50">
+                  <button
+                    onClick={() => goDay(Math.max(1, currentDay - 1))}
+                    disabled={currentDay === 1}
+                    class={`flex-1 py-2.5 rounded-2xl text-xs font-black transition-all active:scale-95 ${
+                      currentDay === 1
+                        ? "bg-slate-50 text-slate-300"
+                        : "bg-brand-pink text-rose-500 hover:bg-brand-pink/70"
+                    }`}
+                  >
+                    ← Day {Math.max(1, currentDay - 1)}
+                  </button>
+                  <span class="text-[10px] font-black text-slate-400 shrink-0">Day {currentDay} / 9</span>
+                  <button
+                    onClick={() => goDay(Math.min(9, currentDay + 1))}
+                    disabled={currentDay === 9}
+                    class={`flex-1 py-2.5 rounded-2xl text-xs font-black transition-all active:scale-95 ${
+                      currentDay === 9
+                        ? "bg-slate-50 text-slate-300"
+                        : "bg-brand-pink text-rose-500 hover:bg-brand-pink/70"
+                    }`}
+                  >
+                    Day {Math.min(9, currentDay + 1)} →
+                  </button>
+                </div>
+
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: TRANSPORT */}
+          {activeTab === "transport" && (
+            <main class="mx-4 mt-4 animate-slide-in">
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">🎫 交通票券總盤點</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">依 2026 實際行程精算，只買真正划算的票！</p>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  {TICKETS_DATA.map((t, idx) => (
+                    <div key={idx} class="bg-brand-cream/50 border border-pink-50 rounded-2xl p-4 flex flex-col gap-2">
+                      <div class="flex items-center justify-between gap-2">
+                        <h4 class="text-xs font-black text-slate-700 leading-snug">{t.name}</h4>
+                        <span class={`px-2 py-0.5 rounded-full font-black text-[9px] shrink-0 ${verdictTone(t.tone)}`}>
+                          {t.verdict}
+                        </span>
+                      </div>
+                      <p class="text-[10px] font-black text-rose-400">💴 {t.price}</p>
+                      <p class="text-[10px] text-slate-500 font-medium leading-relaxed">{t.note}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="mt-5 bg-brand-blue/30 p-4 rounded-2xl border border-brand-blueDark/10">
+                  <h4 class="text-xs font-black text-blue-700 mb-1 flex items-center gap-1">
+                    <span>💳</span> 一句話結論
+                  </h4>
+                  <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                    大阪周遊券「不買」；市內移動全用 iPhone 行動 ICOCA/Suica 嗶到底；長程票（μ-SKY、新幹線、あをによし、Rapi:t）各自買最優惠票源，近江鐵道一日券記得用 RYDE PASS App。
+                  </p>
+                </div>
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: SHOPPING */}
+          {activeTab === "shopping" && (
+            <main class="mx-4 mt-4 animate-slide-in flex flex-col gap-4">
+
+              {/* 伴手禮 */}
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">🎁 伴手禮與蔬食快查清單</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">為您把關好滋味、紀錄精準採購地</p>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  {SOUVENIR_DATA.map((item, idx) => (
+                    <div key={idx} class="bg-brand-cream/50 border border-pink-50 rounded-2xl p-4 flex flex-col gap-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
+                          {item.area}
+                        </span>
+                        <span class={`px-2 py-0.5 rounded-full font-black text-[9px] ${
+                          item.type.includes("全素")
+                            ? "bg-brand-green text-emerald-700"
+                            : item.type.includes("心靈")
+                            ? "bg-brand-pink text-rose-600"
+                            : "bg-brand-yellow text-amber-700"
+                        }`}>
+                          {item.type}
+                        </span>
+                      </div>
+                      <h4 class="text-xs font-black text-slate-700">{item.name}</h4>
+                      <p class="text-[10px] text-slate-400 font-bold">📍 採購地點: {item.location}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="mt-5 bg-brand-pink/30 p-4 rounded-2xl border border-brand-pinkDark/10">
+                  <h4 class="text-xs font-black text-rose-500 mb-1 flex items-center gap-1">
+                    <span>🐧</span> 企鵝達人掃貨重點指南
+                  </h4>
+                  <p class="text-[11px] text-rose-600/95 leading-relaxed font-medium">
+                    在「はなまるストア」官方商店（名古屋PARCO東館3F、大阪LUCUA 1100 9F）單筆消費滿 2,000 日圓，即可免費登記加入官方會員。加入後能解鎖購買會員限定商品、周年聯名款企鵝周邊！這兩間旗艦店商品最齊全！
+                  </p>
+                  <a href="https://www.koupenchan-store.jp/zh-hant" target="_blank" class="inline-block mt-2 text-[9px] text-rose-500 hover:underline font-black">
+                    🐧 正能量企鵝官方線上商店（查限定/快閃資訊）➔
+                  </a>
+                </div>
+              </div>
+
+              {/* 大國藥局 */}
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">💊 大國藥局採買攻略</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">關西折扣藥妝代表，集中 Day 6 / Day 9 掃貨最有效率</p>
+                </div>
+
+                <div class="bg-brand-cream/50 border border-pink-50 rounded-2xl p-4 mb-3">
+                  <h4 class="text-xs font-black text-slate-700 mb-1">📍 離飯店最近的分店</h4>
+                  <p class="text-[11px] text-slate-500 leading-relaxed font-medium">
+                    大國藥局「難波店」與「難波南店」都在難波中，距離難波京阪格蘭德飯店<b>步行約 3–5 分鐘</b>，Day 9 掃貨最順路。
+                  </p>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Daikoku+Drug+Namba" target="_blank" class="inline-block mt-2 text-[9px] text-blue-500 hover:underline font-black">
+                    🗺️ 地圖導航 ➔
+                  </a>
+                </div>
+
+                <h4 class="text-xs font-black text-slate-700 mb-2">🛒 必買清單</h4>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {DRUG_ITEMS.map((d, idx) => (
+                    <span key={idx} class="bg-brand-pink/40 text-rose-600 text-[10px] font-black px-3 py-1.5 rounded-full border border-brand-pinkDark/10">
+                      {d}
+                    </span>
+                  ))}
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <div class="bg-brand-green/30 p-4 rounded-2xl border border-brand-greenDark/10">
+                    <h4 class="text-xs font-black text-emerald-700 mb-1">💴 免稅重點（2026/7 現行制）</h4>
+                    <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                      同一家店、同一天消費滿<b>含稅 5,500 円</b>即可出示護照當場免消費稅。「先付稅、機場退稅」新制 2026/11/1 才上路，本次旅程仍是店頭直接免稅。同一批藥妝集中在一家湊門檻最划算！
+                    </p>
+                  </div>
+                  <div class="bg-brand-yellow/40 p-4 rounded-2xl border border-brand-yellowDark/10">
+                    <h4 class="text-xs font-black text-amber-700 mb-1">🌱 蔬食小提醒</h4>
+                    <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                      部分維他命／感冒藥的<b>膠囊外殼含明膠（動物性）</b>，純素者建議選錠劑，並用 Payke 掃條碼確認成分；外用貼片類（休足時間、蒸氣眼罩）一般沒問題。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 平價超市 */}
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">🛒 平價超市地圖</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">各住宿點步行範圍內的業務超市／玉出級補給站</p>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                  {SUPERMARKET_DATA.map((grp, gi) => (
+                    <div key={gi}>
+                      <h4 class="text-[11px] font-black text-slate-500 mb-2">📍 {grp.area}</h4>
+                      <div class="flex flex-col gap-2.5">
+                        {grp.items.map((s, si) => (
+                          <div key={si} class="bg-brand-cream/50 border border-pink-50 rounded-2xl p-4 flex flex-col gap-1.5">
+                            <div class="flex items-center justify-between gap-2">
+                              <h5 class="text-xs font-black text-slate-700">{s.name}</h5>
+                              <a href={s.map} target="_blank" class="text-[9px] text-blue-500 hover:underline font-black shrink-0">🗺️ 導航</a>
+                            </div>
+                            <p class="text-[10px] font-black text-rose-400">🚶 {s.walk}</p>
+                            <p class="text-[10px] text-slate-500 font-medium leading-relaxed">{s.note}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* UNIQLO / MUJI / GU */}
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">👕 UNIQLO・MUJI・GU 速查</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">各地區大型店位置，缺衣服隨時補</p>
+                </div>
+                <div class="flex flex-col gap-2.5">
+                  {CLOTHING_DATA.map((c, idx) => (
+                    <div key={idx} class="bg-brand-cream/50 border border-pink-50 rounded-2xl p-4">
+                      <h4 class="text-xs font-black text-slate-700 mb-1">📍 {c.city}</h4>
+                      <p class="text-[10px] text-slate-500 font-medium leading-relaxed">{c.spots}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: CHECKLIST */}
+          {activeTab === "checklist" && (
+            <main class="mx-4 mt-4 animate-slide-in">
+              {/* Progress bar */}
+              <div class="bg-gradient-to-r from-brand-greenDark to-emerald-400 rounded-3xl p-5 text-white shadow-sm flex flex-col items-center text-center gap-3.5 mb-5">
+                <div>
+                  <h2 class="text-base font-black tracking-tight">旅前備戰 Checklist 任務狀態</h2>
+                  <p class="text-[10px] text-emerald-50 mt-1">細緻打點、精準搶票，做萬無一失的浪漫旅程！</p>
+                </div>
+                <div class="bg-white/15 px-6 py-2.5 rounded-2xl border border-white/20">
+                  <div class="text-2xl font-black">{stats.checked} / {stats.total}</div>
+                  <div class="text-[9px] uppercase font-bold tracking-wider text-emerald-100 mt-0.5">已完成項目</div>
+                </div>
+              </div>
+
+              {/* Checklist Section Loops */}
+              <div class="flex flex-col gap-4">
+                {CHECKLIST_SECTIONS.map((section, idx) => (
+                  <div key={idx} class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                    <h3 class="text-xs font-black text-slate-700 border-b border-pink-50 pb-3 mb-3">
+                      {section.title}
+                    </h3>
+
+                    <div class="flex flex-col gap-2.5">
+                      {section.items.map(item => (
+                        <div
+                          key={item.id}
+                          onClick={() => handleToggleCheck(item.id)}
+                          class={`flex items-start gap-3 p-3 rounded-2xl border cursor-pointer select-none transition-all ${
+                            checkedItems[item.id]
+                              ? "bg-brand-green/20 border-emerald-100/50 text-slate-400"
+                              : item.urgent
+                              ? "bg-brand-pink/40 border-rose-200 hover:border-rose-300"
+                              : "bg-white border-slate-100 hover:border-slate-200 text-slate-700"
+                          }`}
+                        >
+                          <div class={`w-5 h-5 rounded-xl border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${
+                            checkedItems[item.id]
+                              ? "bg-brand-greenDark border-brand-greenDark text-white"
+                              : item.urgent
+                              ? "border-rose-400 bg-white"
+                              : "border-slate-300 bg-white"
+                          }`}>
+                            {checkedItems[item.id] && <span class="text-[10px] font-black">✓</span>}
+                          </div>
+
+                          <div class="flex-1 min-w-0">
+                            <span class={`text-[11px] font-bold block leading-relaxed ${checkedItems[item.id] ? "line-through" : ""}`}>
+                              {item.text}
+                            </span>
+                            {item.urgent && !checkedItems[item.id] && (
+                              <span class="inline-block bg-rose-400 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md mt-1 uppercase animate-pulse">
+                                時間精度高警報 ⏰
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                {/* 必備 App 清單 */}
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                  <h3 class="text-xs font-black text-slate-700 border-b border-pink-50 pb-3 mb-3">
+                    📱 日本旅遊必備 App 清單
+                  </h3>
+                  <div class="flex flex-col gap-2">
+                    {APPS_DATA.map((a, idx) => (
+                      <div key={idx} class="flex items-start gap-2.5 bg-brand-cream/50 border border-pink-50 rounded-2xl px-3.5 py-2.5">
+                        <span class="text-[10px] font-black text-rose-400 mt-0.5 shrink-0">●</span>
+                        <div class="min-w-0">
+                          <span class="text-[11px] font-black text-slate-700 block">{a.name}</span>
+                          <span class="text-[10px] text-slate-400 font-medium">{a.desc}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </main>
+          )}
+
+          {/* TAB CONTENT: BUDGET */}
+          {activeTab === "budget" && (
+            <main class="mx-4 mt-4 animate-slide-in">
+              <div class="bg-white rounded-3xl p-5 shadow-sm border border-pink-100">
+                <div class="border-b border-pink-50 pb-3.5 mb-4">
+                  <h2 class="text-base font-black text-slate-800">💰 每日預算記帳 & 匯率換算器</h2>
+                  <p class="text-[10px] text-slate-400 mt-0.5">即時精算每日花費，保持慢活極簡的完美掌控感</p>
+                </div>
+
+                {/* Exchange Controller */}
+                <div class="bg-brand-yellow/40 p-4 rounded-2xl border border-brand-yellowDark/10 flex flex-col items-center justify-between gap-3.5 mb-5">
+                  <div class="flex items-center gap-3 text-center sm:text-left">
+                    <span class="text-2xl select-none">🇯🇵 ➔ 🇹🇼</span>
+                    <div>
+                      <h4 class="text-xs font-black text-amber-700">可調式換算匯率</h4>
+                      <p class="text-[9px] text-slate-400">當前設定：1 日圓 = {exchangeRate} 新台幣（2026/7 參考約 0.20，實際浮動）</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-bold text-slate-500">自訂匯率：</span>
+                    <input
+                      type="number"
+                      step="0.001"
+                      value={exchangeRate}
+                      onChange={(e) => setExchangeRate(parseFloat(e.target.value) || 0.20)}
+                      class="w-20 bg-white border border-amber-200 rounded-xl px-2 py-1 text-xs font-bold text-slate-600 focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                {/* Input Grid */}
+                <div class="flex flex-col gap-3">
+                  {DAYS_DATA.map((d, idx) => (
+                    <div key={d.day} class="bg-slate-50/50 border border-slate-100 rounded-2xl p-3.5 flex flex-col gap-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-500">Day {d.day}・{d.title}</span>
+                        <span class="text-[9px] text-slate-400 font-bold bg-white px-2 py-0.5 rounded-full border border-slate-100">{d.city}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <input
+                          type="number"
+                          value={dailyExpenses[idx] === 0 ? "" : dailyExpenses[idx]}
+                          onChange={(e) => handleExpenseChange(idx, e.target.value)}
+                          placeholder="請輸入日圓開銷 JPY"
+                          class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none focus:border-rose-400 shadow-inner"
+                        />
+                        <span class="text-xs font-bold text-slate-400">円</span>
+                      </div>
+                      <div class="flex justify-between text-[10px] font-bold text-slate-400 border-t border-slate-100/30 pt-2">
+                        <span>換算新台幣：</span>
+                        <span class="text-rose-500">
+                          NT$ {Math.round(dailyExpenses[idx] * exchangeRate).toLocaleString()} 元
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Totals Summary */}
+                <div class="mt-6 pt-5 border-t border-pink-50 flex flex-col items-center gap-3">
+                  <div class="text-center">
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-wider">合計本次行程預算開支</h3>
+                    <p class="text-[9px] text-slate-400 mt-0.5">（不含機票、環球影城門票等已付大筆款項）</p>
+                  </div>
+
+                  <div class="w-full grid grid-cols-2 gap-3.5 mt-2">
+                    <div class="bg-brand-cream border border-pink-50 rounded-2xl p-3 text-center">
+                      <div class="text-[9px] font-bold text-slate-400">總日圓花費</div>
+                      <div class="text-sm font-black text-slate-700 mt-1">
+                        {dailyExpenses.reduce((a, b) => a + b, 0).toLocaleString()} 円
+                      </div>
+                    </div>
+                    <div class="bg-brand-pink border border-brand-pinkDark/10 rounded-2xl p-3 text-center">
+                      <div class="text-[9px] font-bold text-brand-pinkDark">換算新台幣</div>
+                      <div class="text-sm font-black text-rose-500 mt-1">
+                        NT$ {Math.round(dailyExpenses.reduce((a, b) => a + b, 0) * exchangeRate).toLocaleString()} 元
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </main>
+          )}
+
+          {/* Footer Text */}
+          <footer class="mt-12 text-center text-slate-400 text-[10px] px-6">
+            <p class="font-extrabold flex items-center justify-center gap-1 text-slate-500">
+              🌸 祝旅途愉快！滿載御朱印、限定企鵝、滿滿正能量平安返台 🐧⛩️🎆
+            </p>
+            <p class="text-[9px] opacity-80 mt-1">專屬 30 代慢活、週年紀念、精準掃貨版指南（公開版：不含任何訂位/訂房代號）</p>
+          </footer>
+
+          {/* Floating Koupen-chan widget (Bottom Right) */}
+          <div class="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2">
+            {showBubble && (
+              <div class="bg-white border-2 border-brand-pinkDark/30 text-slate-700 rounded-2xl p-3 shadow-xl max-w-[170px] relative animate-pop-bubble select-none">
+                {/* Close bubble */}
+                <button
+                  onClick={() => setShowBubble(false)}
+                  class="absolute -top-2 -right-2 bg-slate-100 hover:bg-slate-200 text-slate-500 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black border border-slate-200"
+                >
+                  ✕
+                </button>
+                <p class="text-[10px] font-bold leading-relaxed">{quote}</p>
+                {/* Little speech bubble tail */}
+                <div class="absolute right-6 -bottom-1.5 w-3 h-3 bg-white border-r-2 border-b-2 border-brand-pinkDark/30 rotate-45"></div>
+              </div>
+            )}
+
+            <button
+              onClick={rollQuote}
+              class="w-14 h-14 bg-white hover:bg-brand-pink rounded-full shadow-2xl flex items-center justify-center border-2 border-brand-pinkDark/30 active:scale-95 transition-all animate-cute-float"
+            >
+              <KoupenIllust size="w-11 h-11" withClover={false} />
+            </button>
+          </div>
+
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
 </body>
 </html>
